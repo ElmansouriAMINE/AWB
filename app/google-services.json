@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "125546009111",
-    "project_id": "testooawb",
-    "storage_bucket": "testooawb.appspot.com"
+    "project_number": "271094758380",
+    "project_id": "awb-test-2eaa2",
+    "storage_bucket": "awb-test-2eaa2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:125546009111:android:271c30e08a6d9de2164252",
+        "mobilesdk_app_id": "1:271094758380:android:f072132e5c5ec130391ec9",
         "android_client_info": {
           "package_name": "com.example.testoo"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD7Ghi_dzY4XJvKOYVe2EPjIy0lbL7JKzs"
+          "current_key": "AIzaSyCCQOTReAJh_jcnVv5L1Ou3nVjphAJ5UI4"
         }
       ],
       "services": {

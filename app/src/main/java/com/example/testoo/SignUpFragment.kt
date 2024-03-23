@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.testoo.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import java.sql.DriverManager.println
 
 
 class SignUpFragment : Fragment() {
@@ -29,8 +30,13 @@ class SignUpFragment : Fragment() {
             val pass = binding.passET.text.toString()
             val confirmPass = binding.confirmPassEt.text.toString()
 
-            if(email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()){
+
+
+            if(email != "" && pass !="" && confirmPass !=""){
                   if(pass == confirmPass){
+                      println("hhhhh")
+                      firebaseAuth.createUserWithEmailAndPassword("amineelmansouri2001@gmail.com","Test1234")
+                        println("hhh $email ----$pass")
                         firebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener{
                             if(it.isSuccessful){
                                 val signInFragment = SignInFragment()
@@ -40,6 +46,7 @@ class SignUpFragment : Fragment() {
                                     .commit()
                             }else{
                              Toast.makeText(requireContext(),it.exception.toString(),Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(),"hhh $email ----$pass",Toast.LENGTH_SHORT).show()
                             }
                         }
                   } else{
