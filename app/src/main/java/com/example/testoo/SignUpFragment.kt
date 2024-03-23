@@ -34,9 +34,9 @@ class SignUpFragment : Fragment() {
 
             if(email != "" && pass !="" && confirmPass !=""){
                   if(pass == confirmPass){
-                      println("hhhhh")
-                      firebaseAuth.createUserWithEmailAndPassword("amineelmansouri2001@gmail.com","Test1234")
-                        println("hhh $email ----$pass")
+                      println("Testing....")
+//                      firebaseAuth.createUserWithEmailAndPassword("amineelmansouri2001@gmail.com","Test1234")
+                        println("$email ----$pass")
                         firebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener{
                             if(it.isSuccessful){
                                 val signInFragment = SignInFragment()
