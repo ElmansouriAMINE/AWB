@@ -13,14 +13,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.testoo.databinding.ActivityMainBinding
 import com.example.testoo.databinding.FragmentProfileBinding
 import com.example.testoo.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 
@@ -50,14 +52,35 @@ class ProfileFragment : Fragment() {
         println("this is the currentUser : ${currentUser?.displayName}")
 
 
+
+
         currentUser?.let { user ->
             Glide.with(this)
                 .load(user.photoUrl)
                 .into(binding.imageView)
-            binding.editTextName.setText(user.displayName)
+            val usr_cr=FirebaseDatabase.getInstance().reference
+                .child("users")
+                .child(currentUser.uid)
+            usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val user = snapshot.getValue(User::class.java)
+                        val phoneNumber = user?.phoneNumber
+                        binding.editTextName.setText(user?.userName)
+                        binding.textPhone.setText(if (user?.phoneNumber.isNullOrEmpty())  user?.phoneNumber else phoneNumber)
+
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Gérer l'erreur ici
+                }
+            })
+
+
             binding.textEmail.setText(user.email)
 
-            binding.textPhone.setText(if (user.phoneNumber.isNullOrEmpty()) "Add Number" else user.phoneNumber)
+//            binding.textPhone.setText(if (user.phoneNumber.isNullOrEmpty())  "$usr_cr" else user.phoneNumber)
 
             if (user.isEmailVerified) {
                 binding.textNotVerified.visibility = View.INVISIBLE
@@ -80,7 +103,7 @@ class ProfileFragment : Fragment() {
 
             val name = binding.editTextName.text.toString().trim()
 
-            val phone= binding.textPhone.text.toString().trim()
+            val phone = binding.textPhone.text.toString().trim()
 
             if (name.isEmpty()) {
                 binding.editTextName.error = "name required"
@@ -109,17 +132,29 @@ class ProfileFragment : Fragment() {
                             .setValue(user)
                             .addOnCompleteListener { dbTask ->
                                 if (dbTask.isSuccessful) {
-                                    Toast.makeText(requireContext(), "Profile Updated", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Profile Updated",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 } else {
-                                    Toast.makeText(requireContext(), dbTask.exception?.message ?: "Failed to update profile", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        dbTask.exception?.message ?: "Failed to update profile",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
 //
                     } else {
-                        Toast.makeText(requireContext(),task.exception?.message!!,Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            task.exception?.message!!,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
-                    }
+                }
 
 
         }
@@ -129,31 +164,24 @@ class ProfileFragment : Fragment() {
 
             currentUser?.sendEmailVerification()
                 ?.addOnCompleteListener {
-                    if(it.isSuccessful){
-                        Toast.makeText(requireContext(),"Verification Email Sent",Toast.LENGTH_SHORT).show()
+                    if (it.isSuccessful) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Verification Email Sent",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
 
-                    }else{
-                        Toast.makeText(requireContext(),it.exception?.message!!,Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            it.exception?.message!!,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
         }
-
-//        binding.textPhone.setOnClickListener {
-//            val action = ProfileFragmentDirections.actionVerifyPhone()
-//            Navigation.findNavController(it).navigate(action)
-//        }
-
-//        binding.textEmail.setOnClickListener {
-//            val action = ProfileFragmentDirections.actionUpdateEmail()
-//            Navigation.findNavController(it).navigate(action)
-//        }
-//
-//        binding.textPassword.setOnClickListener {
-//            val action = ProfileFragmentDirections.actionUpdatePassword()
-//            Navigation.findNavController(it).navigate(action)
-//        }
     }
 
     private fun takePictureIntent() {
