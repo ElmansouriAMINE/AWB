@@ -21,6 +21,7 @@
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/rounded_background.xml" value="0.2575" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/rounded_btn2.xml" value="0.194" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/rounded_button.xml" value="0.1" />
+        <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/transaction_banner.xml" value="0.161" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/transfer_background.xml" value="0.194" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/wallet_background.xml" value="0.194" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/wallet_icon.xml" value="0.194" />
@@ -32,6 +33,7 @@
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_sign_in.xml" value="0.2" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_sign_up.xml" value="0.176" />
+        <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/item_transaction.xml" value="0.2131578947368421" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/menu/nav_menu.xml" value="0.264" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/mipmap-anydpi-v26/transfer.xml" value="0.194" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/mipmap-anydpi-v26/wallet.xml" value="0.194" />
