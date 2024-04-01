@@ -5,6 +5,8 @@ data class User(
     val email: String? =null,
     val phoneNumber: String? =null,
     val photoUrl:String? =null,
+    val comptes: List<Compte>? = null,
+    val cartes:List<Carte>? = null
 
 )
 

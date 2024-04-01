@@ -15,6 +15,7 @@ import com.example.testoo.models.Transaction
 class LocationFragment : Fragment() {
     private var adapterTransaction: RecyclerView.Adapter<*>? = null
     private var recyclerViewTransaction: RecyclerView? = null
+    private val bottomSheetFragment = BottomSheetFragment()
 
     private lateinit var binding: FragmentLocationBinding
 
@@ -23,6 +24,7 @@ class LocationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentLocationBinding.inflate(layoutInflater)
 
         return binding.root
@@ -31,13 +33,16 @@ class LocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        val transferView = binding.transferView.setOnClickListener {
+            bottomSheetFragment.show(childFragmentManager,"BottomSheetDialog")
+        }
     }
 
     private fun initRecyclerView() {
         val items: ArrayList<Transaction> = ArrayList<Transaction>()
-        items.add(Transaction("attijariwafa", "Ali", "2000$", "22-06-2022 16:30"))
-        items.add(Transaction("attijariwafa", "Amine", "30$", "24-06-2022 16:30"))
-        items.add(Transaction("attijariwafa", "ziad", "560$", "25-06-2022 16:30"))
+        items.add(Transaction("attijariwafa", "Ali", "2000", "22-06-2022 16:30"))
+        items.add(Transaction("attijariwafa", "Amine", "30", "24-06-2022 16:30"))
+        items.add(Transaction("attijariwafa", "ziad", "560", "25-06-2022 16:30"))
 
         adapterTransaction = TransationListAdapter(items)
         recyclerViewTransaction = binding.view1

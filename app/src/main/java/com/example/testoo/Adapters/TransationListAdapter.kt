@@ -26,7 +26,7 @@ class TransationListAdapter(items: ArrayList<Transaction>) :
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
         holder.textName.setText(items[position].userName)
-        holder.textMontant.text = "" + items[position].montant
+        holder.textMontant.text = "" + items[position].montant+"Dh"
         holder.textDateHeure.text = "" + items[position].dateHeure
         val drawableResourceId = holder.itemView.resources.getIdentifier(
             items[position].imgProfile,
