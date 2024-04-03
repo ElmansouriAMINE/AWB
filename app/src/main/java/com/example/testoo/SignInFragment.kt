@@ -40,9 +40,13 @@ class SignInFragment : Fragment() {
                     .addOnCompleteListener{
                         if(it.isSuccessful){
                             Toast.makeText(requireContext(),"LogIn successful",Toast.LENGTH_SHORT).show()
-                            childFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container, HomeFragment())
-                                .commit()
+//                            childFragmentManager.beginTransaction()
+//                                .replace(R.id.fragment_container, HomeFragment())
+//                                .commit()
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, HomeFragment())
+                                ?.addToBackStack(null)
+                                ?.commit()
 
                         }
                         else{

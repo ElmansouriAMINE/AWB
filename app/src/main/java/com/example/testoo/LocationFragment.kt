@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.Adapters.TransationListAdapter
 import com.example.testoo.databinding.FragmentLocationBinding
+
 import com.example.testoo.models.Transaction
 
 
