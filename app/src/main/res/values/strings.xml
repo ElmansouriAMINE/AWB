@@ -2,5 +2,7 @@
     <string name="app_name">AWB</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="compte_cheque">Compte chèque</string>
+    <string name="beneficiaire">Bénéficiaire</string>
+
 </resources>

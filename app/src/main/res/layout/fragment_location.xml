@@ -41,7 +41,8 @@
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/attijariwafa" />
+                        android:src="@drawable/attijariwafa"
+                         />
 
                     <TextView
                         android:id="@+id/textView3"
