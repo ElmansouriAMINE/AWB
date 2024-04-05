@@ -17,6 +17,10 @@ class SignInFragment : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
     private lateinit var auth: FirebaseAuth
+//    private val login_failed = getString(R.string.login_failed)
+//    private val login_success = getString(R.string.login_success)
+//    private val fill_inputs = getString(R.string.fill_inputs)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

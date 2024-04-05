@@ -35,6 +35,8 @@ class ProfileFragment : Fragment() {
     private lateinit var imageUri: Uri
     private val REQUEST_IMAGE_CAPTURE = 100
 
+
+
     private val currentUser = FirebaseAuth.getInstance().currentUser
 
     override fun onCreateView(
