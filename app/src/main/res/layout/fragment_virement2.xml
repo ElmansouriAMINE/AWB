@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VirementFragments.VirementFragment">
+    tools:context=".VirementFragments.VirementFragment2">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -66,6 +66,19 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
         <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2/4"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
+            app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
+            app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/circularProgressBar" />
+
+        <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,26 +96,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Etape Suivante: Montant"
+            android:text="Etape Suivante: Type du virement"
             android:textColor="@color/black"
             android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
             app:layout_constraintStart_toStartOf="@+id/textView15"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1/4"
-            android:textColor="@color/black"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
-            app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
-            app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
-            app:layout_constraintTop_toTopOf="@+id/circularProgressBar" />
 
         <LinearLayout
             android:id="@+id/linearLayout61"
@@ -121,30 +121,7 @@
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:text="Compte"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circularProgressBar">
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:text="Compte"
+                android:text="Saisissez un montant"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -157,13 +134,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout61">
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteCompte"
+                android:id="@+id/autoCompleteMontant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/compte_cheque"
@@ -191,7 +169,7 @@
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:text="Bénéficiaire"
+                android:text="Motif"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -210,7 +188,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteBeneficiaire"
+                android:id="@+id/autoCompleteMotif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/beneficiaire"
