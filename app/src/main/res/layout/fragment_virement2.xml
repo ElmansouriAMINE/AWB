@@ -129,7 +129,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -143,26 +143,63 @@
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteMontant"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/compte_cheque"
-                android:inputType="none"
+                android:layout_height="50dp"
+                android:hint="Montant"
+                android:inputType="number"
+                android:paddingStart="30dp"
+                android:paddingEnd="60dp"
+
 
                 />
 
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:text="DH"
+            android:textColor="@color/black"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:max="5000"
+            android:min="10"
+            android:progress="0"
+            android:layout_centerInParent="true"
+            android:progressDrawable="@drawable/custom_seekbar"
+            android:thumb="@drawable/seekbar_thumb"
+            android:indeterminate="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
         <LinearLayout
             android:id="@+id/linearLayout7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+            app:layout_constraintTop_toBottomOf="@+id/seekBar">
 
             <TextView
                 android:id="@+id/textView18"
@@ -177,7 +214,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -190,9 +227,9 @@
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteMotif"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/beneficiaire"
-                android:inputType="none"
+                android:layout_height="50dp"
+                android:paddingStart="30dp"
+                android:hint="Motif"
 
                 />
 

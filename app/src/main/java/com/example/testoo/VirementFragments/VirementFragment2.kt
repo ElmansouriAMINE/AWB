@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -73,6 +74,21 @@ class VirementFragment2 : Fragment() {
                 circularProgressBar.setProgressWithAnimation(progress, 100)
             }
         }
+
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.autoCompleteMontant.setText("$progress")
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                // Called when the user starts touching the seek bar
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                // Called when the user stops touching the seek bar
+            }
+        })
+
 
 
 
