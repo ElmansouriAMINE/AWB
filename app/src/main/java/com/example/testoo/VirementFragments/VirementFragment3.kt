@@ -55,6 +55,15 @@ class VirementFragment3 : Fragment() {
             }
         }
 
+        binding.buttonContinue.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container, ValidationFragment())
+                ?.addToBackStack(null)
+                ?.commit()
+
+        }
+
+
         return binding.root
     }
 
