@@ -2,6 +2,8 @@ package com.example.testoo.VirementFragments
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -65,11 +67,11 @@ class VirementFragment2 : Fragment() {
             roundBorder = true
         }
 
-        circularProgressBar.setProgressWithAnimation(25f, 3000)
+        circularProgressBar.setProgressWithAnimation(33f, 3000)
 
         lifecycleScope.launch {
-            var progress = 25f
-            while (progress <= 50f) {
+            var progress = 33f
+            while (progress <= 66f) {
                 delay(60)
                 progress += 1f
                 circularProgressBar.setProgressWithAnimation(progress, 100)
@@ -78,8 +80,6 @@ class VirementFragment2 : Fragment() {
 
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-//                binding.autoCompleteMontant.setText("$progress")
-//                updateVirementData()
                 binding.autoCompleteMontant.setText("$progress")
                 // Update the progress variable to the value of autoCompleteMontant
                 val newProgress = binding.autoCompleteMontant.text.toString().toIntOrNull() ?: 0
@@ -94,6 +94,22 @@ class VirementFragment2 : Fragment() {
 
             }
         })
+
+        // Assuming binding.autoCompleteMontant is an AutoCompleteTextView
+        binding.autoCompleteMontant.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                s?.toString()?.toIntOrNull()?.let { value ->
+                    if (value in 10..5000) { // Assuming the progress bar range is from 0 to 100
+                        binding.seekBar.progress = value
+                    }
+                }
+            }
+        })
+
 
 
 
@@ -118,17 +134,24 @@ class VirementFragment2 : Fragment() {
     }
 
     private fun updateVirementData(newProgress: Int) {
+
+        val motif = "${binding.autoCompleteMotif.text}"
+        val montant ="${newProgress}"
         val data2 = "${binding.autoCompleteMotif.text} - ${newProgress} - ${binding.autoCompleteMotif.text}"
-        virementViewModel.setData2(data2)
+        virementViewModel.apply {
+            setData2(data2)
+            setMotif(motif)
+            setMontant(montant)
+        }
 
-        val transaction = Transaction("","","","${newProgress}",""," ${binding.autoCompleteMotif.text}")
-
-        virementViewModel.setVirement(transaction)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        virementViewModel.data.observe(viewLifecycleOwner, Observer { data ->
+//        virementViewModel.data.observe(viewLifecycleOwner, Observer { data ->
+//            Toast.makeText(requireContext(),data,Toast.LENGTH_LONG).show()
+//        })
+        virementViewModel.beneficiaire.observe(viewLifecycleOwner, Observer { data ->
             Toast.makeText(requireContext(),data,Toast.LENGTH_LONG).show()
         })
 //

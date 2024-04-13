@@ -95,7 +95,7 @@
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1/4"
+            android:text="1/3"
             android:textColor="@color/black"
             android:textSize="22dp"
             android:textStyle="bold"
@@ -221,12 +221,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonContinue"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp"
             android:text="Continuer"
+            android:elevation="4dp"
+            android:background="@drawable/button_background"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />

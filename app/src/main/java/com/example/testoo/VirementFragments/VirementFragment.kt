@@ -62,11 +62,11 @@ class VirementFragment : Fragment() {
             roundBorder = true
         }
 
-        circularProgressBar.setProgressWithAnimation(25f, 3000)
+        circularProgressBar.setProgressWithAnimation(33f, 3000)
 
         lifecycleScope.launch {
             var progress = 0f
-            while (progress <= 25f) {
+            while (progress <= 33f) {
                 delay(60)
                 progress += 1f
                 circularProgressBar.setProgressWithAnimation(progress, 100)
@@ -141,7 +141,7 @@ class VirementFragment : Fragment() {
 
         selectBeneficiaire.setOnItemClickListener { adapterview2, view2, position2, id2 ->
             val selectedBeneficiaire = Useradapter.getItem(position2)
-            selectBeneficiaire.setText("${selectedBeneficiaire?.userName} - ${selectedBeneficiaire?.email}")
+            selectBeneficiaire.setText("${selectedBeneficiaire?.userName}")
             updateVirementData()
         }
 
@@ -153,8 +153,13 @@ class VirementFragment : Fragment() {
     }
 
     private fun updateVirementData() {
+        val beneficiaire= "${binding.autoCompleteBeneficiaire.text}"
         val data = "${binding.autoCompleteCompte.text} - ${binding.autoCompleteBeneficiaire.text}"
-        virementViewModel.setData(data)
+
+        virementViewModel.apply {
+            setData(data)
+            setBeneficiaire(beneficiaire)
+        }
     }
 
 

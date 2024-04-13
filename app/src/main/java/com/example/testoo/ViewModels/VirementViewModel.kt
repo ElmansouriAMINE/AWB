@@ -13,20 +13,32 @@ class VirementViewModel : ViewModel() {
     val data2: LiveData<String> get() = _data2
 
 
-    private val _virement= MutableLiveData<Transaction>()
-    val virement:LiveData<Transaction> get() = _virement
+    private val _beneficiaire =MutableLiveData<String>()
+    val beneficiaire: LiveData<String> get() = _beneficiaire
+
+    private val _montant =MutableLiveData<String>()
+    val montant: LiveData<String> get() = _montant
+
+    private val _motif =MutableLiveData<String>()
+    val motif: LiveData<String> get() = _motif
 
 
-    fun setVirement(data: Transaction){
-        _virement.value= data
-    }
-
-    fun getVirement() =_virement
 
 
     fun setData(data:String){
         _data.value= data
     }
+
+    fun setMontant(data:String){
+        _montant.value= data
+    }
+    fun setMotif(data:String){
+        _motif.value= data
+    }
+    fun setBeneficiaire(data:String){
+        _beneficiaire.value= data
+    }
+
 
     fun setData2(data2:String){
         _data2.value =data2
