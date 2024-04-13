@@ -133,6 +133,18 @@ class VirementFragment : Fragment() {
                 ?.commit()
         }
 
+        selectCompte.setOnItemClickListener { adapterview, view, position, id ->
+            val selectedCompte = adapter2.getItem(position)
+            selectCompte.setText("${selectedCompte?.solde} - ${selectedCompte?.numero}")
+            updateVirementData()
+        }
+
+        selectBeneficiaire.setOnItemClickListener { adapterview2, view2, position2, id2 ->
+            val selectedBeneficiaire = Useradapter.getItem(position2)
+            selectBeneficiaire.setText("${selectedBeneficiaire?.userName} - ${selectedBeneficiaire?.email}")
+            updateVirementData()
+        }
+
 
 
 
@@ -140,12 +152,17 @@ class VirementFragment : Fragment() {
         return binding.root
     }
 
+    private fun updateVirementData() {
+        val data = "${binding.autoCompleteCompte.text} - ${binding.autoCompleteBeneficiaire.text}"
+        virementViewModel.setData(data)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val data = "Hello from FirstFragment"
-        virementViewModel.setData(data)
+//        val data = ""+binding.autoCompleteCompte.text.toString() + binding.autoCompleteBeneficiaire.text.toString()
+//        virementViewModel.setData(data)
 
 
     }

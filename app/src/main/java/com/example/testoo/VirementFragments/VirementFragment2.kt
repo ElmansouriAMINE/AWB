@@ -16,6 +16,7 @@ import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentLocationBinding
 import com.example.testoo.databinding.FragmentVirement2Binding
 import com.example.testoo.databinding.FragmentVirementBinding
+import com.example.testoo.models.Transaction
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -32,7 +33,7 @@ class VirementFragment2 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentVirement2Binding.inflate(layoutInflater)
+//        binding = FragmentVirement2Binding.inflate(layoutInflater)
 
         binding = FragmentVirement2Binding.inflate(layoutInflater)
 
@@ -77,17 +78,36 @@ class VirementFragment2 : Fragment() {
 
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+//                binding.autoCompleteMontant.setText("$progress")
+//                updateVirementData()
                 binding.autoCompleteMontant.setText("$progress")
+                // Update the progress variable to the value of autoCompleteMontant
+                val newProgress = binding.autoCompleteMontant.text.toString().toIntOrNull() ?: 0
+                updateVirementData(newProgress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // Called when the user starts touching the seek bar
+
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // Called when the user stops touching the seek bar
+
             }
         })
+
+
+
+        binding.buttonContinue.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container, VirementFragment3())
+                ?.addToBackStack(null)
+                ?.commit()
+            binding.autoCompleteMontant.text.toString().toIntOrNull()
+                ?.let { it1 -> updateVirementData(it1) }
+        }
+
+
+
 
 
 
@@ -97,11 +117,24 @@ class VirementFragment2 : Fragment() {
         return binding.root
     }
 
+    private fun updateVirementData(newProgress: Int) {
+        val data2 = "${binding.autoCompleteMotif.text} - ${newProgress} - ${binding.autoCompleteMotif.text}"
+        virementViewModel.setData2(data2)
+
+        val transaction = Transaction("","","","${newProgress}",""," ${binding.autoCompleteMotif.text}")
+
+        virementViewModel.setVirement(transaction)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         virementViewModel.data.observe(viewLifecycleOwner, Observer { data ->
             Toast.makeText(requireContext(),data,Toast.LENGTH_LONG).show()
         })
+//
+//        virementViewModel.data2.observe(viewLifecycleOwner, Observer { data2 ->
+//            Toast.makeText(requireContext(),data2,Toast.LENGTH_LONG).show()
+//        })
     }
 
 
