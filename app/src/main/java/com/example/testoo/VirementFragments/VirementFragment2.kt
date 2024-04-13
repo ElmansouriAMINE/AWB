@@ -55,7 +55,7 @@ class VirementFragment2 : Fragment() {
 
         val circularProgressBar = binding.
         circularProgressBar.apply {
-            progress = 25f
+            progress = 33f
 //            setProgressWithAnimation(25f, 1000)
             progressMax = 100f
             progressBarColor = Color.BLACK

@@ -32,7 +32,7 @@ class VirementFragment3 : Fragment() {
 
         val circularProgressBar = binding.
         circularProgressBar.apply {
-            progress = 25f
+            progress = 33f
 //            setProgressWithAnimation(25f, 1000)
             progressMax = 100f
             progressBarColor = Color.BLACK
@@ -44,7 +44,7 @@ class VirementFragment3 : Fragment() {
             roundBorder = true
         }
 
-        circularProgressBar.setProgressWithAnimation(66f, 3000)
+        circularProgressBar.setProgressWithAnimation(33f, 3000)
 
         lifecycleScope.launch {
             var progress = 66f
@@ -61,10 +61,12 @@ class VirementFragment3 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         virementViewModel.beneficiaire.observe(viewLifecycleOwner, Observer { data ->
+            binding.textBeneficiaire1.setText(data)
             Toast.makeText(requireContext(),data, Toast.LENGTH_LONG).show()
         })
 
         virementViewModel.montant.observe(viewLifecycleOwner, Observer { data2 ->
+            binding.textMontant.setText(data2 +" DH")
             Toast.makeText(requireContext(),data2+"", Toast.LENGTH_LONG).show()
         })
         virementViewModel.motif.observe(viewLifecycleOwner, Observer { data2 ->

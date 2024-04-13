@@ -200,9 +200,10 @@
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textColor="@color/black"
-                android:textSize="18dp"
+                android:textSize="28dp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView422"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView422" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -215,7 +216,7 @@
             android:layout_marginTop="90dp"
             android:background="@drawable/button_background"
             android:elevation="4dp"
-            android:text="Continuer"
+            android:text="Valider"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
