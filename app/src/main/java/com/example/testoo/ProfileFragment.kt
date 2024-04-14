@@ -56,6 +56,7 @@ class ProfileFragment : Fragment() {
 
 
 
+
         currentUser?.let { user ->
             Glide.with(this)
                 .load(user.photoUrl)

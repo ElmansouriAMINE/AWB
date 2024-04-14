@@ -69,7 +69,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
                     <TextView
-                        android:id="@+id/textCurrentUserName"
+                        android:id="@+id/currentUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -163,7 +163,7 @@
                                     app:layout_constraintTop_toTopOf="parent" />
 
                                 <TextView
-                                    android:id="@+id/textCompteSolde"
+                                    android:id="@+id/compteSolde"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0"
