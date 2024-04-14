@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //la creation des collections firebase
-        createFirebaseCollections()
+//        createFirebaseCollections()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         FirebaseApp.initializeApp(this)
@@ -81,13 +81,13 @@ class MainActivity : AppCompatActivity() {
             when(it){
                 R.id.icon_home -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, SignInFragment())
+                        .replace(R.id.fragment_container, LocationFragment())
                         .commit()
                     true
                 }
                 R.id.icon_location -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, LocationFragment())
+                        .replace(R.id.fragment_container, HomeFragment())
                         .commit()
                     true
                 }

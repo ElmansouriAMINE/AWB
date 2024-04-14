@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.testoo.databinding.FragmentSignUpBinding
+import com.example.testoo.models.Carte
+import com.example.testoo.models.Compte
 import com.example.testoo.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -19,7 +21,7 @@ class SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var database: DatabaseReference
+    private val database = FirebaseDatabase.getInstance("https://awb-test-2eaa2-default-rtdb.firebaseio.com/")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,29 +43,36 @@ class SignUpFragment : Fragment() {
             if(email != "" && pass !="" && confirmPass !=""){
                   if(pass == confirmPass){
                       println("Testing....")
-//                      firebaseAuth.createUserWithEmailAndPassword("amineelmansouri2001@gmail.com","Test1234")
-                        println("$email ----$pass")
-//                        firebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener{
-//                            if(it.isSuccessful){
-//                                val signInFragment = SignInFragment()
-//                                parentFragmentManager.beginTransaction()
-//                                    .replace(R.id.fragment_container, signInFragment)
-//                                    .addToBackStack(null)
-//                                    .commit()
-//                            }else{
-//                             Toast.makeText(requireContext(),it.exception.toString(),Toast.LENGTH_SHORT).show()
-//                                Toast.makeText(requireContext(),"hhh $email ----$pass",Toast.LENGTH_SHORT).show()
-//                            }
-//                        }
+                      println("$email ----$pass")
                       firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
                           if (task.isSuccessful) {
                               val user = User(userName,email, phoneNumber, photoUrl = "" )
                               val userId = task.result?.user?.uid
 
                               if (userId != null) {
-                                  database = FirebaseDatabase.getInstance("https://awb-test-2eaa2-default-rtdb.firebaseio.com/").getReference("users")
-                                  database.child(userId).setValue(user).addOnCompleteListener { userTask ->
+//                                  val database = FirebaseDatabase.getInstance("https://awb-test-2eaa2-default-rtdb.firebaseio.com/")
+//                                  database = FirebaseDatabase.getInstance("https://awb-test-2eaa2-default-rtdb.firebaseio.com/").getReference("users")
+                                  val usersCollection = FirebaseDatabase.getInstance().getReference("users")
+                                  val comptesCollection = FirebaseDatabase.getInstance().getReference("comptes")
+                                  val cartesCollection = FirebaseDatabase.getInstance().getReference("cartes")
+                                  val compteInitial = Compte(userId=userId,numero = "C14452627778828", solde = 20000.0, dateOuverture = "14/04/2024")
+                                  val carteInitial = Carte(
+                                      userId=userId,
+                                      numeroCarte = "1234 5678 9012 3456",
+                                      codeSecret = "123",
+                                      dateExpiration = "12/24"
+                                  )
+                                  val comptekey = comptesCollection.push().key
+                                  val cartekey = cartesCollection.push().key
+                                  usersCollection.child(userId).setValue(user).addOnCompleteListener { userTask ->
                                       if (userTask.isSuccessful) {
+                                          comptekey?.let{
+                                              comptesCollection.child(it).setValue(compteInitial)
+                                          }
+
+                                          cartekey?.let {
+                                              cartesCollection.child(it).setValue(carteInitial)
+                                          }
                                           val signInFragment = SignInFragment()
                                           parentFragmentManager.beginTransaction()
                                               .replace(R.id.fragment_container, signInFragment)
