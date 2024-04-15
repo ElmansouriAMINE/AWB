@@ -81,6 +81,13 @@ class VirementFragment3 : Fragment() {
         virementViewModel.motif.observe(viewLifecycleOwner, Observer { data2 ->
             Toast.makeText(requireContext(),data2+"", Toast.LENGTH_LONG).show()
         })
+
+        virementViewModel.data.observe(viewLifecycleOwner, Observer { data ->
+            binding.textCompteEmetteur.setText("$data")
+            Toast.makeText(requireContext(),data+"", Toast.LENGTH_LONG).show()
+
+
+        })
     }
 
 

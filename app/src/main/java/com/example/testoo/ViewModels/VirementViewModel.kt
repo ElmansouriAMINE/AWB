@@ -3,7 +3,10 @@ package com.example.testoo.ViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.testoo.models.Compte
 import com.example.testoo.models.Transaction
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.tasks.await
 
 class VirementViewModel : ViewModel() {
     private val _data =MutableLiveData<String>()
@@ -21,6 +24,20 @@ class VirementViewModel : ViewModel() {
 
     private val _motif =MutableLiveData<String>()
     val motif: LiveData<String> get() = _motif
+
+
+    suspend fun getComptesForUserId(userId: String): List<Compte> {
+        val currentUserCompte = FirebaseDatabase.getInstance().getReference("comptes")
+        val query = currentUserCompte.orderByChild("userId").equalTo(userId)
+        return try {
+            val dataSnapshot = query.get().await()
+            dataSnapshot.children.mapNotNull { it.getValue(Compte::class.java) }
+        } catch (e: Exception) {
+            println("Error fetching comptes: ${e.message}")
+            emptyList()
+        }
+    }
+
 
 
 

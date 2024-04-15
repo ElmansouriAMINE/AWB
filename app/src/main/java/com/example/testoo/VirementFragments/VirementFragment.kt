@@ -16,18 +16,22 @@ import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentVirementBinding
 import com.example.testoo.models.Compte
 import com.example.testoo.models.User
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class VirementFragment : Fragment() {
 
     private lateinit var binding: FragmentVirementBinding
     private val virementViewModel by activityViewModels<VirementViewModel>()
+    private val currentUser= FirebaseAuth.getInstance().currentUser
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,14 +85,17 @@ class VirementFragment : Fragment() {
 //        selectCompte.setAdapter(adapter)
         val compte1 = Compte(id = 1, numero = "123456", solde = 1000.0, dateOuverture = "01/01/2022")
         val compte2 = Compte(id = 2, numero = "789012", solde = 2000.0, dateOuverture = "01/02/2022")
-        val comptes = listOf<Compte>(compte1,compte2)
+//        val comptes = listOf<Compte>(compte1,compte2)
 
-        val adapter2 = CompteAutoCompleteAdapter(requireContext(), comptes)
-        selectCompte.setAdapter(adapter2)
-        selectCompte.setOnItemClickListener { adapterview, view, position, id ->
-            val selectedCompte = adapter2.getItem(position)
-            selectCompte.setText("${selectedCompte?.solde} - ${selectedCompte?.numero}")
-        }
+
+
+
+//        val adapter2 = CompteAutoCompleteAdapter(requireContext(), comptes)
+//        selectCompte.setAdapter(adapter2)
+//        selectCompte.setOnItemClickListener { adapterview, view, position, id ->
+//            val selectedCompte = adapter2.getItem(position)
+//            selectCompte.setText("${selectedCompte?.solde} - ${selectedCompte?.numero}")
+//        }
 
 //
 
@@ -121,10 +128,10 @@ class VirementFragment : Fragment() {
 //
         val Useradapter = BeneficiaireAutoCompleteAdapter(requireContext(), userList)
         selectBeneficiaire.setAdapter(Useradapter)
-        selectBeneficiaire.setOnItemClickListener { adapterview2, view2, position2, id2 ->
-            val selectedBeneficiaire = Useradapter.getItem(position2)
-            selectBeneficiaire.setText("${selectedBeneficiaire?.userName} - ${selectedBeneficiaire?.email}")
-        }
+//        selectBeneficiaire.setOnItemClickListener { adapterview2, view2, position2, id2 ->
+//            val selectedBeneficiaire = Useradapter.getItem(position2)
+//            selectBeneficiaire.setText("${selectedBeneficiaire?.userName} - ${selectedBeneficiaire?.email}")
+//        }
 
         binding.buttonContinue.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
@@ -133,17 +140,46 @@ class VirementFragment : Fragment() {
                 ?.commit()
         }
 
-        selectCompte.setOnItemClickListener { adapterview, view, position, id ->
-            val selectedCompte = adapter2.getItem(position)
-            selectCompte.setText("${selectedCompte?.solde} - ${selectedCompte?.numero}")
-            updateVirementData()
-        }
+//        selectCompte.setOnItemClickListener { adapterview, view, position, id ->
+//            val selectedCompte = adapter2.getItem(position)
+//            selectCompte.setText("${selectedCompte?.solde} - ${selectedCompte?.numero}")
+////            updateVirementData()
+//        }
 
         selectBeneficiaire.setOnItemClickListener { adapterview2, view2, position2, id2 ->
             val selectedBeneficiaire = Useradapter.getItem(position2)
             selectBeneficiaire.setText("${selectedBeneficiaire?.userName}")
             updateVirementData()
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val comptes = withContext(Dispatchers.IO){
+                currentUser?.let { virementViewModel.getComptesForUserId(userId = it.uid) }
+            }
+
+            comptes?.let {
+
+                val adapter2 = CompteAutoCompleteAdapter(requireContext(), comptes)
+                selectCompte.setAdapter(adapter2)
+//                selectCompte.setOnItemClickListener { adapterview, view, position, id ->
+//                    val selectedCompte = adapter2.getItem(position)
+//                    selectCompte.setText("${selectedCompte?.numero}")
+//                }
+                selectCompte.setOnItemClickListener { adapterview, view, position, id ->
+                    val selectedCompte = adapter2.getItem(position)
+                    selectCompte.setText("${selectedCompte?.numero}")
+                    updateVirementData()
+                }
+
+
+
+
+
+
+
+            }
+        }
+
 
 
 
@@ -154,13 +190,23 @@ class VirementFragment : Fragment() {
 
     private fun updateVirementData() {
         val beneficiaire= "${binding.autoCompleteBeneficiaire.text}"
-        val data = "${binding.autoCompleteCompte.text} - ${binding.autoCompleteBeneficiaire.text}"
+        val data = "${binding.autoCompleteCompte.text}"
 
         virementViewModel.apply {
             setData(data)
             setBeneficiaire(beneficiaire)
         }
     }
+
+//    private fun updateVirementData(selectedCompte: Compte?, selectedBeneficiaire: User?) {
+//        val beneficiaire = selectedBeneficiaire?.userName ?: ""
+//        val data = "${selectedCompte?.solde} - ${selectedCompte?.numero} - $beneficiaire"
+//
+//        virementViewModel.apply {
+//            setData(data)
+//            setBeneficiaire(beneficiaire)
+//        }
+//    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
