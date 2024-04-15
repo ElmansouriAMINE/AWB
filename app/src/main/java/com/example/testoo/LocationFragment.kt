@@ -56,8 +56,10 @@ class LocationFragment : Fragment() {
             // the coroutineScope that I use for calling the compte of the current User
             viewLifecycleOwner.lifecycleScope.launch {
                     val compte = withContext(Dispatchers.IO) {
-                        viewModel.getCompteForUserId(userId = currentUser.uid)
+                        viewModel.getCompteForUserId(userId = user.uid)
                     }
+
+                println("this is the compte: $compte")
                 binding.compteSolde.setText(compte?.solde.toString())
 
                 }
@@ -69,7 +71,7 @@ class LocationFragment : Fragment() {
                     if (snapshot.exists()) {
                         val user = snapshot.getValue(User::class.java)
                         val userName = user?.userName
-                        binding.currentUserName.setText(if (user?.userName.isNullOrEmpty()) "test" else userName)
+                        binding.currentUserName.setText(if (user?.userName.isNullOrEmpty()) "Nothing" else userName)
 
 
                     }
