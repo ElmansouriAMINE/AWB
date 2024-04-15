@@ -18,7 +18,13 @@ import androidx.lifecycle.lifecycleScope
 import com.example.testoo.ViewModels.UserViewModel
 import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentValidationBinding
+import com.example.testoo.models.Transaction
+import com.example.testoo.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,6 +35,7 @@ class ValidationFragment : Fragment() {
     private val virementViewModel by activityViewModels<VirementViewModel>()
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val viewModel: UserViewModel by viewModels()
+    private var storedOTP: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,10 +60,14 @@ class ValidationFragment : Fragment() {
                 .map { (0..9).random() }
                 .joinToString("")
 
+            storedOTP = otpCodeGenereted
+
             println("otp generated: $otpCodeGenereted")
 
             val phone = binding.etphone.text.toString()
-            val message = "$otp is your verification code."
+//            val message = "$otp is your verification code."
+            val phoneNumberOfCurrentUser = currentUser?.phoneNumber
+            println(" The Phone Number is : $phoneNumberOfCurrentUser")
 
             currentUser?.let {
                 user ->
@@ -67,9 +78,47 @@ class ValidationFragment : Fragment() {
                     ) == PackageManager.PERMISSION_GRANTED
                 ) {
 
-                    user.phoneNumber?.let {
-                        it ->sendOTP(otp,it,message)
-                    }
+                    println("this is my phoneNumber: ${user.phoneNumber}")
+
+//                    val usr_cr= FirebaseDatabase.getInstance().reference
+//                        .child("users")
+//                        .child(currentUser.uid)
+//                    usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
+//                        override fun onDataChange(snapshot: DataSnapshot) {
+//                            if (snapshot.exists()) {
+//                                val user = snapshot.getValue(User::class.java)
+//                                val phoneNumber = user?.phoneNumber
+//                                val message = "$otp is your verification code."
+//
+//                                phoneNumber?.let {
+//                                        phoneNumber ->
+//                                    if (phoneNumber.isNotEmpty()) {
+//                                        sendOTP(otp, phoneNumber, message)
+//                                    } else {
+//                                        Toast.makeText(requireContext(), "Phone number is empty!", Toast.LENGTH_SHORT).show()
+//                                    }
+//
+//                                }
+////                                binding.editTextName.setText(user?.userName)
+////                                binding.textPhone.setText(if (user?.phoneNumber.isNullOrEmpty())  user?.phoneNumber else phoneNumber)
+//
+//                            }
+//                        }
+//
+//                        override fun onCancelled(error: DatabaseError) {
+//                           println("$error")
+//                        }
+//                    })
+
+//                    user.phoneNumber?.let {
+//                            phoneNumber ->
+//                        if (phoneNumber.isNotEmpty()) {
+//                            sendOTP(otp, phoneNumber, message)
+//                        } else {
+//                            Toast.makeText(requireContext(), "Phone number is empty!", Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                    }
                     viewLifecycleOwner.lifecycleScope.launch {
                         val compte = withContext(Dispatchers.IO) {
                             viewModel.getCompteForUserId(userId = user.uid)
@@ -80,19 +129,114 @@ class ValidationFragment : Fragment() {
 
                         println("otp generated: $otpCodeGenereted")
 
-                        binding.buttonValider.setOnClickListener{
-                            val solde = compte?.solde.toString().toIntOrNull() ?: 0
-                            val montantTransaction = virementViewModel.montant.value.toString().toIntOrNull() ?: 0
+                        val usr_cr= FirebaseDatabase.getInstance().reference
+                            .child("users")
+                            .child(currentUser.uid)
+                        usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.exists()) {
+                                    val user = snapshot.getValue(User::class.java)
+                                    val phoneNumber = user?.phoneNumber
+                                    val message = "$otpCodeGenereted is your verification code."
 
-                            if (compte != null) {
-                                if(otp == otpCodeGenereted && solde > 0 && montantTransaction <= solde){
-                                  println("otp is correct and $montantTransaction <= $solde ")
+                                    phoneNumber?.let {
+                                            phoneNumber ->
+                                        if (phoneNumber.isNotEmpty()) {
+                                            sendOTP(otpCodeGenereted,phoneNumber,message)
+//                                            sendOTP(otp, phoneNumber, message)
+                                        } else {
+                                            Toast.makeText(requireContext(), "Phone number is empty!", Toast.LENGTH_SHORT).show()
+                                        }
 
-                                }else{
+                                    }
+//                                binding.editTextName.setText(user?.userName)
+//                                binding.textPhone.setText(if (user?.phoneNumber.isNullOrEmpty())  user?.phoneNumber else phoneNumber)
 
                                 }
                             }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                println("$error")
+                            }
+                        })
+
+
+                        binding.buttonValider.setOnClickListener{
+                            val solde = compte?.solde
+                            val montantTransaction = virementViewModel.montant.value.toString().toIntOrNull() ?: 0
+
+                            if (compte != null) {
+                                val otpp = binding.etotp.text.toString()
+                                println("yyyyy:$otpp")
+                                if (otpp == storedOTP && solde!! > 0 && montantTransaction <= solde!!) {
+
+//                                    viewLifecycleOwner.lifecycleScope.launch {
+//                                        val comptes = withContext(Dispatchers.IO){
+//                                            currentUser?.let { virementViewModel.getComptesForUserId(userId = it.uid) }
+//                                        }
+//
+//                                        comptes?.let {
+
+
+                                    viewLifecycleOwner.lifecycleScope.launch {
+
+                                        val transaction = withContext(Dispatchers.IO){
+                                            usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
+                                                override fun onDataChange(snapshot: DataSnapshot) {
+                                                    if (snapshot.exists()) {
+                                                        val user = snapshot.getValue(User::class.java)
+                                                        val userName = user?.userName
+//                                                        val message = "$otpCodeGenereted is your verification code."
+
+                                                        userName?.let {
+                                                                userName ->
+                                                            if (userName.isNotEmpty()) {
+//
+                                                            } else {
+//                                                                Toast.makeText(requireContext(), "Phone number is empty!", Toast.LENGTH_SHORT).show()
+                                                            }
+
+                                                        }
+//                                binding.editTextName.setText(user?.userName)
+//                                binding.textPhone.setText(if (user?.phoneNumber.isNullOrEmpty())  user?.phoneNumber else phoneNumber)
+
+                                                    }
+                                                }
+
+                                                override fun onCancelled(error: DatabaseError) {
+                                                    println("$error")
+                                                }
+                                            })
+                                            currentUser?.let {
+                                                val currTransaction = Transaction("","","","","")
+                                                virementViewModel.createTransaction(currTransaction)
+                                            }
+                                        }
+                                    }
+
+                                    println("otp is correct and $montantTransaction <= $solde ")
+                                } else {
+                                    println("incorrect otp")
+                                }
+                            }
                         }
+
+//                        binding.buttonValider.setOnClickListener{
+//                            val solde = compte?.solde.toString().toIntOrNull() ?: 0
+//                            val montantTransaction = virementViewModel.montant.value.toString().toIntOrNull() ?: 0
+//
+//
+//                            if (compte != null) {
+//                                println("this is the compte for otp : $compte")
+//                                if(otp == otpCodeGenereted){
+////                                    && solde > 0 && montantTransaction <= solde
+//                                  println("otp is correct and $montantTransaction <= $solde ")
+//
+//                                }else{
+//                                  println("incorrect otp")
+//                                }
+//                            }
+//                        }
 
 
                     }
