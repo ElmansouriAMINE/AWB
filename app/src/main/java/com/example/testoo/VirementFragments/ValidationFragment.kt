@@ -120,9 +120,10 @@ class ValidationFragment : Fragment() {
 //
 //                    }
                     viewLifecycleOwner.lifecycleScope.launch {
-                        val compte = withContext(Dispatchers.IO) {
+                        var compte = withContext(Dispatchers.IO) {
                             viewModel.getCompteForUserId(userId = user.uid)
                         }
+
 
                         println("this is the compte: $compte")
 
@@ -162,7 +163,7 @@ class ValidationFragment : Fragment() {
 
 
                         binding.buttonValider.setOnClickListener{
-                            val solde = compte?.solde
+                            var solde = compte?.solde
                             val montantTransaction = virementViewModel.montant.value.toString().toIntOrNull() ?: 0
 
                             if (compte != null) {
@@ -180,8 +181,8 @@ class ValidationFragment : Fragment() {
 
                                     viewLifecycleOwner.lifecycleScope.launch {
 
-                                        val transaction = withContext(Dispatchers.IO){
-                                            usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
+//                                        val transaction = withContext(Dispatchers.IO){
+                                          usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
                                                 override fun onDataChange(snapshot: DataSnapshot) {
                                                     if (snapshot.exists()) {
                                                         val user = snapshot.getValue(User::class.java)
@@ -191,7 +192,48 @@ class ValidationFragment : Fragment() {
                                                         userName?.let {
                                                                 userName ->
                                                             if (userName.isNotEmpty()) {
-//
+
+                                                                    virementViewModel.montant.observe(viewLifecycleOwner, Observer { montant ->
+                                                                        virementViewModel.beneficiaire.observe(viewLifecycleOwner, Observer { beneficiaire ->
+                                                                        viewLifecycleOwner.lifecycleScope.launch {
+                                                                        val transaction =
+                                                                            withContext(Dispatchers.IO) {
+                                                                                val currentDateTime = virementViewModel.getCurrentDateTimeFormatted()
+                                                                                val currTransaction =
+                                                                                    Transaction(
+                                                                                        "",
+                                                                                        userId = currentUser.uid,
+                                                                                        senderName= userName,
+                                                                                        receiverName =beneficiaire,
+                                                                                        montant=montant,
+                                                                                        dateHeure=currentDateTime
+                                                                                    )
+//                                                                                receiverName =beneficiaire,
+                                                                                virementViewModel.createTransaction(currTransaction)
+                                                                                try {
+                                                                                    montant?.toInt()
+                                                                                        ?.let { it1 ->
+                                                                                            virementViewModel.updateCompteSoldeForUserId(currentUser.uid,
+                                                                                                (solde-it1).toInt()
+                                                                                            )
+                                                                                        }
+                                                                                    println("Solde updated successfully")
+                                                                                } catch (e: Exception) {
+                                                                                    println("Error updating solde: ${e.message}")
+                                                                                }
+//                                                                                compte.solde = compte.solde?.minus(
+//                                                                                    montantTransaction
+//                                                                                )  // Subtract the montant from solde
+//                                                                                viewModel.updateCompte(compte)
+                                                                            }
+                                                                        }
+                                                                    })
+
+                                                                    })
+
+
+
+
                                                             } else {
 //                                                                Toast.makeText(requireContext(), "Phone number is empty!", Toast.LENGTH_SHORT).show()
                                                             }
@@ -207,10 +249,14 @@ class ValidationFragment : Fragment() {
                                                     println("$error")
                                                 }
                                             })
-                                            currentUser?.let {
-                                                val currTransaction = Transaction("","","","","")
-                                                virementViewModel.createTransaction(currTransaction)
-                                            }
+//                                            currentUser?.let {
+//                                                val currTransaction = Transaction("","","","","")
+//                                                virementViewModel.createTransaction(currTransaction)
+//                                            }
+
+//                                        val comptes = withContext(Dispatchers.IO){
+//                                            currentUser?.let { virementViewModel.getComptesForUserId(userId = it.uid) }
+//                                        }
                                         }
                                     }
 
@@ -239,7 +285,7 @@ class ValidationFragment : Fragment() {
 //                        }
 
 
-                    }
+
 
 
 

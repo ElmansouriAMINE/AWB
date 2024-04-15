@@ -11,6 +11,8 @@ import com.example.testoo.models.Compte
 import com.example.testoo.models.Transaction
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
+import java.util.*
 
 class VirementViewModel : ViewModel() {
 
@@ -44,7 +46,7 @@ class VirementViewModel : ViewModel() {
         }
     }
 
-    suspend fun createTransaction(currentTransaction: Transaction){
+    fun createTransaction(currentTransaction: Transaction){
         val transactionCollection= database.getReference("transactions")
 //        val currentTransaction= Transaction("","","","","")
         val transactionkey = transactionCollection.push().key
@@ -52,7 +54,29 @@ class VirementViewModel : ViewModel() {
             transactionCollection.child(it).setValue(currentTransaction)
         }
 
+    }
 
+    fun getCurrentDateTimeFormatted(): String {
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+        val date = Date()
+        return dateFormat.format(date)
+    }
+
+    suspend fun updateCompteSoldeForUserId(userId: String, newSolde: Int) {
+        val currentUserCompte = database.getReference("comptes")
+        val query = currentUserCompte.orderByChild("userId").equalTo(userId)
+        try {
+            val dataSnapshot = query.get().await()
+            dataSnapshot.children.forEach { snapshot ->
+                val compte = snapshot.getValue(Compte::class.java)
+                compte?.let {
+                    it.solde = newSolde.toDouble()
+                    snapshot.ref.setValue(it)
+                }
+            }
+        } catch (e: Exception) {
+            println("Error updating compte solde: ${e.message}")
+        }
     }
 
 
