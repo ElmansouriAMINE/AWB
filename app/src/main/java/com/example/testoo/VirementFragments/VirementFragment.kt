@@ -149,7 +149,7 @@ class VirementFragment : Fragment() {
         selectBeneficiaire.setOnItemClickListener { adapterview2, view2, position2, id2 ->
             val selectedBeneficiaire = Useradapter.getItem(position2)
             selectBeneficiaire.setText("${selectedBeneficiaire?.userName}")
-            currbeneficiaireId="{${selectedBeneficiaire?.id}"
+            currbeneficiaireId="${selectedBeneficiaire?.id}"
             updateVirementData()
         }
 

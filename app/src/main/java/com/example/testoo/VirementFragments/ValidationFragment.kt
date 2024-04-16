@@ -36,6 +36,7 @@ class ValidationFragment : Fragment() {
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val viewModel: UserViewModel by viewModels()
     private var storedOTP: String? = null
+    private var beneficiaireIdd: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,6 +82,17 @@ class ValidationFragment : Fragment() {
                             viewModel.getCompteForUserId(userId = user.uid)
                         }
 
+                        virementViewModel.beneficiaireId.observe(viewLifecycleOwner, Observer { data ->
+                            beneficiaireIdd=data
+                        })
+
+                        var compteBeneficiaire = withContext(Dispatchers.IO) {
+                            beneficiaireIdd?.let { it1 -> viewModel.getCompteForUserId(userId= it1) }
+                        }
+
+                        println(" beneID: ${beneficiaireIdd}")
+                        println(" BeneCompte : ${compteBeneficiaire}")
+
 
                         println("this is the compte: $compte")
 
@@ -119,6 +131,7 @@ class ValidationFragment : Fragment() {
 
                         binding.buttonValider.setOnClickListener{
                             var solde = compte?.solde
+                            var soldeCompteBeneficiare = compteBeneficiaire?.solde
                             val montantTransaction = virementViewModel.montant.value.toString().toIntOrNull() ?: 0
 
                             if (compte != null) {
@@ -158,7 +171,16 @@ class ValidationFragment : Fragment() {
                                                                                             virementViewModel.updateCompteSoldeForUserId(currentUser.uid,
                                                                                                 (solde-it1).toInt()
                                                                                             )
-                                                                                        }
+
+                                                                                            println("BeneficiaireIDID: ${virementViewModel.beneficiaireId.toString()}")
+                                                                                            println("BeneficiaireSolde: ${soldeCompteBeneficiare!!}")
+
+                                                                                            virementViewModel.updateCompteSoldeForUserId(beneficiaireIdd!!,
+                                                                                                    (soldeCompteBeneficiare!!+it1).toInt()
+                                                                                                )
+                                                                                                println("Money added succefully to beneficiaire account")
+                                                                                            }
+
                                                                                     println("Solde updated successfully")
                                                                                 } catch (e: Exception) {
                                                                                     println("Error updating solde: ${e.message}")
