@@ -4,16 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
+    android:layout_margin="0dp"
+    android:background="@color/screen_background"
     tools:context=".VirementFragments.ValidationFragment">
+
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/main_banner"
         android:orientation="horizontal"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,27 +25,27 @@
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_point" />
+            android:src="@drawable/attijariwafa" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_weight="3"
             android:gravity="center"
             android:text="Virement"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="26dp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView10"
             android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_point" />
+            android:src="@drawable/cash_express" />
 
     </LinearLayout>
 
@@ -131,10 +135,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:text="au numéro ********60"
         android:textColor="@color/black"
         android:textSize="14dp"
         android:textStyle="bold"
-        android:text="au numéro ********60"
         app:layout_constraintEnd_toEndOf="@+id/textView24"
         app:layout_constraintStart_toStartOf="@+id/textView24"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
