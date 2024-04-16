@@ -49,59 +49,80 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/etotp"
+<!--    <EditText-->
+<!--        android:id="@+id/etotp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:gravity="center"-->
+<!--        android:hint="Enter OTP Code"-->
+<!--        android:inputType="number"-->
+<!--        android:maxLength="6"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView25" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/otpLayout"
+        style="@style/LoginTextInputOuterFieldStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:hint="Enter OTP Code"
-        android:inputType="number"
-        android:maxLength="6"
+        app:boxStrokeColor="@color/yellow"
+        app:hintTextColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        app:layout_constraintTop_toBottomOf="@+id/textView25">
 
-    <EditText
-        android:id="@+id/etphone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:hint="Enter Phone Number"
-        android:inputType="phone"
-        android:maxLength="10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etotp" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etotp"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter OTP Code"
+            android:maxLength="6"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+<!--    <Button-->
+<!--        android:id="@+id/sms"-->
+<!--        android:layout_width="240dp"-->
+<!--        android:layout_height="41dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="64dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:text="send otp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/otpLayout" />-->
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sms"
-        android:layout_width="240dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_background"
+        android:elevation="4dp"
         android:text="send otp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etphone" />
+        app:layout_constraintTop_toBottomOf="@+id/otpLayout" />
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/otp_confirmation"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
         app:layout_constraintStart_toStartOf="@+id/linearLayout5"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:srcCompat="@drawable/otpverifie" />
 
     <TextView
         android:id="@+id/textView23"
@@ -143,11 +164,14 @@
         app:layout_constraintStart_toStartOf="@+id/textView24"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
-    <Button
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonValider"
-        android:layout_width="240dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_background"
+        android:elevation="4dp"
         android:text="Valider"
         app:layout_constraintEnd_toEndOf="@+id/sms"
         app:layout_constraintStart_toStartOf="@+id/sms"

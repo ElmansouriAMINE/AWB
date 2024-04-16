@@ -1,6 +1,7 @@
 package com.example.testoo.models
 
 data class User(
+    val id:String? =null,
     val userName: String? =null,
     val email: String? =null,
     val phoneNumber: String? =null,

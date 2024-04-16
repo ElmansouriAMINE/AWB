@@ -46,8 +46,9 @@ class SignUpFragment : Fragment() {
                       println("$email ----$pass")
                       firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
                           if (task.isSuccessful) {
-                              val user = User(userName,email, phoneNumber, photoUrl = "" )
+//                              val user = User(id=,userName,email, phoneNumber, photoUrl = "" )
                               val userId = task.result?.user?.uid
+                              val user = User(id=userId,userName=userName,email=email, phoneNumber=phoneNumber, photoUrl = "" )
 
                               if (userId != null) {
 //                                  val database = FirebaseDatabase.getInstance("https://awb-test-2eaa2-default-rtdb.firebaseio.com/")

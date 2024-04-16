@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.testoo.Adapters.BeneficiaireAutoCompleteAdapter
 import com.example.testoo.Adapters.CompteAutoCompleteAdapter
-import com.example.testoo.HomeFragment
 import com.example.testoo.R
 import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentVirementBinding
@@ -32,6 +31,7 @@ class VirementFragment : Fragment() {
     private lateinit var binding: FragmentVirementBinding
     private val virementViewModel by activityViewModels<VirementViewModel>()
     private val currentUser= FirebaseAuth.getInstance().currentUser
+    private var currbeneficiaireId:String?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,7 +113,7 @@ class VirementFragment : Fragment() {
                     val name = userSnapshot.child("userName").getValue(String::class.java).orEmpty()
                     val email = userSnapshot.child("email").getValue(String::class.java).orEmpty()
                     val phoneNumber = userSnapshot.child("phoneNumber").getValue(String::class.java).orEmpty()
-                    val user = User(name, email,phoneNumber)
+                    val user = User(id=id,userName = name, email=email, phoneNumber = phoneNumber)
                     userList.add(user)
                 }
 
@@ -149,6 +149,7 @@ class VirementFragment : Fragment() {
         selectBeneficiaire.setOnItemClickListener { adapterview2, view2, position2, id2 ->
             val selectedBeneficiaire = Useradapter.getItem(position2)
             selectBeneficiaire.setText("${selectedBeneficiaire?.userName}")
+            currbeneficiaireId="{${selectedBeneficiaire?.id}"
             updateVirementData()
         }
 
@@ -192,9 +193,13 @@ class VirementFragment : Fragment() {
         val beneficiaire= "${binding.autoCompleteBeneficiaire.text}"
         val data = "${binding.autoCompleteCompte.text}"
 
+        val beneficiaireId = currbeneficiaireId
+
         virementViewModel.apply {
             setData(data)
             setBeneficiaire(beneficiaire)
+            beneficiaireId?.let { setBeneficiaireId(it) }
+
         }
     }
 

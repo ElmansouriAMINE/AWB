@@ -20,6 +20,9 @@ class VirementViewModel : ViewModel() {
     private val _data =MutableLiveData<String>()
     val data: LiveData<String> get() = _data
 
+    private val _beneficiaireId =MutableLiveData<String>()
+    val beneficiaireId: LiveData<String> get() = _beneficiaireId
+
     private val _data2 =MutableLiveData<String>()
     val data2: LiveData<String> get() = _data2
 
@@ -98,6 +101,10 @@ class VirementViewModel : ViewModel() {
     }
     fun setBeneficiaire(data:String){
         _beneficiaire.value= data
+    }
+
+    fun setBeneficiaireId(data: String){
+        _beneficiaireId.value= data
     }
 
 

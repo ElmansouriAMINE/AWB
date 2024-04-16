@@ -63,9 +63,6 @@ class ValidationFragment : Fragment() {
             storedOTP = otpCodeGenereted
 
             println("otp generated: $otpCodeGenereted")
-
-            val phone = binding.etphone.text.toString()
-//            val message = "$otp is your verification code."
             val phoneNumberOfCurrentUser = currentUser?.phoneNumber
             println(" The Phone Number is : $phoneNumberOfCurrentUser")
 
@@ -79,46 +76,6 @@ class ValidationFragment : Fragment() {
                 ) {
 
                     println("this is my phoneNumber: ${user.phoneNumber}")
-
-//                    val usr_cr= FirebaseDatabase.getInstance().reference
-//                        .child("users")
-//                        .child(currentUser.uid)
-//                    usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
-//                        override fun onDataChange(snapshot: DataSnapshot) {
-//                            if (snapshot.exists()) {
-//                                val user = snapshot.getValue(User::class.java)
-//                                val phoneNumber = user?.phoneNumber
-//                                val message = "$otp is your verification code."
-//
-//                                phoneNumber?.let {
-//                                        phoneNumber ->
-//                                    if (phoneNumber.isNotEmpty()) {
-//                                        sendOTP(otp, phoneNumber, message)
-//                                    } else {
-//                                        Toast.makeText(requireContext(), "Phone number is empty!", Toast.LENGTH_SHORT).show()
-//                                    }
-//
-//                                }
-////                                binding.editTextName.setText(user?.userName)
-////                                binding.textPhone.setText(if (user?.phoneNumber.isNullOrEmpty())  user?.phoneNumber else phoneNumber)
-//
-//                            }
-//                        }
-//
-//                        override fun onCancelled(error: DatabaseError) {
-//                           println("$error")
-//                        }
-//                    })
-
-//                    user.phoneNumber?.let {
-//                            phoneNumber ->
-//                        if (phoneNumber.isNotEmpty()) {
-//                            sendOTP(otp, phoneNumber, message)
-//                        } else {
-//                            Toast.makeText(requireContext(), "Phone number is empty!", Toast.LENGTH_SHORT).show()
-//                        }
-//
-//                    }
                     viewLifecycleOwner.lifecycleScope.launch {
                         var compte = withContext(Dispatchers.IO) {
                             viewModel.getCompteForUserId(userId = user.uid)
@@ -150,9 +107,7 @@ class ValidationFragment : Fragment() {
                                         }
 
                                     }
-//                                binding.editTextName.setText(user?.userName)
-//                                binding.textPhone.setText(if (user?.phoneNumber.isNullOrEmpty())  user?.phoneNumber else phoneNumber)
-
+//
                                 }
                             }
 
@@ -170,25 +125,12 @@ class ValidationFragment : Fragment() {
                                 val otpp = binding.etotp.text.toString()
                                 println("yyyyy:$otpp")
                                 if (otpp == storedOTP && solde!! > 0 && montantTransaction <= solde!!) {
-
-//                                    viewLifecycleOwner.lifecycleScope.launch {
-//                                        val comptes = withContext(Dispatchers.IO){
-//                                            currentUser?.let { virementViewModel.getComptesForUserId(userId = it.uid) }
-//                                        }
-//
-//                                        comptes?.let {
-
-
-                                    viewLifecycleOwner.lifecycleScope.launch {
-
-//                                        val transaction = withContext(Dispatchers.IO){
+                                      viewLifecycleOwner.lifecycleScope.launch {
                                           usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
                                                 override fun onDataChange(snapshot: DataSnapshot) {
                                                     if (snapshot.exists()) {
                                                         val user = snapshot.getValue(User::class.java)
                                                         val userName = user?.userName
-//                                                        val message = "$otpCodeGenereted is your verification code."
-
                                                         userName?.let {
                                                                 userName ->
                                                             if (userName.isNotEmpty()) {
@@ -283,14 +225,6 @@ class ValidationFragment : Fragment() {
 //                                }
 //                            }
 //                        }
-
-
-
-
-
-
-
-
                 } else {
                     ActivityCompat.requestPermissions(
                         requireActivity(),
@@ -323,9 +257,9 @@ class ValidationFragment : Fragment() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted, send OTP
                 val otp = binding.etotp.text.toString()
-                val phone = binding.etphone.text.toString()
+//                val phone = binding.etphone.text.toString()
                 val message = "$otp is your verification code."
-                sendOTP(otp, phone, message)
+//                sendOTP(otp, phone, message)
             } else {
                 // Permission denied
                 Toast.makeText(requireContext(), "Permission Denied!", Toast.LENGTH_SHORT).show()

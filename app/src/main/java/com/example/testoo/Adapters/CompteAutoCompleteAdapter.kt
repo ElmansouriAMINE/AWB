@@ -20,7 +20,7 @@ class CompteAutoCompleteAdapter(context: Context, private val comptes: List<Comp
         )
 
         val compte = getItem(position)
-        view.findViewById<TextView>(R.id.textViewCompteName).text = compte?.solde.toString()
+        view.findViewById<TextView>(R.id.textViewCompteSolde).text = compte?.solde.toString()+ " DH"
         view.findViewById<TextView>(R.id.textViewCompteNumber).text = compte?.numero
         view.findViewById<TextView>(R.id.textViewCompteName).text = "Compte"
 

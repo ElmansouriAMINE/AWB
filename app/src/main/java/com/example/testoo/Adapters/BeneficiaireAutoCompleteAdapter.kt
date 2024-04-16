@@ -23,7 +23,7 @@ class BeneficiaireAutoCompleteAdapter(context: Context, private val users: List<
         val user = getItem(position)
         view.findViewById<TextView>(R.id.textViewUserName).text = user?.userName.toString()
         view.findViewById<TextView>(R.id.textViewPhoneNumber).text = user?.phoneNumber
-        view.findViewById<TextView>(R.id.textViewEmail).text = user?.email.toString()
+        view.findViewById<TextView>(R.id.textViewEmail).text = user?.id.toString()
 
         return view
     }

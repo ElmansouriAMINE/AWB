@@ -154,6 +154,9 @@ class VirementFragment2 : Fragment() {
         virementViewModel.beneficiaire.observe(viewLifecycleOwner, Observer { data ->
             Toast.makeText(requireContext(),data,Toast.LENGTH_LONG).show()
         })
+        virementViewModel.beneficiaireId.observe(viewLifecycleOwner, Observer { data2 ->
+            Toast.makeText(requireContext(),data2,Toast.LENGTH_LONG).show()
+        })
 //
 //        virementViewModel.data2.observe(viewLifecycleOwner, Observer { data2 ->
 //            Toast.makeText(requireContext(),data2,Toast.LENGTH_LONG).show()
