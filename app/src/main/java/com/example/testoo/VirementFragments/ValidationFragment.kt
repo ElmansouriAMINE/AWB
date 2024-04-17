@@ -2,8 +2,11 @@ package com.example.testoo.VirementFragments
 
 import androidx.fragment.app.activityViewModels
 import android.Manifest
+import android.app.Dialog
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import com.example.testoo.DialogFragments.SuccessDialogFragment
+import com.example.testoo.LocationFragment
+import com.example.testoo.R
 import com.example.testoo.ViewModels.UserViewModel
 import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentValidationBinding
@@ -37,6 +43,8 @@ class ValidationFragment : Fragment() {
     private val viewModel: UserViewModel by viewModels()
     private var storedOTP: String? = null
     private var beneficiaireIdd: String? = null
+    private val handler = Handler()
+    private val delayDuration = 2000L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -182,6 +190,26 @@ class ValidationFragment : Fragment() {
                                                                                             }
 
                                                                                     println("Solde updated successfully")
+
+                                                                                    activity?.supportFragmentManager?.beginTransaction()
+                                                                                        ?.replace(R.id.fragment_container, LocationFragment())
+                                                                                        ?.addToBackStack(null)
+                                                                                        ?.commit()
+                                                                                    val successDialog = SuccessDialogFragment()
+                                                                                    successDialog.show(activity?.supportFragmentManager!!, "SuccessDialog")
+                                                                                    handler.postDelayed({
+                                                                                        successDialog.dismiss()
+                                                                                    }, delayDuration)
+//                                                                                    val dialog = Dialog(requireActivity())
+//                                                                                    dialog.setContentView(R.layout.success_popup)
+//                                                                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                                                                                        dialog.window?.setBackgroundDrawableResource(R.drawable.success_dialogue_background)
+//                                                                                    }
+//                                                                                    dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//                                                                                    dialog.setCancelable(false) // Optional
+//                                                                                    dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+//                                                                                    dialog.show()
+
                                                                                 } catch (e: Exception) {
                                                                                     println("Error updating solde: ${e.message}")
                                                                                 }
