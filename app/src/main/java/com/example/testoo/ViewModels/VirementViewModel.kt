@@ -82,6 +82,15 @@ class VirementViewModel : ViewModel() {
         }
     }
 
+    internal fun generateOTP(length: Int): String {
+        return (0 until length)
+            .map { (0..9).random() }
+            .joinToString("")
+    }
+
+
+
+
 
 
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.Adapters.TransationListAdapter
 import com.example.testoo.ViewModels.UserViewModel
+import com.example.testoo.VirementFragments.VirementFragment2
 import com.example.testoo.databinding.FragmentLocationBinding
 import com.example.testoo.models.Compte
 
@@ -93,6 +94,13 @@ class LocationFragment : Fragment() {
         initRecyclerView()
         val transferView = binding.transferView.setOnClickListener {
             bottomSheetFragment.show(childFragmentManager,"BottomSheetDialog")
+        }
+
+        binding.requestView.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container, UploadCINInfosFragment())
+                ?.addToBackStack(null)
+                ?.commit()
         }
     }
 
