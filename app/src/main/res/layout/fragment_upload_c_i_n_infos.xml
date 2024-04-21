@@ -25,7 +25,7 @@
             android:id="@+id/imageView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/attijariwafa"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,12 +60,12 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+<!--  android:layout_height="590dp" -->
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="590dp"
-        android:layout_marginTop="250dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:layout_height="590dp"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             app:cardCornerRadius="28dp">
 
@@ -170,7 +170,7 @@
 
                 <View
                     android:layout_width="wrap_content"
-                    android:layout_height="10dp" />
+                    android:layout_height="5dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_capture"
