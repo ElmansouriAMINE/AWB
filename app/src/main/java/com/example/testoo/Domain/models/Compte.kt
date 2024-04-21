@@ -1,4 +1,4 @@
-package com.example.testoo.models
+package com.example.testoo.Domain.models
 
 data class Compte(
     val id:Int? = null,

@@ -1,14 +1,13 @@
-package com.example.testoo
+package com.example.testoo.UI
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.testoo.R
 import com.example.testoo.databinding.FragmentSignInBinding
-import com.example.testoo.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 
 

@@ -1,15 +1,18 @@
-package com.example.testoo
+package com.example.testoo.UI
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.testoo.databinding.ActivityMainBinding
-import com.example.testoo.models.Carte
-import com.example.testoo.models.Compte
-import com.example.testoo.models.User
+import com.example.testoo.Domain.models.Carte
+import com.example.testoo.Domain.models.Compte
+import com.example.testoo.Domain.models.User
+import com.example.testoo.R
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityMainBinding
@@ -24,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setUpTabBar()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container,SignInFragment())
+            .replace(R.id.fragment_container, SignInFragment())
             .commit()
 
     }
@@ -91,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                     true
                 }
-                R.id.icon_message-> {
+                R.id.icon_message -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, MessageFragment())
                         .commit()

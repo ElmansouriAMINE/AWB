@@ -1,4 +1,4 @@
-package com.example.testoo.Adapters
+package com.example.testoo.UI.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.testoo.R
-import com.example.testoo.models.User
+import com.example.testoo.Domain.models.User
 
 
 class BeneficiaireAutoCompleteAdapter(context: Context, private val users: List<User>) :

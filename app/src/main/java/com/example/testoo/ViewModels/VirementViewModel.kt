@@ -1,14 +1,10 @@
 package com.example.testoo.ViewModels
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.testoo.R
-import com.example.testoo.SignInFragment
-import com.example.testoo.models.Carte
-import com.example.testoo.models.Compte
-import com.example.testoo.models.Transaction
+import com.example.testoo.Domain.models.Compte
+import com.example.testoo.Domain.models.Transaction
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat

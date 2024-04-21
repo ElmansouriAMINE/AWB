@@ -1,4 +1,4 @@
-package com.example.testoo.models
+package com.example.testoo.Domain.models
 
 data class Carte (
     val id:Int? = null,

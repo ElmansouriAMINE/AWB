@@ -1,4 +1,4 @@
-package com.example.testoo.Adapters
+package com.example.testoo.UI.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.testoo.R
-import com.example.testoo.models.Compte
+import com.example.testoo.Domain.models.Compte
 
 class CompteAutoCompleteAdapter(context: Context, private val comptes: List<Compte>) :
     ArrayAdapter<Compte>(context, R.layout.compte_list, comptes) {

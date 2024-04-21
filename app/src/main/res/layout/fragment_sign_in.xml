@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="16dp"
         android:background="@drawable/signin_screen"
-        tools:context=".SignInFragment">
+        tools:context=".UI.SignInFragment">
 
 
         <ImageView

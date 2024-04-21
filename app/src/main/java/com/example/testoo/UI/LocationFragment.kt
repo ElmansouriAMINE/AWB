@@ -1,4 +1,4 @@
-package com.example.testoo
+package com.example.testoo.UI
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,29 +9,33 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testoo.Adapters.TransationListAdapter
+import com.example.testoo.UI.Adapters.TransationListAdapter
 import com.example.testoo.ViewModels.UserViewModel
-import com.example.testoo.VirementFragments.VirementFragment2
 import com.example.testoo.databinding.FragmentLocationBinding
-import com.example.testoo.models.Compte
 
-import com.example.testoo.models.Transaction
-import com.example.testoo.models.User
+import com.example.testoo.Domain.models.Transaction
+import com.example.testoo.Domain.models.User
+import com.example.testoo.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+//import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+@AndroidEntryPoint
 class LocationFragment : Fragment() {
     private var adapterTransaction: RecyclerView.Adapter<*>? = null
     private var recyclerViewTransaction: RecyclerView? = null
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val bottomSheetFragment = BottomSheetFragment()
+
+
     private val viewModel: UserViewModel by viewModels()
 
     private lateinit var binding: FragmentLocationBinding

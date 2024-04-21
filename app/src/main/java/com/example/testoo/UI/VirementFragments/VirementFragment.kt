@@ -1,4 +1,4 @@
-package com.example.testoo.VirementFragments
+package com.example.testoo.UI.VirementFragments
 
 import android.graphics.Color
 import android.os.Bundle
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.testoo.Adapters.BeneficiaireAutoCompleteAdapter
-import com.example.testoo.Adapters.CompteAutoCompleteAdapter
+import com.example.testoo.UI.Adapters.BeneficiaireAutoCompleteAdapter
+import com.example.testoo.UI.Adapters.CompteAutoCompleteAdapter
 import com.example.testoo.R
 import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentVirementBinding
-import com.example.testoo.models.Compte
-import com.example.testoo.models.User
+import com.example.testoo.Domain.models.Compte
+import com.example.testoo.Domain.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

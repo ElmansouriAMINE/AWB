@@ -1,6 +1,5 @@
-package com.example.testoo
+package com.example.testoo.UI
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.testoo.databinding.FragmentSignUpBinding
-import com.example.testoo.models.Carte
-import com.example.testoo.models.Compte
-import com.example.testoo.models.User
+import com.example.testoo.Domain.models.Carte
+import com.example.testoo.Domain.models.Compte
+import com.example.testoo.Domain.models.User
+import com.example.testoo.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.sql.DriverManager.println
 

@@ -1,4 +1,4 @@
-package com.example.testoo.Adapters
+package com.example.testoo.UI.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.example.testoo.R
-import com.example.testoo.databinding.ItemTransactionBinding
-import com.example.testoo.models.Transaction
+import com.example.testoo.Domain.models.Transaction
 
 
 class TransationListAdapter(items: ArrayList<Transaction>) :

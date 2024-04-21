@@ -1,4 +1,4 @@
-package com.example.testoo.VirementFragments
+package com.example.testoo.UI.VirementFragments
 
 import android.graphics.Color
 import android.os.Bundle
@@ -15,10 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.testoo.R
 import com.example.testoo.ViewModels.VirementViewModel
-import com.example.testoo.databinding.FragmentLocationBinding
 import com.example.testoo.databinding.FragmentVirement2Binding
-import com.example.testoo.databinding.FragmentVirementBinding
-import com.example.testoo.models.Transaction
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

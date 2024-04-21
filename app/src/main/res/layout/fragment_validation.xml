@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="0dp"
     android:background="@color/screen_background"
-    tools:context=".VirementFragments.ValidationFragment">
+    tools:context=".UI.VirementFragments.ValidationFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout5"

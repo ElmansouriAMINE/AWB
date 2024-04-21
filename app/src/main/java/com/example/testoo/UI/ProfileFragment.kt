@@ -1,4 +1,4 @@
-package com.example.testoo
+package com.example.testoo.UI
 
 import android.app.Activity.RESULT_OK
 import android.content.ContentValues.TAG
@@ -14,9 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.example.testoo.databinding.ActivityMainBinding
 import com.example.testoo.databinding.FragmentProfileBinding
-import com.example.testoo.models.User
+import com.example.testoo.Domain.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DataSnapshot

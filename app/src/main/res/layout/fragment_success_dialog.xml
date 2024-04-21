@@ -6,7 +6,7 @@
     android:layout_height="320dp"
     android:layout_gravity="center"
     android:background="@color/main_color"
-    tools:context=".DialogFragments.SuccessDialogFragment">
+    tools:context=".UI.DialogFragments.SuccessDialogFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
