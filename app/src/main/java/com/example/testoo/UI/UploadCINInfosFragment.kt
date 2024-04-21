@@ -11,6 +11,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -69,10 +70,10 @@ class UploadCINInfosFragment : Fragment() {
     }
 
     private fun setupCopyButton() {
-        binding.buttonCopy.setOnClickListener {
-            val scannedText = binding.textviewData.text.toString()
-            copyToClipBoard(scannedText)
-        }
+//        binding.buttonCopy.setOnClickListener {
+//            val scannedText = binding.textviewData.text.toString()
+//            copyToClipBoard(scannedText)
+//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -95,6 +96,7 @@ class UploadCINInfosFragment : Fragment() {
         }
     }
 
+
     private fun getTextFromImage(bitmap: Bitmap) {
         if (!recognizer.isOperational) {
             Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
@@ -102,14 +104,78 @@ class UploadCINInfosFragment : Fragment() {
             val frame = Frame.Builder().setBitmap(bitmap).build()
             val textBlockSparseArray: SparseArray<TextBlock> = recognizer.detect(frame)
             val stringBuilder = StringBuilder()
+
+            var username = ""
+            var lastName = ""
+            var dateNaissance = ""
+            var lieuNaissance = ""
+            var cin = ""
+            var genre = ""
+
+            var skipLines = 2 // Skip the first two lines
+            var isUsername = true
             for (i in 0 until textBlockSparseArray.size()) {
                 val textBlock = textBlockSparseArray.valueAt(i)
-                stringBuilder.append(textBlock.value)
-                stringBuilder.append("\n")
+                val lines = textBlock.value.split("\n")
+                for (line in lines) {
+                    if (skipLines > 0) {
+                        skipLines--
+                        continue
+                    }
+                    stringBuilder.append(line.trim()).append("\n")
+                    println("Line: $line")
+
+                    if (isUsername) {
+                        // Concatenate the third line for the username
+                        username += line
+                        isUsername = false
+                        continue
+                    }
+
+                    if (lastName.isEmpty()) {
+                        // Capture the line after the username as the last name
+                        lastName = line
+                        continue
+                    }
+
+                    if (dateNaissance.isEmpty()) {
+                        // Assuming the fourth line contains the date of birth in the format dd.MM.yyyy
+                        val dateMatch = Regex("\\d{2}\\.\\d{2}\\.\\d{4}").find(line)
+                        dateMatch?.let { dateNaissance = it.value }
+                    }
+
+                    // Extracting information using regex
+                    val lieuMatch = Regex("à [A-Z\\s\\d]*").find(line)
+                    lieuMatch?.let { lieuNaissance = it.value.removePrefix("à ") }
+
+                    // Assuming the CIN and genre are on the last lines
+                    val cinMatch = Regex("[A-Z]{2}\\d+").find(line) // Assuming CIN is the first uppercase word in the line
+                    cinMatch?.let { cin=it.value }
+                    genre = if (line == "MU") "Male" else "Female"
+                }
             }
-            binding.textviewData.text = stringBuilder.toString()
+
+//            binding.textviewData.text = stringBuilder.toString()
+
+            binding.nameEt.text = Editable.Factory.getInstance().newEditable("$username $lastName")
+            binding.CINEt.text = Editable.Factory.getInstance().newEditable(cin)
+            binding.LieuNaissanceEt.text = Editable.Factory.getInstance().newEditable(lieuNaissance)
+            binding.DateNaissanceEt.text = Editable.Factory.getInstance().newEditable(dateNaissance)
+
+
+
+            println("Username: $username $lastName")
+//            println("Last Name: $lastName")
+            println("Date de naissance: $dateNaissance")
+            println("Lieu de naissance: $lieuNaissance")
+            println("CIN: $cin")
+            println("Genre: $genre")
         }
     }
+
+
+
+
 
     private fun copyToClipBoard(text: String) {
         val clipBoard =
