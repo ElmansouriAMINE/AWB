@@ -8,6 +8,7 @@ import com.example.testoo.Domain.models.Carte
 import com.example.testoo.Domain.models.Compte
 import com.example.testoo.Domain.models.User
 import com.example.testoo.R
+import com.example.testoo.UI.AgencesFragments.MapsFragment
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.icon_location -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, HomeFragment())
+                        .replace(R.id.fragment_container, MapsFragment())
                         .commit()
                     true
                 }
