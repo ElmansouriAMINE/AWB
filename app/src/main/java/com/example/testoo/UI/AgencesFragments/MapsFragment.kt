@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.testoo.Domain.Repository.WafaCashRepository
 import com.example.testoo.R
 import com.example.testoo.ViewModels.WafaCashViewModel
+import com.example.testoo.databinding.FragmentLocationBinding
+import com.example.testoo.databinding.FragmentMapsBinding
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -36,6 +40,8 @@ class MapsFragment : Fragment() {
     @Inject
     lateinit var wafaCashRepository: WafaCashRepository
 
+    private lateinit var binding: FragmentMapsBinding
+
 //    private lateinit var viewModel: WafaCashViewModel
     private lateinit var googleMap: GoogleMap
     val viewModel: WafaCashViewModel by viewModels()
@@ -54,7 +60,10 @@ class MapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        binding = FragmentMapsBinding.inflate(layoutInflater)
+
+
+        return binding.root
     }
 
     @RequiresApi(34)
@@ -67,7 +76,7 @@ class MapsFragment : Fragment() {
             this.googleMap = googleMap
 
             val casablanca = LatLng(33.5731104, -7.603869)
-            googleMap.addMarker(MarkerOptions().position(casablanca).title("Marker in Sydney"))
+            googleMap.addMarker(MarkerOptions().position(casablanca).title("Marker in Casablanca"))
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(casablanca))
             CoroutineScope(Dispatchers.IO).launch{
                 viewModel.agencesWafaCashState.collectLatest{
@@ -83,8 +92,6 @@ class MapsFragment : Fragment() {
 
             }
 
-
-//             Inside onViewCreated method
             viewModel.agencesWafaCashState
                 .onEach { state ->
                 println("Ptest" + state.agencesWafaCashList.toString())
@@ -112,10 +119,55 @@ class MapsFragment : Fragment() {
             print("agencessss:"+agences)
 
         }
+        binding.itemAgences.setOnClickListener {
+            animateTextView(binding.itemAgences)
+            binding.itemGABs.setBackgroundResource(R.drawable.tab_back)
+            moveSelectTextView(binding.itemAgences)
+
+            // Handle click for itemAgences
+        }
+
+        binding.itemGABs.setOnClickListener {
+            animateTextView(binding.itemGABs)
+            moveSelectTextView(binding.itemGABs)
+            binding.itemGABs.setBackgroundResource(R.drawable.tab_select)
+            // Handle click for itemGABs
+        }
+
+        binding.itemWafacaches.setOnClickListener {
+            animateTextView(binding.itemWafacaches)
+            binding.itemGABs.setBackgroundResource(R.drawable.tab_back)
+            moveSelectTextView(binding.itemWafacaches)
+
+            // Handle click for itemWafacaches
+        }
+
+
+    }
+
+    private fun moveSelectTextView(targetView: View) {
+        val selectTextView = binding.select
+        val targetX = targetView.x
+        selectTextView.animate()
+            .x(targetX)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .start()
     }
 
 
-
 }
-
+private fun animateTextView(textView: TextView) {
+    textView.animate()
+        .scaleX(1.2f)
+        .scaleY(1.2f)
+        .setInterpolator(AccelerateDecelerateInterpolator())
+        .withEndAction {
+            textView.animate()
+                .scaleX(1.0f)
+                .scaleY(1.0f)
+                .setInterpolator(AccelerateDecelerateInterpolator())
+                .start()
+        }
+        .start()
+}
 
