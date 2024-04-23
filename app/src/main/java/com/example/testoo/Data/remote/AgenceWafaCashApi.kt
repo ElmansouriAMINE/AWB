@@ -1,12 +1,17 @@
 package com.example.testoo.Data.remote
 
 import com.example.testoo.Data.remote.Dto.AgenceWafaCashDto
+import com.google.gson.JsonObject
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface AgenceWafaCashApi {
 
-    @GET("/geoloc_getPOI.php?latitude=33.5850405&action=getAgencesWafacashNear&longitude=-7.6219494")
-    suspend fun getAgencesWafacashNear() : List<AgenceWafaCashDto>
-
+    @GET("/geoserver/geoloc_getPOI.php?")
+    suspend fun getAgencesWafacashNear(
+        @Query("latitude") latitude: Double,
+        @Query("action") action: String,
+        @Query("longitude") longitude: Double
+    ): JsonObject
 
 }
