@@ -92,6 +92,7 @@ class MapsFragment : Fragment() {
             setupMap()
             val casablanca = LatLng(33.5731104, -7.603869)
             googleMap.addMarker(MarkerOptions().position(casablanca).title("Marker in Casablanca"))
+
 //            googleMap.setOnCameraIdleListener {
 //                val cameraPosition = googleMap.cameraPosition.target
 //                val distance = calculateDistance(currentLatLng, cameraPosition)
@@ -180,7 +181,10 @@ class MapsFragment : Fragment() {
                                 .position(LatLng(agence.latitude.toDouble(), agence.longitude.toDouble()))
                                 .title(agence.nom)
                             println("hhhhhh" + agence.nom)
+                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
                             googleMap.addMarker(marker)
+
                         }
 
 
@@ -215,6 +219,8 @@ class MapsFragment : Fragment() {
                             val marker = MarkerOptions()
                                 .position(agenceLatLng)
                                 .title(agence.nom)
+                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
                             googleMap.addMarker(marker)
                         }
                     }
