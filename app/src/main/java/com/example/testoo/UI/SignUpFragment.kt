@@ -1,5 +1,7 @@
 package com.example.testoo.UI
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,6 +22,7 @@ class SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var sharedPreferences: SharedPreferences
     private val database = FirebaseDatabase.getInstance("https://awb-test-2eaa2-default-rtdb.firebaseio.com/")
 
     override fun onCreateView(
@@ -28,6 +31,7 @@ class SignUpFragment : Fragment() {
     ): View? {
 
         binding = FragmentSignUpBinding.inflate(inflater,container,false)
+        sharedPreferences = requireActivity().getSharedPreferences("user_pref", Context.MODE_PRIVATE)
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.button.setOnClickListener{
@@ -73,11 +77,27 @@ class SignUpFragment : Fragment() {
                                           cartekey?.let {
                                               cartesCollection.child(it).setValue(carteInitial)
                                           }
-                                          val signInFragment = SignInFragment()
+
+                                          // Save user information in SharedPreferences
+                                          val editor = sharedPreferences.edit()
+                                          editor.putString("userId", userId)
+                                          editor.apply()
+
+                                          // Navigate to FingerPrintFragment
+                                          val fingerprintFragment = FingerPrintFragment()
                                           parentFragmentManager.beginTransaction()
-                                              .replace(R.id.fragment_container, signInFragment)
+                                              .replace(
+                                                  R.id.fragment_container,
+                                                  fingerprintFragment
+                                              )
                                               .addToBackStack(null)
                                               .commit()
+
+//                                          val signInFragment = SignInFragment()
+//                                          parentFragmentManager.beginTransaction()
+//                                              .replace(R.id.fragment_container, signInFragment)
+//                                              .addToBackStack(null)
+//                                              .commit()
                                       } else {
                                           Toast.makeText(requireContext(), userTask.exception.toString(), Toast.LENGTH_SHORT).show()
                                       }

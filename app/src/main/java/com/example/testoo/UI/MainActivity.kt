@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.icon_message -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, MessageFragment())
+                        .replace(R.id.fragment_container, FingerPrintFragment())
                         .commit()
                     true
                 }

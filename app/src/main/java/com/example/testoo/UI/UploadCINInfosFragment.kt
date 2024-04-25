@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.testoo.R
 import com.example.testoo.databinding.FragmentUploadCINInfosBinding
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.text.TextBlock
@@ -39,9 +40,16 @@ class UploadCINInfosFragment : Fragment() {
     ): View? {
 
         binding = FragmentUploadCINInfosBinding.inflate(inflater, container, false)
+        binding.buttonContinue.setOnClickListener{
+            val signInFragment = SignInFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, signInFragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
         setupCameraCapture()
-        setupCopyButton()
+//        setupCopyButton()
 
         recognizer = TextRecognizer.Builder(requireContext()).build()
 
@@ -157,7 +165,7 @@ class UploadCINInfosFragment : Fragment() {
 
 //            binding.textviewData.text = stringBuilder.toString()
 
-            binding.nameEt.text = Editable.Factory.getInstance().newEditable("$username $lastName")
+//            binding.nameEt.text = Editable.Factory.getInstance().newEditable("$username $lastName")
             binding.CINEt.text = Editable.Factory.getInstance().newEditable(cin)
             binding.LieuNaissanceEt.text = Editable.Factory.getInstance().newEditable(lieuNaissance)
             binding.DateNaissanceEt.text = Editable.Factory.getInstance().newEditable(dateNaissance)

@@ -107,23 +107,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.7"
-                    android:text="UserName"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/nameEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
                     android:text="CIN"
                     android:textStyle="bold" />
 
@@ -172,12 +155,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="5dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_capture"
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonContinue"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="upload"
-                    app:cornerRadius="32dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="45dp"
+                    android:background="@color/yellow"
+                    android:text="Continue"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                     />
 
                 <View
                     android:layout_width="wrap_content"
@@ -189,6 +178,17 @@
 
         </androidx.cardview.widget.CardView>
     </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_capture"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="upload"
+        app:cornerRadius="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollView3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
