@@ -15,8 +15,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.testoo.Data.remote.Dto.AgenceWafaCashDto
 import com.example.testoo.Domain.Repository.WafaCashRepository
 import com.example.testoo.R
+import com.example.testoo.UI.DialogFragments.MarkerInfoFragment
 import com.example.testoo.ViewModels.WafaCashViewModel
 import com.example.testoo.databinding.FragmentMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -181,8 +183,9 @@ class MapsFragment : Fragment() {
                                 .position(LatLng(agence.latitude.toDouble(), agence.longitude.toDouble()))
                                 .title(agence.nom)
                             println("hhhhhh" + agence.nom)
-                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
-                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
+//                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+//                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
+                            addWafaCashMarker(agence)
                             googleMap.addMarker(marker)
 
                         }
@@ -197,6 +200,12 @@ class MapsFragment : Fragment() {
         }
 
 
+    }
+
+    private fun addWafaCashMarker(agence: AgenceWafaCashDto) {
+        val markerInfoFragment = MarkerInfoFragment()
+        markerInfoFragment.setAgence(agence)
+        markerInfoFragment.show(childFragmentManager, "markerInfoFragment")
     }
 
     private fun calculateDistance(start: LatLng, end: LatLng): Float {
