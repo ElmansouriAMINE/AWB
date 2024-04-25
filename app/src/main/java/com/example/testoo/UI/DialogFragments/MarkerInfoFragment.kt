@@ -65,9 +65,22 @@ class MarkerInfoFragment : DialogFragment() {
             doCall(agence!!)
         }
 
+        binding.partager.setOnClickListener{
+            doShareAgenceInfos(agence!!)
+        }
+
         return view
 
     }
+
+    private fun doShareAgenceInfos(agence: AgenceWafaCashDto) {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        val shareMessage = "Nom de l'agence WafaCash: ${agence.nom}\nAdresse: ${agence.adresse}\nHoraire: ${agence.horaire1}\nFax: ${agence.fax}"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+        startActivity(Intent.createChooser(shareIntent, "Partager via"))
+    }
+
 
     private fun doCall(agence:AgenceWafaCashDto){
         agence?.let {
