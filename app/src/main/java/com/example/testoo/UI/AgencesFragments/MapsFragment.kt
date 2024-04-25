@@ -29,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +42,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MapsFragment : Fragment() {
+class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
 
     @Inject
     lateinit var wafaCashRepository: WafaCashRepository
@@ -54,6 +55,10 @@ class MapsFragment : Fragment() {
 //    private lateinit var viewModel: WafaCashViewModel
     private lateinit var googleMap: GoogleMap
     val viewModel: WafaCashViewModel by viewModels()
+    private val markerToAgenceMap: MutableMap<Marker?, AgenceWafaCashDto> = mutableMapOf()
+
+
+
 
 
 
@@ -92,8 +97,9 @@ class MapsFragment : Fragment() {
         mapFragment?.getMapAsync { googleMap ->
             this.googleMap = googleMap
             setupMap()
-            val casablanca = LatLng(33.5731104, -7.603869)
-            googleMap.addMarker(MarkerOptions().position(casablanca).title("Marker in Casablanca"))
+//            val casablanca = LatLng(33.5731104, -7.603869)
+//            googleMap.addMarker(MarkerOptions().position(casablanca).title("Marker in Casablanca"))
+            googleMap.setOnMarkerClickListener(this@MapsFragment)
 
 //            googleMap.setOnCameraIdleListener {
 //                val cameraPosition = googleMap.cameraPosition.target
@@ -185,7 +191,7 @@ class MapsFragment : Fragment() {
                             println("hhhhhh" + agence.nom)
 //                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
 //                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
-                            addWafaCashMarker(agence)
+//                            addWafaCashMarker(agence)
                             googleMap.addMarker(marker)
 
                         }
@@ -221,6 +227,7 @@ class MapsFragment : Fragment() {
             .onEach { state ->
                 if (!state.isLoading && state.agencesWafaCashList.isNotEmpty()) {
                     googleMap.clear()
+                    markerToAgenceMap.clear()
                     state.agencesWafaCashList.forEach { agence ->
                         val agenceLatLng = LatLng(agence.latitude.toDouble(), agence.longitude.toDouble())
                         val distance = calculateDistance(center, agenceLatLng)
@@ -228,9 +235,12 @@ class MapsFragment : Fragment() {
                             val marker = MarkerOptions()
                                 .position(agenceLatLng)
                                 .title(agence.nom)
-                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
-                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
-                            googleMap.addMarker(marker)
+//                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+//                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
+//                            addWafaCashMarker(agence)
+                            val addedMarker = googleMap.addMarker(marker)
+                            markerToAgenceMap[addedMarker] = agence
+//                            googleMap.addMarker(marker)
                         }
                     }
                 } else if (state.error.isNotEmpty()) {
@@ -300,6 +310,14 @@ class MapsFragment : Fragment() {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val agence = markerToAgenceMap[marker]
+        if (agence != null) {
+            addWafaCashMarker(agence)
+        }
+        return true
     }
 
 
