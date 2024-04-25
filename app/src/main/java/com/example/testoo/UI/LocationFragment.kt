@@ -1,5 +1,6 @@
 package com.example.testoo.UI
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,8 @@ class LocationFragment : Fragment() {
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val bottomSheetFragment = BottomSheetFragment()
 
+    private lateinit var auth: FirebaseAuth
+
 
     private val viewModel: UserViewModel by viewModels()
 
@@ -45,8 +48,28 @@ class LocationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        auth = FirebaseAuth.getInstance()
 
         binding = FragmentLocationBinding.inflate(layoutInflater)
+
+        binding.logOut.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Log Out")
+            builder.setMessage("Are you sure you want to log out?")
+            builder.setPositiveButton("Yes") { dialog, which ->
+                auth.signOut()
+                val signInFragment = SignInFragment()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, signInFragment)
+                    .commit()
+            }
+            builder.setNegativeButton("No") { dialog, which ->
+                dialog.dismiss()
+            }
+            val dialog = builder.create()
+            dialog.show()
+        }
+
 
 
 

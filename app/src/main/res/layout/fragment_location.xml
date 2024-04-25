@@ -80,6 +80,7 @@
                         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/logOut"
                         android:layout_width="69dp"
                         android:layout_height="45dp"
                         android:background="@drawable/oval_back"
@@ -88,10 +89,10 @@
 
 
                         <ImageView
-                            android:id="@+id/imageNotification"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="?attr/actionModeShareDrawable"
+                            android:id="@+id/imageturnOff"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/turnoff"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
