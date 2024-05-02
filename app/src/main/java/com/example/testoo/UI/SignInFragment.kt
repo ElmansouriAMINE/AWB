@@ -88,7 +88,7 @@ class SignInFragment : Fragment() {
                             editor.apply()
 
                             activity?.supportFragmentManager?.beginTransaction()
-                                ?.replace(R.id.fragment_container, HomeFragment())
+                                ?.replace(R.id.fragment_container, LocationFragment())
                                 ?.addToBackStack(null)
                                 ?.commit()
 

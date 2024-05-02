@@ -3,6 +3,7 @@ package com.example.testoo.UI.VirementFragments
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -93,6 +94,7 @@ class VirementFragment2 : Fragment() {
         })
 
         // Assuming binding.autoCompleteMontant is an AutoCompleteTextView
+        binding.autoCompleteMontant.inputType = InputType.TYPE_CLASS_NUMBER
         binding.autoCompleteMontant.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
