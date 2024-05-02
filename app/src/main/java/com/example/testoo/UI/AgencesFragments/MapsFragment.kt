@@ -16,21 +16,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.testoo.Data.remote.Dto.AgenceWafaCashDto
+import com.example.testoo.Data.remote.Dto.GabDto
 import com.example.testoo.Domain.Repository.WafaCashRepository
 import com.example.testoo.R
+import com.example.testoo.UI.DialogFragments.MarkerGabInfoFragment
 import com.example.testoo.UI.DialogFragments.MarkerInfoFragment
+import com.example.testoo.ViewModels.GabViewModel
 import com.example.testoo.ViewModels.WafaCashViewModel
 import com.example.testoo.databinding.FragmentMapsBinding
+
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -56,6 +57,11 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     private lateinit var googleMap: GoogleMap
     val viewModel: WafaCashViewModel by viewModels()
     private val markerToAgenceMap: MutableMap<Marker?, AgenceWafaCashDto> = mutableMapOf()
+
+
+    //ADD
+    val gabViewModel: GabViewModel by viewModels()
+    private val markerToGabMap : MutableMap<Marker?,GabDto> = mutableMapOf()
 
 
 
@@ -160,6 +166,16 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             print("agencessss:"+agences)
 
         }
+
+        binding.myLocationButton.setOnClickListener {
+            val casablanca = LatLng(33.589886, -7.603869)
+            val cameraPosition = CameraPosition.Builder()
+                .target(casablanca)
+                .zoom(12f) // Set the zoom level
+                .build()
+            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+//            setupMap()
+        }
         binding.itemAgences.setOnClickListener {
             animateTextView(binding.itemAgences)
             binding.itemGABs.setBackgroundResource(R.drawable.tab_back)
@@ -173,6 +189,32 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             moveSelectTextView(binding.itemGABs)
             binding.itemGABs.setBackgroundResource(R.drawable.tab_select)
 
+            gabViewModel.gabsState
+                .onEach { state ->
+                    println("Ptest" + state.gabsList.toString())
+                    if (!state.isLoading && state.gabsList.isNotEmpty()) {
+                        googleMap.clear()
+                        state.gabsList.forEach { gab->
+                            val marker = MarkerOptions()
+                                .position(LatLng(gab.latitude.toDouble(), gab.longitude.toDouble()))
+                                .title(gab.nom)
+                            println("hhhhhh" + gab.nom)
+//                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+//                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
+//                            addWafaCashMarker(agence)
+                            googleMap.addMarker(marker)
+                            val addedMarker = googleMap.addMarker(marker)
+                            markerToGabMap[addedMarker] = gab
+
+                        }
+
+
+                    } else if (state.error.isNotEmpty()) {
+                        println("ERRRRRRRRRRRRRROR")
+                    }
+                }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+
         }
 
         binding.itemWafacaches.setOnClickListener {
@@ -184,6 +226,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
                 .onEach { state ->
                     println("Ptest" + state.agencesWafaCashList.toString())
                     if (!state.isLoading && state.agencesWafaCashList.isNotEmpty()) {
+                        googleMap.clear()
                         state.agencesWafaCashList.forEach { agence->
                             val marker = MarkerOptions()
                                 .position(LatLng(agence.latitude.toDouble(), agence.longitude.toDouble()))
@@ -214,6 +257,13 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         markerInfoFragment.show(childFragmentManager, "markerInfoFragment")
     }
 
+    private fun addGabMarker(gab:GabDto){
+        val markerGabInfoFragment = MarkerGabInfoFragment()
+        markerGabInfoFragment.setGab(gab)
+        markerGabInfoFragment.show(childFragmentManager,"markerGabInfoFragment")
+
+    }
+
     private fun calculateDistance(start: LatLng, end: LatLng): Float {
         val results = FloatArray(1)
         Location.distanceBetween(start.latitude, start.longitude, end.latitude, end.longitude, results)
@@ -223,6 +273,34 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     @RequiresApi(34)
     private fun updateNearbyAgencies(center: LatLng) {
         val maxDistance = 500
+        gabViewModel.gabsState.onEach { state ->
+            if (!state.isLoading && state.gabsList.isNotEmpty()) {
+                googleMap.clear()
+//                markerToGabMap.clear()
+                state.gabsList.forEach { gab ->
+                    val gabLatLng = LatLng(gab.latitude.toDouble(), gab.longitude.toDouble())
+                    val distance = calculateDistance(center, gabLatLng)
+                    if (distance <= maxDistance) {
+//                        val icon = BitmapDescriptorFactory.fromResource(R.drawable.attijariwafa)
+                        val marker = MarkerOptions()
+                            .position(gabLatLng)
+                            .title(gab.nom)
+//                            .icon(icon)
+//                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+//                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
+//                            addWafaCashMarker(agence)
+                        val addedMarker = googleMap.addMarker(marker)
+                        markerToGabMap[addedMarker] = gab
+                        print("gabi:$gab")
+                        print("PPPP:${markerToGabMap[addedMarker]}")
+//                            googleMap.addMarker(marker)
+                    }
+                }
+            } else if (state.error.isNotEmpty()) {
+                println("ERRRRRRRRRRRRRROR")
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
         viewModel.agencesWafaCashState
             .onEach { state ->
                 if (!state.isLoading && state.agencesWafaCashList.isNotEmpty()) {
@@ -232,9 +310,11 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
                         val agenceLatLng = LatLng(agence.latitude.toDouble(), agence.longitude.toDouble())
                         val distance = calculateDistance(center, agenceLatLng)
                         if (distance <= maxDistance) {
+//                            val icon = BitmapDescriptorFactory.fromResource(R.drawable.location_icon_red)
                             val marker = MarkerOptions()
                                 .position(agenceLatLng)
                                 .title(agence.nom)
+//                                .icon(icon)
 //                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
 //                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
 //                            addWafaCashMarker(agence)
@@ -313,10 +393,21 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
+        val gab = markerToGabMap[marker]
+        print("markerToGAB :${markerToGabMap[marker]}")
         val agence = markerToAgenceMap[marker]
+        print("markerToAgence :${markerToAgenceMap[marker]}")
         if (agence != null) {
             addWafaCashMarker(agence)
         }
+        if (gab != null) {
+            print("THERISAGAB")
+
+            addGabMarker(gab)
+        }
+
+
+
         return true
     }
 
