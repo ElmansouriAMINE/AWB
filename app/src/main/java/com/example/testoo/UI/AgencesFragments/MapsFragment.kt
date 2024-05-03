@@ -15,12 +15,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.testoo.Data.remote.Dto.AgenceAttijariWafaDto
 import com.example.testoo.Data.remote.Dto.AgenceWafaCashDto
 import com.example.testoo.Data.remote.Dto.GabDto
 import com.example.testoo.Domain.Repository.WafaCashRepository
 import com.example.testoo.R
+import com.example.testoo.UI.DialogFragments.MarkerAttijariWafaInfoFragment
 import com.example.testoo.UI.DialogFragments.MarkerGabInfoFragment
 import com.example.testoo.UI.DialogFragments.MarkerInfoFragment
+import com.example.testoo.ViewModels.AttijariwafaViewModel
 import com.example.testoo.ViewModels.GabViewModel
 import com.example.testoo.ViewModels.WafaCashViewModel
 import com.example.testoo.databinding.FragmentMapsBinding
@@ -57,6 +60,10 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     private lateinit var googleMap: GoogleMap
     val viewModel: WafaCashViewModel by viewModels()
     private val markerToAgenceMap: MutableMap<Marker?, AgenceWafaCashDto> = mutableMapOf()
+
+    val attijariViewModel: AttijariwafaViewModel by viewModels()
+
+    private val markerToAttijariWafaMap : MutableMap<Marker?,AgenceAttijariWafaDto> = mutableMapOf()
 
 
     //ADD
@@ -102,7 +109,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync { googleMap ->
             this.googleMap = googleMap
-            setupMap()
+//            setupMap() was
 //            val casablanca = LatLng(33.5731104, -7.603869)
 //            googleMap.addMarker(MarkerOptions().position(casablanca).title("Marker in Casablanca"))
             googleMap.setOnMarkerClickListener(this@MapsFragment)
@@ -168,18 +175,49 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         }
 
         binding.myLocationButton.setOnClickListener {
-            val casablanca = LatLng(33.589886, -7.603869)
-            val cameraPosition = CameraPosition.Builder()
-                .target(casablanca)
-                .zoom(12f) // Set the zoom level
-                .build()
-            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+//            val casablanca = LatLng(33.589886, -7.603869)
+//            val cameraPosition = CameraPosition.Builder()
+//                .target(casablanca)
+//                .zoom(12f) // Set the zoom level
+//                .build()
+//            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+            getUserCurrentLocation()
+
 //            setupMap()
         }
         binding.itemAgences.setOnClickListener {
             animateTextView(binding.itemAgences)
             binding.itemGABs.setBackgroundResource(R.drawable.tab_back)
             moveSelectTextView(binding.itemAgences)
+            setupMapAttijariWafa()
+
+            attijariViewModel.agenceAttijariWafaState
+                .onEach { state ->
+                    println("Ptest" + state.agencesAttijariWafaList.toString())
+                    if (!state.isLoading && state.agencesAttijariWafaList.isNotEmpty()) {
+                        googleMap.clear()
+                        state.agencesAttijariWafaList.forEach { agenceWafa->
+                            val marker = MarkerOptions()
+                                .position(LatLng(agenceWafa.latitude.toDouble(), agenceWafa.longitude.toDouble()))
+                                .title(agenceWafa.nom)
+                            println("hhhhhh" + agenceWafa.nom)
+//                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+//                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
+//                            addWafaCashMarker(agence)
+                            googleMap.addMarker(marker)
+                            val addedMarker = googleMap.addMarker(marker)
+                            markerToAttijariWafaMap[addedMarker] = agenceWafa
+
+                        }
+
+
+                    } else if (state.error.isNotEmpty()) {
+                        println("ERRRRRRRRRRRRRROR")
+                    }
+                }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+
 
 
         }
@@ -188,6 +226,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             animateTextView(binding.itemGABs)
             moveSelectTextView(binding.itemGABs)
             binding.itemGABs.setBackgroundResource(R.drawable.tab_select)
+            setupMapGabs()
 
             gabViewModel.gabsState
                 .onEach { state ->
@@ -221,6 +260,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             animateTextView(binding.itemWafacaches)
             binding.itemGABs.setBackgroundResource(R.drawable.tab_back)
             moveSelectTextView(binding.itemWafacaches)
+            setupMapWafaCash()
 
             viewModel.agencesWafaCashState
                 .onEach { state ->
@@ -236,6 +276,8 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
 //                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
 //                            addWafaCashMarker(agence)
                             googleMap.addMarker(marker)
+                            val addedMarker = googleMap.addMarker(marker)
+                            markerToAgenceMap[addedMarker] = agence
 
                         }
 
@@ -255,6 +297,12 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         val markerInfoFragment = MarkerInfoFragment()
         markerInfoFragment.setAgence(agence)
         markerInfoFragment.show(childFragmentManager, "markerInfoFragment")
+    }
+
+    private fun addAttijariwafaMarker(agence: AgenceAttijariWafaDto) {
+        val markerAttijariWafaInfoFragment = MarkerAttijariWafaInfoFragment()
+        markerAttijariWafaInfoFragment.setAgence(agence)
+        markerAttijariWafaInfoFragment.show(childFragmentManager, "markerAttijariWafaInfoFragment")
     }
 
     private fun addGabMarker(gab:GabDto){
@@ -329,6 +377,201 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    //ajout
+
+    @RequiresApi(34)
+    private fun updateNearbyAgenciesWafacash(center: LatLng) {
+        val maxDistance = 500
+        viewModel.agencesWafaCashState
+            .onEach { state ->
+                if (!state.isLoading && state.agencesWafaCashList.isNotEmpty()) {
+                    googleMap.clear()
+                    markerToAgenceMap.clear()
+                    state.agencesWafaCashList.forEach { agence ->
+                        val agenceLatLng = LatLng(agence.latitude.toDouble(), agence.longitude.toDouble())
+                        val distance = calculateDistance(center, agenceLatLng)
+                        if (distance <= maxDistance) {
+//                            val icon = BitmapDescriptorFactory.fromResource(R.drawable.location_icon_red)
+                            val marker = MarkerOptions()
+                                .position(agenceLatLng)
+                                .title(agence.nom)
+//                                .icon(icon)
+//                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+//                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
+//                            addWafaCashMarker(agence)
+                            val addedMarker = googleMap.addMarker(marker)
+                            markerToAgenceMap[addedMarker] = agence
+//                            googleMap.addMarker(marker)
+                        }
+                    }
+                } else if (state.error.isNotEmpty()) {
+                    println("ERRRRRRRRRRRRRROR")
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    @RequiresApi(34)
+    private fun updateNearbyAgenciesAttijariwafa(center: LatLng) {
+        val maxDistance = 500
+        attijariViewModel.agenceAttijariWafaState
+            .onEach { state ->
+                if (!state.isLoading && state.agencesAttijariWafaList.isNotEmpty()) {
+                    googleMap.clear()
+                    markerToAttijariWafaMap.clear()
+                    state.agencesAttijariWafaList.forEach { agence ->
+                        val agenceLatLng = LatLng(agence.latitude.toDouble(), agence.longitude.toDouble())
+                        val distance = calculateDistance(center, agenceLatLng)
+                        if (distance <= maxDistance) {
+//                            val icon = BitmapDescriptorFactory.fromResource(R.drawable.location_icon_red)
+                            val marker = MarkerOptions()
+                                .position(agenceLatLng)
+                                .title(agence.nom)
+//                                .icon(icon)
+//                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+//                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
+//                            addWafaCashMarker(agence)
+                            val addedMarker = googleMap.addMarker(marker)
+                            markerToAttijariWafaMap[addedMarker] = agence
+//                            googleMap.addMarker(marker)
+                        }
+                    }
+                } else if (state.error.isNotEmpty()) {
+                    println("ERRRRRRRRRRRRRROR")
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+
+
+    @RequiresApi(34)
+    private fun updateNearbyAgenciesGabs(center: LatLng) {
+        val maxDistance = 500
+        gabViewModel.gabsState.onEach { state ->
+            if (!state.isLoading && state.gabsList.isNotEmpty()) {
+                googleMap.clear()
+//                markerToGabMap.clear()
+                state.gabsList.forEach { gab ->
+                    val gabLatLng = LatLng(gab.latitude.toDouble(), gab.longitude.toDouble())
+                    val distance = calculateDistance(center, gabLatLng)
+                    if (distance <= maxDistance) {
+//                        val icon = BitmapDescriptorFactory.fromResource(R.drawable.attijariwafa)
+                        val marker = MarkerOptions()
+                            .position(gabLatLng)
+                            .title(gab.nom)
+//                            .icon(icon)
+//                            val customInfoWindowAdapter = CustomInfomMarkerAdapter(requireContext(),agence)
+//                            googleMap.setInfoWindowAdapter(customInfoWindowAdapter)
+//                            addWafaCashMarker(agence)
+                        val addedMarker = googleMap.addMarker(marker)
+                        markerToGabMap[addedMarker] = gab
+                        print("gabi:$gab")
+                        print("PPPP:${markerToGabMap[addedMarker]}")
+//                            googleMap.addMarker(marker)
+                    }
+                }
+            } else if (state.error.isNotEmpty()) {
+                println("ERRRRRRRRRRRRRROR")
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    @RequiresApi(34)
+    @SuppressLint("MissingPermission")
+    private fun setupMapGabs() {
+        val fineLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        val coarseLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        if (fineLocationPermissionGranted && coarseLocationPermissionGranted) {
+            googleMap.isMyLocationEnabled= true
+            googleMap.uiSettings.isMyLocationButtonEnabled = true
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        var currentLatLng = LatLng(location.latitude, location.longitude)
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
+                        googleMap.setOnCameraIdleListener {
+                            val cameraPosition = googleMap.cameraPosition.target
+                            val distance = calculateDistance(currentLatLng, cameraPosition)
+                            if (distance > 100) {
+                                currentLatLng = cameraPosition
+                                updateNearbyAgenciesGabs(cameraPosition)
+                            }
+                        }
+                    }
+                }
+
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    @RequiresApi(34)
+    @SuppressLint("MissingPermission")
+    private fun setupMapAttijariWafa() {
+        val fineLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        val coarseLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        if (fineLocationPermissionGranted && coarseLocationPermissionGranted) {
+            googleMap.isMyLocationEnabled= true
+            googleMap.uiSettings.isMyLocationButtonEnabled = true
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        var currentLatLng = LatLng(location.latitude, location.longitude)
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
+                        googleMap.setOnCameraIdleListener {
+                            val cameraPosition = googleMap.cameraPosition.target
+                            val distance = calculateDistance(currentLatLng, cameraPosition)
+                            if (distance > 100) {
+                                currentLatLng = cameraPosition
+                                updateNearbyAgenciesAttijariwafa(cameraPosition)
+                            }
+                        }
+                    }
+                }
+
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        }
+    }
+
+
+    @RequiresApi(34)
+    @SuppressLint("MissingPermission")
+    private fun setupMapWafaCash() {
+        val fineLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        val coarseLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        if (fineLocationPermissionGranted && coarseLocationPermissionGranted) {
+            googleMap.isMyLocationEnabled= true
+            googleMap.uiSettings.isMyLocationButtonEnabled = true
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        var currentLatLng = LatLng(location.latitude, location.longitude)
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
+                        googleMap.setOnCameraIdleListener {
+                            val cameraPosition = googleMap.cameraPosition.target
+                            val distance = calculateDistance(currentLatLng, cameraPosition)
+                            if (distance > 100) {
+                                currentLatLng = cameraPosition
+                                updateNearbyAgenciesWafacash(cameraPosition)
+                            }
+                        }
+                    }
+                }
+
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        }
+    }
+
+
+
+
+
+    //fin ajout
+
 
 
     private fun moveSelectTextView(targetView: View) {
@@ -378,13 +621,36 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         }
     }
 
+    @RequiresApi(34)
+    @SuppressLint("MissingPermission")
+    private fun getUserCurrentLocation() {
+        val fineLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        val coarseLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        if (fineLocationPermissionGranted && coarseLocationPermissionGranted) {
+            googleMap.isMyLocationEnabled= true
+            googleMap.uiSettings.isMyLocationButtonEnabled = true
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        var currentLatLng = LatLng(location.latitude, location.longitude)
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
+
+                    }
+                }
+
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        }
+    }
+
 
 
     @RequiresApi(34)
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            setupMap()
+//            setupMap() was
         }
     }
 
@@ -393,6 +659,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
+        val agenceAttijariWafa= markerToAttijariWafaMap[marker]
         val gab = markerToGabMap[marker]
         print("markerToGAB :${markerToGabMap[marker]}")
         val agence = markerToAgenceMap[marker]
@@ -404,6 +671,10 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             print("THERISAGAB")
 
             addGabMarker(gab)
+        }
+
+        if(agenceAttijariWafa !=null){
+            addAttijariwafaMarker(agenceAttijariWafa)
         }
 
 
