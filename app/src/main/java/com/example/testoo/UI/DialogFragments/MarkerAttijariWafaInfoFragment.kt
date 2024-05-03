@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.testoo.Data.remote.Dto.AgenceAttijariWafaDto
 import com.example.testoo.Data.remote.Dto.AgenceWafaCashDto
+import com.example.testoo.Data.remote.Dto.GabDto
 import com.example.testoo.R
 import com.example.testoo.databinding.FragmentMarkerAttijariWafaInfoBinding
 import com.example.testoo.databinding.FragmentMarkerInfoBinding
@@ -102,49 +103,114 @@ class MarkerAttijariWafaInfoFragment : DialogFragment() {
     }
 
 
+//    private fun showNavigationOptions(agence: AgenceAttijariWafaDto) {
+//        val options = arrayOf("Google Maps", "Waze")
+//        val builder = AlertDialog.Builder(requireContext())
+//        builder.setTitle("Choisir une application de navigation")
+//            .setItems(options) { dialog, which ->
+//                when (which) {
+//                    0 -> startNavigationWithGoogleMaps(agence)
+//                    1 -> startNavigationWithWaze(agence)
+//                }
+//                dialog.dismiss()
+//            }
+//        builder.create().show()
+//    }
+//
+//    private fun startNavigationWithGoogleMaps(agence: AgenceAttijariWafaDto) {
+//        val gmmIntentUri = Uri.parse("google.navigation:q=${agence.latitude},${agence.longitude}")
+//        try {
+//            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+//            mapIntent.setPackage("com.google.android.apps.maps")
+//            startActivity(mapIntent)
+//        }catch (e: ActivityNotFoundException){
+//            val builder = AlertDialog.Builder(requireContext())
+//            builder.setTitle("Alerte")
+//                .setMessage("Vous avez pas GoogleMaps installé sur votre telephone!!! Veuillez vérifier")
+//            builder.create().show()
+//        }
+//    }
+//
+//    private fun startNavigationWithWaze(agence: AgenceAttijariWafaDto) {
+//        val wazeIntentUri = Uri.parse("https://waze.com/ul?q=${agence.latitude},${agence.longitude}")
+//        try {
+//            val mapIntent = Intent(Intent.ACTION_VIEW, wazeIntentUri)
+//            mapIntent.setPackage("com.waze")
+//            startActivity(mapIntent)
+//        }catch (e: ActivityNotFoundException){
+//            val builder = AlertDialog.Builder(requireContext())
+//            builder.setTitle("Alerte")
+//                .setMessage("Vous avez pas Waze installé sur votre telephone!!! Veuillez vérifier")
+//            builder.create().show()
+//
+//        }
+//
+//    }
+
     private fun showNavigationOptions(agence: AgenceAttijariWafaDto) {
+        val googleMapsInstalled = isAppInstalled("com.google.android.apps.maps")
+        val wazeInstalled = isAppInstalled("com.waze")
+
+        if (googleMapsInstalled && wazeInstalled) {
+            showBothNavigationOptions(agence)
+        } else if (googleMapsInstalled) {
+            startNavigation(agence, "com.google.android.apps.maps")
+        } else if (wazeInstalled) {
+            startNavigation(agence, "com.waze")
+        } else {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Aucune application de navigation trouvée")
+                .setMessage("Veuillez installer Google Maps ou Waze pour utiliser cette fonctionnalité.")
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            builder.create().show()
+        }
+    }
+
+    private fun showBothNavigationOptions(agence: AgenceAttijariWafaDto) {
         val options = arrayOf("Google Maps", "Waze")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Choisir une application de navigation")
             .setItems(options) { dialog, which ->
                 when (which) {
-                    0 -> startNavigationWithGoogleMaps(agence)
-                    1 -> startNavigationWithWaze(agence)
+                    0 -> startNavigation(agence, "com.google.android.apps.maps")
+                    1 -> startNavigation(agence, "com.waze")
                 }
                 dialog.dismiss()
             }
         builder.create().show()
     }
 
-    private fun startNavigationWithGoogleMaps(agence: AgenceAttijariWafaDto) {
-        val gmmIntentUri = Uri.parse("google.navigation:q=${agence.latitude},${agence.longitude}")
+    private fun startNavigation(agence: AgenceAttijariWafaDto, packageName: String) {
+        val intentUri = if (packageName == "com.google.android.apps.maps") {
+            Uri.parse("google.navigation:q=${agence.latitude},${agence.longitude}")
+        } else {
+            Uri.parse("https://waze.com/ul?q=${agence.latitude},${agence.longitude}")
+        }
+
         try {
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            mapIntent.setPackage("com.google.android.apps.maps")
+            val mapIntent = Intent(Intent.ACTION_VIEW, intentUri)
+            mapIntent.setPackage(packageName)
             startActivity(mapIntent)
-        }catch (e: ActivityNotFoundException){
+        } catch (e: ActivityNotFoundException) {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Alerte")
-                .setMessage("Vous avez pas GoogleMaps installé sur votre telephone!!! Veuillez vérifier")
+                .setMessage("L'application de navigation sélectionnée n'est pas disponible sur votre téléphone.")
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
             builder.create().show()
         }
     }
 
-    private fun startNavigationWithWaze(agence: AgenceAttijariWafaDto) {
-        val wazeIntentUri = Uri.parse("https://waze.com/ul?q=${agence.latitude},${agence.longitude}")
-        try {
-            val mapIntent = Intent(Intent.ACTION_VIEW, wazeIntentUri)
-            mapIntent.setPackage("com.waze")
-            startActivity(mapIntent)
-        }catch (e: ActivityNotFoundException){
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Alerte")
-                .setMessage("Vous avez pas Waze installé sur votre telephone!!! Veuillez vérifier")
-            builder.create().show()
-
+    private fun isAppInstalled(packageName: String): Boolean {
+        return try {
+            val packageManager = requireContext().packageManager
+            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
         }
-
     }
+
+
 
 
     fun setAgence(agence: AgenceAttijariWafaDto) {

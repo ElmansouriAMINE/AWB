@@ -93,49 +93,112 @@ class MarkerGabInfoFragment : DialogFragment() {
 //    }
 
 
-    private fun showNavigationOptions(gab: GabDto) {
+//    private fun showNavigationOptions(gab: GabDto) {
+//        val options = arrayOf("Google Maps", "Waze")
+//        val builder = AlertDialog.Builder(requireContext())
+//        builder.setTitle("Choisir une application de navigation")
+//            .setItems(options) { dialog, which ->
+//                when (which) {
+//                    0 -> startNavigationWithGoogleMaps(gab)
+//                    1 -> startNavigationWithWaze(gab)
+//                }
+//                dialog.dismiss()
+//            }
+//        builder.create().show()
+//    }
+//
+//    private fun startNavigationWithGoogleMaps(gab: GabDto) {
+//        val gmmIntentUri = Uri.parse("google.navigation:q=${gab.latitude},${gab.longitude}")
+//        try {
+//            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+//            mapIntent.setPackage("com.google.android.apps.maps")
+//            startActivity(mapIntent)
+//        }catch (e: ActivityNotFoundException){
+//            val builder = AlertDialog.Builder(requireContext())
+//            builder.setTitle("Alerte")
+//                .setMessage("Vous avez pas GoogleMaps installé sur votre telephone!!! Veuillez vérifier")
+//            builder.create().show()
+//        }
+//    }
+//
+//    private fun startNavigationWithWaze(gab: GabDto) {
+//        val wazeIntentUri = Uri.parse("https://waze.com/ul?q=${gab.latitude},${gab.longitude}")
+//        try {
+//            val mapIntent = Intent(Intent.ACTION_VIEW, wazeIntentUri)
+//            mapIntent.setPackage("com.waze")
+//            startActivity(mapIntent)
+//        }catch (e: ActivityNotFoundException){
+//            val builder = AlertDialog.Builder(requireContext())
+//            builder.setTitle("Alerte")
+//                .setMessage("Vous avez pas Waze installé sur votre telephone!!! Veuillez vérifier")
+//            builder.create().show()
+//
+//        }
+//
+//    }
+private fun showNavigationOptions(gab: GabDto) {
+    val googleMapsInstalled = isAppInstalled("com.google.android.apps.maps")
+    val wazeInstalled = isAppInstalled("com.waze")
+
+    if (googleMapsInstalled && wazeInstalled) {
+        showBothNavigationOptions(gab)
+    } else if (googleMapsInstalled) {
+        startNavigation(gab, "com.google.android.apps.maps")
+    } else if (wazeInstalled) {
+        startNavigation(gab, "com.waze")
+    } else {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Aucune application de navigation trouvée")
+            .setMessage("Veuillez installer Google Maps ou Waze pour utiliser cette fonctionnalité.")
+            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+        builder.create().show()
+    }
+}
+
+    private fun showBothNavigationOptions(gab: GabDto) {
         val options = arrayOf("Google Maps", "Waze")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Choisir une application de navigation")
             .setItems(options) { dialog, which ->
                 when (which) {
-                    0 -> startNavigationWithGoogleMaps(gab)
-                    1 -> startNavigationWithWaze(gab)
+                    0 -> startNavigation(gab, "com.google.android.apps.maps")
+                    1 -> startNavigation(gab, "com.waze")
                 }
                 dialog.dismiss()
             }
         builder.create().show()
     }
 
-    private fun startNavigationWithGoogleMaps(gab: GabDto) {
-        val gmmIntentUri = Uri.parse("google.navigation:q=${gab.latitude},${gab.longitude}")
+    private fun startNavigation(gab: GabDto, packageName: String) {
+        val intentUri = if (packageName == "com.google.android.apps.maps") {
+            Uri.parse("google.navigation:q=${gab.latitude},${gab.longitude}")
+        } else {
+            Uri.parse("https://waze.com/ul?q=${gab.latitude},${gab.longitude}")
+        }
+
         try {
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            mapIntent.setPackage("com.google.android.apps.maps")
+            val mapIntent = Intent(Intent.ACTION_VIEW, intentUri)
+            mapIntent.setPackage(packageName)
             startActivity(mapIntent)
-        }catch (e: ActivityNotFoundException){
+        } catch (e: ActivityNotFoundException) {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Alerte")
-                .setMessage("Vous avez pas GoogleMaps installé sur votre telephone!!! Veuillez vérifier")
+                .setMessage("L'application de navigation sélectionnée n'est pas disponible sur votre téléphone.")
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
             builder.create().show()
         }
     }
 
-    private fun startNavigationWithWaze(gab: GabDto) {
-        val wazeIntentUri = Uri.parse("https://waze.com/ul?q=${gab.latitude},${gab.longitude}")
-        try {
-            val mapIntent = Intent(Intent.ACTION_VIEW, wazeIntentUri)
-            mapIntent.setPackage("com.waze")
-            startActivity(mapIntent)
-        }catch (e: ActivityNotFoundException){
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Alerte")
-                .setMessage("Vous avez pas Waze installé sur votre telephone!!! Veuillez vérifier")
-            builder.create().show()
-
+    private fun isAppInstalled(packageName: String): Boolean {
+        return try {
+            val packageManager = requireContext().packageManager
+            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
         }
-
     }
+
 
 
     fun setGab(gab: GabDto) {
