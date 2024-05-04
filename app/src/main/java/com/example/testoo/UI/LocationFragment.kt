@@ -17,6 +17,7 @@ import com.example.testoo.databinding.FragmentLocationBinding
 import com.example.testoo.Domain.models.Transaction
 import com.example.testoo.Domain.models.User
 import com.example.testoo.R
+import com.example.testoo.UI.Payment.PaiementFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -129,6 +130,15 @@ class LocationFragment : Fragment() {
                 ?.addToBackStack(null)
                 ?.commit()
         }
+
+        binding.paiement.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container, PaiementFragment())
+                ?.addToBackStack(null)
+                ?.commit()
+        }
+
+
     }
 
     private fun initRecyclerView() {
