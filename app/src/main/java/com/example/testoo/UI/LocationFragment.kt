@@ -143,7 +143,7 @@ class LocationFragment : Fragment() {
 
     private fun initRecyclerView() {
         val items: ArrayList<Transaction> = ArrayList<Transaction>()
-        items.add(Transaction("attijariwafa",  "Ali","Ali","Ali" ,"2000","22-06-2022 16:30"))
+        items.add(Transaction("orange",  "Ali","Ali","Ali" ,"2000","22-06-2022 16:30"))
         items.add(Transaction("attijariwafa",  "Amine","Amine", "Amine","30","24-06-2022 16:30"))
         items.add(Transaction("attijariwafa", "ziad", "ziad","ziad", "560","25-06-2022 16:30"))
 
