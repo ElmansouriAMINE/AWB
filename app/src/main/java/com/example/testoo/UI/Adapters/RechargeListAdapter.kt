@@ -1,0 +1,81 @@
+package com.example.testoo.UI.Adapters
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
+import com.example.testoo.Domain.models.Recharge
+import com.example.testoo.Domain.models.Transaction
+import com.example.testoo.R
+
+class RechargeListAdapter(items: ArrayList<Recharge>):
+    RecyclerView.Adapter<RechargeListAdapter.Viewholder>(){
+    private var listener: OnRechargeClickListener? = null
+    var items: ArrayList<Recharge>
+    var context: Context? = null
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Viewholder {
+
+        val inflate: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_recharge, parent, false)
+        context = parent.context
+        return Viewholder(inflate)
+    }
+
+    interface OnRechargeClickListener{
+        fun onRechargeClicked(recharge: Recharge)
+    }
+
+    fun setOnRechargeClickListener(listener: OnRechargeClickListener){
+        this.listener =listener
+    }
+
+
+
+
+
+    override fun onBindViewHolder(holder: Viewholder, position: Int) {
+
+//        holder.textRef.setText("Réf : "+items[position].ref)
+//        holder.textRechargeType.text = "" + items[position].rechargeType
+//        holder.textRechargeMontant.text = "" + items[position].montantRecharge+ " DH"
+        val item = items[position]
+        holder.textRef.text = "Réf : ${item.ref}"
+        holder.textRechargeType.text = item.rechargeType
+        holder.textRechargeMontant.text = "${item.montantRecharge} DH"
+        holder.itemView.setOnClickListener {
+            listener?.onRechargeClicked(item)
+        }
+
+    }
+
+    override fun getItemCount(): Int {
+        return items.size
+    }
+
+
+    inner class Viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var textRef : TextView
+        var textRechargeType : TextView
+        var textRechargeMontant : TextView
+
+
+
+        init {
+            textRef = itemView.findViewById(R.id.textRef)
+            textRechargeType = itemView.findViewById(R.id.textTypeRecharge)
+            textRechargeMontant = itemView.findViewById(R.id.textMontantRecharge)
+        }
+
+    }
+
+    init {
+        this.items = items
+    }
+
+
+}

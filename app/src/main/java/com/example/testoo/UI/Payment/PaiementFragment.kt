@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.Domain.models.PaiementChildItem
 import com.example.testoo.Domain.models.PaiementParentItem
-import com.example.testoo.Domain.models.Transaction
 import com.example.testoo.R
 import com.example.testoo.UI.Adapters.OptionsAdapter
 import com.example.testoo.UI.Adapters.PaiementChildRecyclerViewAdapter
 import com.example.testoo.UI.Adapters.PaiementParentRecyclerViewAdapter
-import com.example.testoo.UI.Adapters.TransationListAdapter
+import com.example.testoo.UI.Payment.IAM.IamRechargeFragment
+import com.example.testoo.UI.VirementFragments.VirementFragment2
 import com.example.testoo.databinding.FragmentPaiementBinding
 
 
-class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildItemClickListener {
+class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildItemClickListener, OptionsAdapter.OnOptionClickListener {
 
     private lateinit var binding: FragmentPaiementBinding
 //    private lateinit var parentRecyclerView: RecyclerView
@@ -81,6 +81,87 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
 ////        binding.optionsLayout.addView(optionsRecyclerView)
 //    }
 
+    override fun onOptionClicked(option: String) {
+        when (option) {
+            "IAM Recharges" -> {
+                // Perform action for IAM Recharges
+                println("Performing action for IAM Recharges")
+                println("bangalla")
+
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_container, IamRechargeFragment())
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
+            "IAM Factures: Mobile" -> {
+                // Perform action for IAM Factures: Mobile
+                println("Performing action for IAM Factures: Mobile")
+            }
+            "IAM Factures: INTERNET" -> {
+                // Perform action for IAM Factures: INTERNET
+                println("Performing action for IAM Factures: INTERNET")
+            }
+            "Orange Recharges" -> {
+                // Perform action for Orange Recharges
+                println("Performing action for Orange Recharges")
+            }
+            "Orange Factures: Mobile" -> {
+                // Perform action for Orange Factures: Mobile
+                println("Performing action for Orange Factures: Mobile")
+            }
+            "Orange Factures: INTERNET" -> {
+                // Perform action for Orange Factures: INTERNET
+                println("Performing action for Orange Factures: INTERNET")
+            }
+            "Inwi Recharges" -> {
+                // Perform action for Inwi Recharges
+                println("Performing action for Inwi Recharges")
+            }
+            "Inwi Factures: Mobile" -> {
+                // Perform action for Inwi Factures: Mobile
+                println("Performing action for Inwi Factures: Mobile")
+            }
+            "Inwi Factures: INTERNET" -> {
+                // Perform action for Inwi Factures: INTERNET
+                println("Performing action for Inwi Factures: INTERNET")
+            }
+            else -> {
+                // Handle other cases
+                println("No action defined for $option")
+            }
+        }
+    }
+
+//    override fun onChildItemClick(item: PaiementChildItem) {
+//        // Clear any previous options RecyclerView if exists
+//        binding.optionsLayout.removeAllViews()
+//        Log.d("ccTT", "Child clicked")
+//
+//        // Create a new RecyclerView for options
+//        val optionsRecyclerView = RecyclerView(requireContext())
+//        optionsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+//
+//        // Populate optionsRecyclerView with options based on the clicked child item
+//        val optionsAdapter = OptionsAdapter(getOptionsForChildItem(item))
+//
+////        optionsAdapter.setOnOptionClickListener(this)
+//        optionsAdapter.setOnOptionClickListener(this@PaiementFragment)
+//
+//        val options = getOptionsForChildItem(item)
+//        options.forEach { option ->
+//            println("Selected option: $option")
+//            performActionForItem(option)
+//        }
+
+//        optionsRecyclerView.adapter = optionsAdapter
+//
+//
+//        // Add optionsRecyclerView to the layout
+//        binding.optionsLayout.addView(optionsRecyclerView)
+//        binding.logOut.visibility = View.VISIBLE
+//        binding.optionsLayout.visibility = View.VISIBLE
+//    }
+
     override fun onChildItemClick(item: PaiementChildItem) {
         // Clear any previous options RecyclerView if exists
         binding.optionsLayout.removeAllViews()
@@ -92,6 +173,18 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
 
         // Populate optionsRecyclerView with options based on the clicked child item
         val optionsAdapter = OptionsAdapter(getOptionsForChildItem(item))
+        optionsAdapter.setOnOptionClickListener(this@PaiementFragment)
+
+        val options = getOptionsForChildItem(item)
+
+
+
+//        options.forEach { option ->
+//            println("Selected option: $option")
+//            performActionForItem(option)
+//        }
+
+
         optionsRecyclerView.adapter = optionsAdapter
 
         // Add optionsRecyclerView to the layout
@@ -101,23 +194,97 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
     }
 
 
-    private fun getOptionsForChildItem(item: PaiementChildItem): List<String> {
 
-        return when (item.title) {
-            "Orange Recharge" -> listOf("Option 1", "Option 2", "Option 3")
-            "Orange" -> listOf("Option A", "Option B", "Option C")
-            // Add more cases for other child items if needed
-            else -> emptyList() // Return an empty list if no options are available
+//    private fun getOptionsForChildItem(item: PaiementChildItem): List<String> {
+//
+//
+//
+//        return when (item.title) {
+//            "IAM" -> listOf("IAM Recharges", "IAM Factures: Mobile", "IAM Factures: INTERNET")
+//            "Orange" -> listOf("Orange Recharges", "Orange Factures: Mobile", "Orange Factures: INTERNET")
+//            "Inwi" ->listOf("Inwi Recharges", "Inwi Factures: Mobile", "Inwi Factures: INTERNET")
+//            else -> emptyList() // Return an empty list if no options are available
+//        }
+//
+//
+//    }
+
+    private fun getOptionsForChildItem(item: PaiementChildItem): List<String> {
+        val options = when (item.title) {
+            "IAM" -> listOf("IAM Recharges", "IAM Factures: Mobile", "IAM Factures: INTERNET")
+            "Orange" -> listOf("Orange Recharges", "Orange Factures: Mobile", "Orange Factures: INTERNET")
+            "Inwi" -> listOf("Inwi Recharges", "Inwi Factures: Mobile", "Inwi Factures: INTERNET")
+            else -> emptyList()
         }
+
+//        // Perform a click for IAM options
+//        if (item.title == "IAM") {
+//            options.forEach { option ->
+//                performActionForItem("IAM Recharges")
+//            }
+//        }
+
+        return options
     }
+
+
+//    private fun performActionForItem(item: String) {
+//        when (item) {
+//            "IAM Recharges" -> {
+//                // Perform action for IAM Recharges
+//                println("Performing action for IAM Recharges")
+//            }
+//            "IAM Factures: Mobile" -> {
+//                // Perform action for IAM Factures: Mobile
+//                println("Performing action for IAM Factures: Mobile")
+//            }
+//            "IAM Factures: INTERNET" -> {
+//                // Perform action for IAM Factures: INTERNET
+//                println("Performing action for IAM Factures: INTERNET")
+//            }
+//            "Orange Recharges" -> {
+//                // Perform action for Orange Recharges
+//                println("Performing action for Orange Recharges")
+//            }
+//            "Orange Factures: Mobile" -> {
+//                // Perform action for Orange Factures: Mobile
+//                println("Performing action for Orange Factures: Mobile")
+//            }
+//            "Orange Factures: INTERNET" -> {
+//                // Perform action for Orange Factures: INTERNET
+//                println("Performing action for Orange Factures: INTERNET")
+//            }
+//            "Inwi Recharges" -> {
+//                // Perform action for Inwi Recharges
+//                println("Performing action for Inwi Recharges")
+//            }
+//            "Inwi Factures: Mobile" -> {
+//                // Perform action for Inwi Factures: Mobile
+//                println("Performing action for Inwi Factures: Mobile")
+//            }
+//            "Inwi Factures: INTERNET" -> {
+//                // Perform action for Inwi Factures: INTERNET
+//                println("Performing action for Inwi Factures: INTERNET")
+//            }
+//            else -> {
+//                // Handle other cases
+//                println("No action defined for $item")
+//            }
+//        }
+//    }
+
+
+
+
+
 
     private fun initRecyclerView() {
         val items: ArrayList<PaiementParentItem> = ArrayList<PaiementParentItem>()
         val childItems1 : ArrayList<PaiementChildItem>  = ArrayList<PaiementChildItem>()
-        childItems1.add(PaiementChildItem("Orange Recharge", "orange"))
+        childItems1.add(PaiementChildItem("IAM", "iam"))
         childItems1.add(PaiementChildItem("Orange", "orange"))
         childItems1.add(PaiementChildItem("Inwi", "inwi"))
-        childItems1.add(PaiementChildItem("Inwi Recharge", "inwi"))
+//        childItems1.add(PaiementChildItem("Inwi Recharge", "inwi"))
         items.add(PaiementParentItem("TELEPHONIE ET INTERNET", "telephonie", childItems1))
 
         val childItem2 = ArrayList<PaiementChildItem>()
