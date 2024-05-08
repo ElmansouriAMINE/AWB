@@ -16,6 +16,7 @@ import com.example.testoo.R
 class RechargeListAdapter(items: ArrayList<Recharge>):
     RecyclerView.Adapter<RechargeListAdapter.Viewholder>(){
     private var listener: OnRechargeClickListener? = null
+    private var lastClickedPosition: Int = -1
     var items: ArrayList<Recharge>
     var context: Context? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Viewholder {
@@ -47,7 +48,23 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
         holder.textRef.text = "Réf : ${item.ref}"
         holder.textRechargeType.text = item.rechargeType
         holder.textRechargeMontant.text = "${item.montantRecharge} DH"
+//        holder.itemView.setOnClickListener {
+//            listener?.onRechargeClicked(item)
+//            holder.isRechargeSelected.visibility=View.VISIBLE
+//
+//        }
+        holder.isRechargeSelected.visibility = if (position == lastClickedPosition) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
         holder.itemView.setOnClickListener {
+            if (lastClickedPosition != -1) {
+                notifyItemChanged(lastClickedPosition)
+            }
+            lastClickedPosition = position
+            notifyItemChanged(position)
             listener?.onRechargeClicked(item)
         }
 
@@ -63,12 +80,16 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
         var textRechargeType : TextView
         var textRechargeMontant : TextView
 
+        var isRechargeSelected : ImageView
+
 
 
         init {
             textRef = itemView.findViewById(R.id.textRef)
             textRechargeType = itemView.findViewById(R.id.textTypeRecharge)
             textRechargeMontant = itemView.findViewById(R.id.textMontantRecharge)
+
+            isRechargeSelected = itemView.findViewById(R.id.isRechargeSelected)
         }
 
     }
