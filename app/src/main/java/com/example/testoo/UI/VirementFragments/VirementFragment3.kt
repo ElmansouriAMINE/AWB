@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.example.testoo.R
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentVirement3Binding
 import kotlinx.coroutines.delay
@@ -71,6 +72,8 @@ class VirementFragment3 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
+
         virementViewModel.beneficiaire.observe(viewLifecycleOwner, Observer { data ->
             binding.textBeneficiaire1.setText(data)
             Toast.makeText(requireContext(),data, Toast.LENGTH_LONG).show()

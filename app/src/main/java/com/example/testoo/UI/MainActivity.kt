@@ -3,21 +3,26 @@ package com.example.testoo.UI
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.example.testoo.databinding.ActivityMainBinding
 import com.example.testoo.Domain.models.Carte
 import com.example.testoo.Domain.models.Compte
 import com.example.testoo.Domain.models.User
 import com.example.testoo.R
 import com.example.testoo.UI.AgencesFragments.MapsFragment
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , BottomNavBarHandler {
 
     private lateinit var binding:ActivityMainBinding
+    private lateinit var navController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +33,12 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setUpTabBar()
+//        Navigation.findNavController(binding.root).navigate(R.id.toSignInFragment)
+
 //        supportFragmentManager.beginTransaction()
 //            .replace(R.id.fragment_container, SignInFragment())
 //            .commit()
+
 
 
 
@@ -82,35 +90,63 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun setUpTabBar() {
-        binding.bottomNavBar.setOnItemSelectedListener{
-            when(it){
-                R.id.icon_home -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, LocationFragment())
-                        .commit()
-                    true
-                }
-                R.id.icon_location -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, MapsFragment())
-                        .commit()
-                    true
-                }
-                R.id.icon_message -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, FingerPrintFragment())
-                        .commit()
-                    true
-                }
-                R.id.icon_person -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, ProfileFragment())
-                        .commit()
-                    true
-                }
+        // NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView3) as NavHostFragment
+        // NavController
+        navHostFragment.navController.addOnDestinationChangedListener { _, _, _ ->
+            navController = navHostFragment.navController
+        }
+
+//         Set up bottom navigation
+        binding.bottomNavBar.setOnItemSelectedListener { menuItem ->
+            when (menuItem) {
+                R.id.icon_home -> navController.navigate(R.id.toLocationFragment)
+                R.id.icon_location -> navController.navigate(R.id.toMapsFragment)
+                R.id.icon_message -> navController.navigate(R.id.toProfileFragment)
+                R.id.icon_person -> navController.navigate(R.id.toProfileFragment)
             }
+            true
         }
     }
+
+    override fun setUpBottomNavBar() {
+        setUpTabBar()
+    }
+
+
+//    private fun setUpTabBar() {
+//        binding.bottomNavBar.setOnItemSelectedListener{
+//            when(it){
+//                R.id.icon_home -> {
+////                    supportFragmentManager.beginTransaction()
+////                        .replace(R.id.fragment_container, LocationFragment())
+////                        .commit()
+//                    Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_locationFragment)
+//                    true
+//                }
+//                R.id.icon_location -> {
+////                    supportFragmentManager.beginTransaction()
+////                        .replace(R.id.fragment_container, MapsFragment())
+////                        .commit()
+//                    Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_mapsFragment)
+//                    true
+//                }
+//                R.id.icon_message -> {
+////                    supportFragmentManager.beginTransaction()
+////                        .replace(R.id.fragment_container, FingerPrintFragment())
+////                        .commit()
+//                    Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_fingerPrintFragment)
+//                    true
+//                }
+//                R.id.icon_person -> {
+////                    supportFragmentManager.beginTransaction()
+////                        .replace(R.id.fragment_container, ProfileFragment())
+////                        .commit()
+//                    Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_profileFragment)
+//                    true
+//                }
+//            }
+//        }
+//    }
 }

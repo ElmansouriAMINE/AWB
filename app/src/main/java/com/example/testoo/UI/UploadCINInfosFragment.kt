@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.testoo.R
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.databinding.FragmentUploadCINInfosBinding
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.text.TextBlock
@@ -191,6 +192,11 @@ class UploadCINInfosFragment : Fragment() {
         val clip = ClipData.newPlainText("Copied data", text)
         clipBoard.setPrimaryClip(clip)
         Toast.makeText(requireContext(), "Copied", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
     }
 
 }

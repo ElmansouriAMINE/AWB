@@ -23,6 +23,7 @@ import com.example.testoo.R
 import com.example.testoo.UI.DialogFragments.MarkerAttijariWafaInfoFragment
 import com.example.testoo.UI.DialogFragments.MarkerGabInfoFragment
 import com.example.testoo.UI.DialogFragments.MarkerInfoFragment
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.ViewModels.AttijariwafaViewModel
 import com.example.testoo.ViewModels.GabViewModel
 import com.example.testoo.ViewModels.WafaCashViewModel
@@ -104,6 +105,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     @RequiresApi(34)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
 //        viewModel = ViewModelProvider(requireActivity()).get(WafaCashViewModel::class.java)
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
@@ -681,6 +683,8 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
 
         return true
     }
+
+
 
 
 }

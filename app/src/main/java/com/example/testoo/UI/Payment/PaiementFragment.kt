@@ -17,6 +17,7 @@ import com.example.testoo.UI.Adapters.PaiementChildRecyclerViewAdapter
 import com.example.testoo.UI.Adapters.PaiementParentRecyclerViewAdapter
 import com.example.testoo.UI.Payment.IAM.IamRechargeFragment
 import com.example.testoo.UI.VirementFragments.VirementFragment2
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.databinding.FragmentPaiementBinding
 
 
@@ -61,6 +62,7 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
         initRecyclerView()
     }
 //    override fun onChildItemClick(item: PaiementChildItem) {

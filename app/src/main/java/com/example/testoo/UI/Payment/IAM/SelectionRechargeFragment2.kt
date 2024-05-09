@@ -15,6 +15,7 @@ import com.example.testoo.R
 import com.example.testoo.UI.Adapters.CompteAutoCompleteAdapter
 import com.example.testoo.UI.Adapters.CompteListAdapterForPaiement
 import com.example.testoo.UI.Adapters.RechargeListAdapter
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.ViewModels.PaiementViewModel
 import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentSelectionRecharge2Binding
@@ -104,6 +105,11 @@ class SelectionRechargeFragment2 : Fragment() , CompteListAdapterForPaiement.OnC
 
     override fun onCompteClicked(compte: Compte) {
         println("this is the compte: $compte")
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
     }
 
 

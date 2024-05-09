@@ -14,6 +14,7 @@ import com.example.testoo.Domain.models.Recharge
 import com.example.testoo.R
 import com.example.testoo.UI.Adapters.OptionsAdapter
 import com.example.testoo.UI.Adapters.RechargeListAdapter
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.databinding.FragmentSelectionRechargeBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -83,6 +84,7 @@ class SelectionRechargeFragment : Fragment() , RechargeListAdapter.OnRechargeCli
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
 
     }
 

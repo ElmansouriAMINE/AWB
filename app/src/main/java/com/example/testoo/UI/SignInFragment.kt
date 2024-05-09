@@ -10,9 +10,12 @@ import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.example.testoo.Domain.models.UserData
 import com.example.testoo.R
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
@@ -23,6 +26,7 @@ class SignInFragment : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
     private lateinit var auth: FirebaseAuth
+//    private lateinit var navController: NavController
 //    private val login_failed = getString(R.string.login_failed)
 //    private val login_success = getString(R.string.login_success)
 //    private val fill_inputs = getString(R.string.fill_inputs)
@@ -35,6 +39,7 @@ class SignInFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         binding = FragmentSignInBinding.inflate(inflater,container,false)
+//        setUpTabBar()
 
         binding.fingerPrintIcon.setOnClickListener {
             val biometricManager = BiometricManager.from(requireContext())
@@ -176,6 +181,25 @@ class SignInFragment : Fragment() {
             .build()
 
         biometricPrompt.authenticate(promptInfo)
+    }
+
+//    private fun setUpTabBar() {
+//
+//        // Set up bottom navigation
+//        binding.bottomNavBar.setOnItemSelectedListener { menuItem ->
+//            when (menuItem) {
+//                R.id.icon_home -> Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_locationFragment)
+//                R.id.icon_location -> Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_mapsFragment)
+//                R.id.icon_message -> Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_profileFragment)
+//                R.id.icon_person -> Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_profileFragment)
+//            }
+//            true
+//        }
+//    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
     }
 
 

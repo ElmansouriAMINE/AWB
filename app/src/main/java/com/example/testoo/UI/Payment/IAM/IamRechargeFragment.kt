@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.testoo.R
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.databinding.FragmentIamRechargeBinding
 
 
@@ -72,6 +73,7 @@ class IamRechargeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
     }
 
 

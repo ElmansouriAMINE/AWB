@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
@@ -53,10 +54,17 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
 //            holder.isRechargeSelected.visibility=View.VISIBLE
 //
 //        }
-        holder.isRechargeSelected.visibility = if (position == lastClickedPosition) {
-            View.VISIBLE
-        } else {
-            View.GONE
+        holder.apply {
+            isRechargeSelected.visibility = if (position == lastClickedPosition) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+            isColorSelected.visibility = if (position == lastClickedPosition) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
 
         holder.itemView.setOnClickListener {
@@ -82,6 +90,8 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
 
         var isRechargeSelected : ImageView
 
+        var isColorSelected : ConstraintLayout
+
 
 
         init {
@@ -90,6 +100,7 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
             textRechargeMontant = itemView.findViewById(R.id.textMontantRecharge)
 
             isRechargeSelected = itemView.findViewById(R.id.isRechargeSelected)
+            isColorSelected = itemView.findViewById(R.id.isColorSelected)
         }
 
     }

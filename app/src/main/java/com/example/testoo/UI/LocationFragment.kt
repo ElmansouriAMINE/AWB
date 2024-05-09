@@ -19,6 +19,7 @@ import com.example.testoo.Domain.models.Transaction
 import com.example.testoo.Domain.models.User
 import com.example.testoo.R
 import com.example.testoo.UI.Payment.PaiementFragment
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -121,6 +122,7 @@ class LocationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
         initRecyclerView()
         binding.transferView.setOnClickListener {
             bottomSheetFragment.show(childFragmentManager,"BottomSheetDialog")

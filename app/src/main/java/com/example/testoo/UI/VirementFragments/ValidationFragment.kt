@@ -26,6 +26,7 @@ import com.example.testoo.databinding.FragmentValidationBinding
 import com.example.testoo.Domain.models.Compte
 import com.example.testoo.Domain.models.Transaction
 import com.example.testoo.Domain.models.User
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -60,6 +61,7 @@ class ValidationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
 
         firstotpCodeGenereted=virementViewModel.generateOTP(6)
 

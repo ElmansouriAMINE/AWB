@@ -13,6 +13,7 @@ import com.example.testoo.Domain.models.Carte
 import com.example.testoo.Domain.models.Compte
 import com.example.testoo.Domain.models.User
 import com.example.testoo.R
+import com.example.testoo.Utils.BottomNavBarHandler
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.sql.DriverManager.println
@@ -126,6 +127,11 @@ class SignUpFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
     }
 
 

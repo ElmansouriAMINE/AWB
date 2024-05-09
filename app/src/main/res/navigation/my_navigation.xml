@@ -4,6 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_navigation"
     app:startDestination="@id/signInFragment">
+    <action
+        android:id="@+id/toSignInFragment"
+        app:destination="@id/signInFragment" />
+    <action
+        android:id="@+id/toLocationFragment"
+        app:destination="@id/locationFragment" />
+
+    <action
+        android:id="@+id/toMapsFragment"
+        app:destination="@id/mapsFragment" />
+
+    <action
+        android:id="@+id/toProfileFragment"
+        app:destination="@id/profileFragment" />
+
+
+
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.example.testoo.UI.SignInFragment"
@@ -17,6 +34,12 @@
         <action
             android:id="@+id/action_signInFragment_to_uploadCINInfosFragment"
             app:destination="@id/uploadCINInfosFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -164,6 +187,24 @@
             app:destination="@id/fingerPrintFragment" />
         <action
             android:id="@+id/action_uploadCINInfosFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.testoo.UI.AgencesFragments.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.testoo.UI.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
     </fragment>
 </navigation>
