@@ -60,6 +60,16 @@ class SelectionRechargeFragment : Fragment() , RechargeListAdapter.OnRechargeCli
         }
 
 
+        binding.buttonContinue.setOnClickListener {
+
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container, SelectionRechargeFragment2())
+                ?.addToBackStack(null)
+                ?.commit()
+
+        }
+
+
 
 
 
