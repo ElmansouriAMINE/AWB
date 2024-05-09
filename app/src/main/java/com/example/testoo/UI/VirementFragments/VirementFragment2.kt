@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.example.testoo.R
 import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentVirement2Binding
@@ -113,10 +114,11 @@ class VirementFragment2 : Fragment() {
 
 
         binding.buttonContinue.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, VirementFragment3())
-                ?.addToBackStack(null)
-                ?.commit()
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.fragment_container, VirementFragment3())
+//                ?.addToBackStack(null)
+//                ?.commit()
+            Navigation.findNavController(binding.root).navigate(R.id.action_virementFragment2_to_virementFragment3)
             binding.autoCompleteMontant.text.toString().toIntOrNull()
                 ?.let { it1 -> updateVirementData(it1) }
         }

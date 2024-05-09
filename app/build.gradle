@@ -43,6 +43,8 @@ android {
 
 dependencies {
 
+    def nav_version = "2.2.1"
+
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -100,6 +102,16 @@ dependencies {
     implementation 'com.airbnb.android:lottie:6.4.0'
 
     implementation 'androidx.biometric:biometric:1.0.0-rc01'
+
+    // The default implementations
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    // The Kotlin ones
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+
 
 
 

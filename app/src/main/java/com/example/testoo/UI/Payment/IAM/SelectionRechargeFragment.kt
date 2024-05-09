@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.Domain.models.Recharge
@@ -62,10 +63,11 @@ class SelectionRechargeFragment : Fragment() , RechargeListAdapter.OnRechargeCli
 
         binding.buttonContinue.setOnClickListener {
 
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, SelectionRechargeFragment2())
-                ?.addToBackStack(null)
-                ?.commit()
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.fragment_container, SelectionRechargeFragment2())
+//                ?.addToBackStack(null)
+//                ?.commit()
+            Navigation.findNavController(binding.root).navigate(R.id.action_selectionRechargeFragment_to_selectionRechargeFragment2)
 
         }
 

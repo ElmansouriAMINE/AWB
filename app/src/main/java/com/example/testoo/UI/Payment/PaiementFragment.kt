@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.Domain.models.PaiementChildItem
@@ -88,10 +89,11 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
                 println("Performing action for IAM Recharges")
                 println("bangalla")
 
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_container, IamRechargeFragment())
-                    ?.addToBackStack(null)
-                    ?.commit()
+//                activity?.supportFragmentManager?.beginTransaction()
+//                    ?.replace(R.id.fragment_container, IamRechargeFragment())
+//                    ?.addToBackStack(null)
+//                    ?.commit()
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_iamRechargeFragment)
             }
             "IAM Factures: Mobile" -> {
                 // Perform action for IAM Factures: Mobile

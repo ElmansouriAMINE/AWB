@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.testoo.R
 import com.example.testoo.UI.VirementFragments.VirementFragment
 import com.example.testoo.databinding.BottomsheetFragmentBinding
@@ -26,11 +28,16 @@ class BottomSheetFragment:BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val virement = binding.virementLayout.setOnClickListener {
-            val virementFragment = VirementFragment()
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, virementFragment)
-                ?.addToBackStack(null)
-                ?.commit()
+            // Find the NavController from the parent fragment
+            val navController = requireParentFragment().findNavController()
+
+            // Navigate using the parent fragment's NavController
+            navController.navigate(R.id.action_locationFragment_to_virementFragment)
+//            val virementFragment = VirementFragment()
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.fragment_container, virementFragment)
+//                ?.addToBackStack(null)
+//                ?.commit()
 
         }
     }

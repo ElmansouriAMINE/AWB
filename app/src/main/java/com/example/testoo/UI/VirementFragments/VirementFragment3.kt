@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.example.testoo.R
 import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentVirement3Binding
@@ -55,10 +56,12 @@ class VirementFragment3 : Fragment() {
         }
 
         binding.buttonContinue.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, ValidationFragment())
-                ?.addToBackStack(null)
-                ?.commit()
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.fragment_container, ValidationFragment())
+//                ?.addToBackStack(null)
+//                ?.commit()
+
+            Navigation.findNavController(binding.root).navigate(R.id.action_virementFragment3_to_validationFragment)
 
         }
 

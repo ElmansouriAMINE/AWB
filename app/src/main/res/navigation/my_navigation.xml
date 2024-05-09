@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_navigation"
+    app:startDestination="@id/signInFragment">
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.testoo.UI.SignInFragment"
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_uploadCINInfosFragment"
+            app:destination="@id/uploadCINInfosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.testoo.UI.SignUpFragment"
+        android:label="SignUpFragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_fingerPrintFragment"
+            app:destination="@id/fingerPrintFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.example.testoo.UI.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_locationFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_paiementFragment"
+            app:destination="@id/paiementFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_virementFragment"
+            app:destination="@id/virementFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/virementFragment"
+        android:name="com.example.testoo.UI.VirementFragments.VirementFragment"
+        android:label="fragment_virement"
+        tools:layout="@layout/fragment_virement" >
+        <action
+            android:id="@+id/action_virementFragment_to_virementFragment2"
+            app:destination="@id/virementFragment2" />
+        <action
+            android:id="@+id/action_virementFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/virementFragment2"
+        android:name="com.example.testoo.UI.VirementFragments.VirementFragment2"
+        android:label="fragment_virement2"
+        tools:layout="@layout/fragment_virement2" >
+        <action
+            android:id="@+id/action_virementFragment2_to_virementFragment"
+            app:destination="@id/virementFragment" />
+        <action
+            android:id="@+id/action_virementFragment2_to_virementFragment3"
+            app:destination="@id/virementFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/virementFragment3"
+        android:name="com.example.testoo.UI.VirementFragments.VirementFragment3"
+        android:label="fragment_virement3"
+        tools:layout="@layout/fragment_virement3" >
+        <action
+            android:id="@+id/action_virementFragment3_to_virementFragment2"
+            app:destination="@id/virementFragment2" />
+        <action
+            android:id="@+id/action_virementFragment3_to_validationFragment"
+            app:destination="@id/validationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/validationFragment"
+        android:name="com.example.testoo.UI.VirementFragments.ValidationFragment"
+        android:label="fragment_validation"
+        tools:layout="@layout/fragment_validation" >
+        <action
+            android:id="@+id/action_validationFragment_to_virementFragment3"
+            app:destination="@id/virementFragment3" />
+        <action
+            android:id="@+id/action_validationFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bottomSheetFragment"
+        android:name="com.example.testoo.UI.BottomSheetFragment"
+        android:label="BottomSheetFragment" />
+    <fragment
+        android:id="@+id/paiementFragment"
+        android:name="com.example.testoo.UI.Payment.PaiementFragment"
+        android:label="fragment_paiement"
+        tools:layout="@layout/fragment_paiement" >
+        <action
+            android:id="@+id/action_paiementFragment_to_locationFragment2"
+            app:destination="@id/locationFragment" />
+        <action
+            android:id="@+id/action_paiementFragment_to_iamRechargeFragment"
+            app:destination="@id/iamRechargeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/iamRechargeFragment"
+        android:name="com.example.testoo.UI.Payment.IAM.IamRechargeFragment"
+        android:label="fragment_iam_recharge"
+        tools:layout="@layout/fragment_iam_recharge" >
+        <action
+            android:id="@+id/action_iamRechargeFragment_to_paiementFragment"
+            app:destination="@id/paiementFragment" />
+        <action
+            android:id="@+id/action_iamRechargeFragment_to_selectionRechargeFragment"
+            app:destination="@id/selectionRechargeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectionRechargeFragment"
+        android:name="com.example.testoo.UI.Payment.IAM.SelectionRechargeFragment"
+        android:label="fragment_selection_recharge"
+        tools:layout="@layout/fragment_selection_recharge" >
+        <action
+            android:id="@+id/action_selectionRechargeFragment_to_iamRechargeFragment"
+            app:destination="@id/iamRechargeFragment" />
+        <action
+            android:id="@+id/action_selectionRechargeFragment_to_selectionRechargeFragment2"
+            app:destination="@id/selectionRechargeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectionRechargeFragment2"
+        android:name="com.example.testoo.UI.Payment.IAM.SelectionRechargeFragment2"
+        android:label="fragment_selection_recharge2"
+        tools:layout="@layout/fragment_selection_recharge2" >
+        <action
+            android:id="@+id/action_selectionRechargeFragment2_to_selectionRechargeFragment"
+            app:destination="@id/selectionRechargeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fingerPrintFragment"
+        android:name="com.example.testoo.UI.FingerPrintFragment"
+        android:label="fragment_finger_print"
+        tools:layout="@layout/fragment_finger_print" >
+        <action
+            android:id="@+id/action_fingerPrintFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_fingerPrintFragment_to_uploadCINInfosFragment"
+            app:destination="@id/uploadCINInfosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadCINInfosFragment"
+        android:name="com.example.testoo.UI.UploadCINInfosFragment"
+        android:label="fragment_upload_c_i_n_infos"
+        tools:layout="@layout/fragment_upload_c_i_n_infos" >
+        <action
+            android:id="@+id/action_uploadCINInfosFragment_to_fingerPrintFragment"
+            app:destination="@id/fingerPrintFragment" />
+        <action
+            android:id="@+id/action_uploadCINInfosFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+</navigation>

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.example.testoo.UI.DialogFragments.SuccessDialogFragment
 import com.example.testoo.UI.LocationFragment
 import com.example.testoo.R
@@ -231,15 +232,22 @@ class ValidationFragment : Fragment() {
 
                                                                                     println("Solde updated successfully")
 
-                                                                                    activity?.supportFragmentManager?.beginTransaction()
-                                                                                        ?.replace(R.id.fragment_container, LocationFragment())
-                                                                                        ?.addToBackStack(null)
-                                                                                        ?.commit()
+//                                                                                    activity?.supportFragmentManager?.beginTransaction()
+//                                                                                        ?.replace(R.id.fragment_container, LocationFragment())
+//                                                                                        ?.addToBackStack(null)
+//                                                                                        ?.commit()
                                                                                     val successDialog = SuccessDialogFragment()
                                                                                     successDialog.show(activity?.supportFragmentManager!!, "SuccessDialog")
                                                                                     handler.postDelayed({
                                                                                         successDialog.dismiss()
                                                                                     }, delayDuration)
+
+                                                                                    Navigation.findNavController(binding.root).navigate(R.id.action_validationFragment_to_locationFragment)
+//                                                                                    val successDialog = SuccessDialogFragment()
+//                                                                                    successDialog.show(activity?.supportFragmentManager!!, "SuccessDialog")
+//                                                                                    handler.postDelayed({
+//                                                                                        successDialog.dismiss()
+//                                                                                    }, delayDuration)
 //                                                                                    val dialog = Dialog(requireActivity())
 //                                                                                    dialog.setContentView(R.layout.success_popup)
 //                                                                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

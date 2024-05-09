@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import com.example.testoo.Domain.models.UserData
 import com.example.testoo.R
 import com.example.testoo.databinding.FragmentSignInBinding
@@ -87,10 +88,12 @@ class SignInFragment : Fragment() {
                             editor.putString("userData", userDataJson)
                             editor.apply()
 
-                            activity?.supportFragmentManager?.beginTransaction()
-                                ?.replace(R.id.fragment_container, LocationFragment())
-                                ?.addToBackStack(null)
-                                ?.commit()
+//                            activity?.supportFragmentManager?.beginTransaction()
+//                                ?.replace(R.id.fragment_container, LocationFragment())
+//                                ?.addToBackStack(null)
+//                                ?.commit()
+
+                            Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_locationFragment)
 
                         }
                         else{
@@ -102,11 +105,12 @@ class SignInFragment : Fragment() {
         }
 
         binding.textView.setOnClickListener {
-            val signUpFragment = SignUpFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, signUpFragment)
-                .addToBackStack(null)
-                .commit()
+//            val signUpFragment = SignUpFragment()
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, signUpFragment)
+//                .addToBackStack(null)
+//                .commit()
+            Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_signUpFragment)
         }
 
         return binding.root

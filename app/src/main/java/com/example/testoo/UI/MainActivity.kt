@@ -3,6 +3,7 @@ package com.example.testoo.UI
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.Navigation
 import com.example.testoo.databinding.ActivityMainBinding
 import com.example.testoo.Domain.models.Carte
 import com.example.testoo.Domain.models.Compte
@@ -27,9 +28,11 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setUpTabBar()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, SignInFragment())
-            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container, SignInFragment())
+//            .commit()
+
+
 
     }
 

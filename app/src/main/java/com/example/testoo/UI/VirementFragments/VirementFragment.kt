@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.example.testoo.UI.Adapters.BeneficiaireAutoCompleteAdapter
 import com.example.testoo.UI.Adapters.CompteAutoCompleteAdapter
 import com.example.testoo.R
@@ -134,11 +135,14 @@ class VirementFragment : Fragment() {
 //        }
 
         binding.buttonContinue.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, VirementFragment2())
-                ?.addToBackStack(null)
-                ?.commit()
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.fragment_container, VirementFragment2())
+//                ?.addToBackStack(null)
+//                ?.commit()
+//            Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_signUpFragment)
+            Navigation.findNavController(binding.root).navigate(R.id.action_virementFragment_to_virementFragment2)
         }
+
 
 //        selectCompte.setOnItemClickListener { adapterview, view, position, id ->
 //            val selectedCompte = adapter2.getItem(position)

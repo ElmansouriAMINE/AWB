@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.UI.Adapters.TransationListAdapter
@@ -59,10 +60,11 @@ class LocationFragment : Fragment() {
             builder.setMessage("Are you sure you want to log out?")
             builder.setPositiveButton("Yes") { dialog, which ->
                 auth.signOut()
-                val signInFragment = SignInFragment()
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, signInFragment)
-                    .commit()
+//                val signInFragment = SignInFragment()
+//                parentFragmentManager.beginTransaction()
+//                    .replace(R.id.fragment_container, signInFragment)
+//                    .commit()
+                Navigation.findNavController(binding.root).navigate(R.id.action_locationFragment_to_signInFragment)
             }
             builder.setNegativeButton("No") { dialog, which ->
                 dialog.dismiss()
@@ -120,22 +122,24 @@ class LocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        val transferView = binding.transferView.setOnClickListener {
+        binding.transferView.setOnClickListener {
             bottomSheetFragment.show(childFragmentManager,"BottomSheetDialog")
         }
 
         binding.requestView.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, UploadCINInfosFragment())
-                ?.addToBackStack(null)
-                ?.commit()
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.fragment_container, UploadCINInfosFragment())
+//                ?.addToBackStack(null)
+//                ?.commit()
         }
 
         binding.paiement.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, PaiementFragment())
-                ?.addToBackStack(null)
-                ?.commit()
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.fragment_container, PaiementFragment())
+//                ?.addToBackStack(null)
+//                ?.commit()
+
+            Navigation.findNavController(binding.root).navigate(R.id.action_locationFragment_to_paiementFragment)
         }
 
 
