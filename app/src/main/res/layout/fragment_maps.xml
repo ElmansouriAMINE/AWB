@@ -29,12 +29,12 @@
     <!--        app:layout_constraintTop_toTopOf="parent">-->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="11dp"
-        android:padding="8dp"
         android:background="@drawable/tab_back"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,7 +48,7 @@
                 android:id="@+id/select"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:background="@drawable/tab_select"
                 android:text="" />
 
@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:text="" />
         </LinearLayout>
 
@@ -74,7 +74,7 @@
                 android:id="@+id/itemAgences"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="Agences" />
 
@@ -84,13 +84,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Guichets Automatique" />
+                android:text="GAB" />
 
             <TextView
                 android:id="@+id/itemWafacaches"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="Wafacache" />
 
