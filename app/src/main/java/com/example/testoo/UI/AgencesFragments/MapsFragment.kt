@@ -192,6 +192,9 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             animateTextView(binding.itemAgences)
             binding.itemGABs.setBackgroundResource(R.drawable.tab_back)
             moveSelectTextView(binding.itemAgences)
+            binding.itemAgences.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.itemGABs.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.itemWafacaches.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
             setupMapAttijariWafa()
 
             attijariViewModel.agenceAttijariWafaState
@@ -228,7 +231,11 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             animateTextView(binding.itemGABs)
             moveSelectTextView(binding.itemGABs)
             binding.itemGABs.setBackgroundResource(R.drawable.tab_select)
+            binding.itemAgences.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.itemGABs.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.itemWafacaches.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
             setupMapGabs()
+
 
             gabViewModel.gabsState
                 .onEach { state ->
@@ -262,6 +269,9 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             animateTextView(binding.itemWafacaches)
             binding.itemGABs.setBackgroundResource(R.drawable.tab_back)
             moveSelectTextView(binding.itemWafacaches)
+            binding.itemAgences.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.itemGABs.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            binding.itemWafacaches.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             setupMapWafaCash()
 
             viewModel.agencesWafaCashState
