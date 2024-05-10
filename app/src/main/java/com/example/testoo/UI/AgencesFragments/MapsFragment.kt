@@ -118,10 +118,39 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
 //        viewModel = ViewModelProvider(requireActivity()).get(WafaCashViewModel::class.java)
 
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
+                // Location permissions granted, check if GPS is enabled
+                val locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    // GPS is enabled, proceed with your logic
+                } else {
+                    // GPS is not enabled, prompt the user to enable it
+                    showEnableGPSDialog()
+                }
+            } else {
+                // Location permissions not granted, handle this case if needed
+            }
+        }
+
+        locationPermissionRequest.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+
+
+
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync { googleMap ->
             this.googleMap = googleMap
             googleMap.setOnMarkerClickListener(this@MapsFragment)
+            getUserCurrentLocation()
 
             CoroutineScope(Dispatchers.IO).launch{
                 viewModel.agencesWafaCashState.collectLatest{
@@ -360,21 +389,21 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
-//    private fun showEnableGPSDialog() {
-//        AlertDialog.Builder(requireContext())
-//            .setTitle("Enable GPS")
-//            .setMessage("GPS is required for this feature. Do you want to enable it now?")
-//            .setPositiveButton("Yes") { _, _ ->
-//                // Open device's location settings
-//                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                startActivity(intent)
-//            }
-//            .setNegativeButton("No") { dialog, _ ->
-//                dialog.dismiss()
-//                // Handle if the user chooses not to enable GPS
-//            }
-//            .show()
-//    }
+    private fun showEnableGPSDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Enable GPS")
+            .setMessage("GPS is required for this feature. Do you want to enable it now?")
+            .setPositiveButton("Yes") { _, _ ->
+                // Open device's location settings
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+                // Handle if the user chooses not to enable GPS
+            }
+            .show()
+    }
 
 
     //ajout
