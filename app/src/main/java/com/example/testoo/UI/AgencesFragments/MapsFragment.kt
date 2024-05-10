@@ -1,17 +1,26 @@
 package com.example.testoo.UI.AgencesFragments
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -99,6 +108,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         binding = FragmentMapsBinding.inflate(layoutInflater)
 
 
+
         return binding.root
     }
 
@@ -111,28 +121,8 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync { googleMap ->
             this.googleMap = googleMap
-//            setupMap() was
-//            val casablanca = LatLng(33.5731104, -7.603869)
-//            googleMap.addMarker(MarkerOptions().position(casablanca).title("Marker in Casablanca"))
             googleMap.setOnMarkerClickListener(this@MapsFragment)
 
-//            googleMap.setOnCameraIdleListener {
-//                val cameraPosition = googleMap.cameraPosition.target
-//                val distance = calculateDistance(currentLatLng, cameraPosition)
-//                if (distance > 100) {
-//                    // Mettre à jour les agences les plus proches
-//                    currentLatLng = cameraPosition
-//                    // Mettre à jour les agences affichées
-//                    updateNearbyAgencies(cameraPosition)
-//                }
-//            }
-//            val cameraPosition = CameraPosition.Builder()
-//                .target(casablanca)
-//                .zoom(14f)
-//                .build()
-
-//            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(casablanca))
             CoroutineScope(Dispatchers.IO).launch{
                 viewModel.agencesWafaCashState.collectLatest{
                    if (it.isLoading){
@@ -148,27 +138,9 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             }
 
 
-//            viewModel.agencesWafaCashState
-//                .onEach { state ->
-//                println("Ptest" + state.agencesWafaCashList.toString())
-//                if (!state.isLoading && state.agencesWafaCashList.isNotEmpty()) {
-//                    state.agencesWafaCashList.forEach { agence->
-//                            val marker = MarkerOptions()
-//                                .position(LatLng(agence.latitude.toDouble(), agence.longitude.toDouble()))
-//                                .title(agence.nom)
-//                            println("hhhhhh" + agence.nom)
-//                            googleMap.addMarker(marker)
-//                        }
-//
-//
-//                } else if (state.error.isNotEmpty()) {
-//                    println("ERRRRRRRRRRRRRROR")
-//                }
-//            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-
 
         }
+
         viewLifecycleOwner.lifecycleScope.launch {
             val agences = wafaCashRepository.getAgencesWafacashNear()
 
@@ -388,6 +360,22 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
+//    private fun showEnableGPSDialog() {
+//        AlertDialog.Builder(requireContext())
+//            .setTitle("Enable GPS")
+//            .setMessage("GPS is required for this feature. Do you want to enable it now?")
+//            .setPositiveButton("Yes") { _, _ ->
+//                // Open device's location settings
+//                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+//                startActivity(intent)
+//            }
+//            .setNegativeButton("No") { dialog, _ ->
+//                dialog.dismiss()
+//                // Handle if the user chooses not to enable GPS
+//            }
+//            .show()
+//    }
+
 
     //ajout
 
@@ -595,42 +583,9 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             .start()
     }
 
-//    private fun setupMap() {
-//        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            googleMap.isMyLocationEnabled = true
-//            googleMap.uiSettings.isMyLocationButtonEnabled = true
-//        } else {
-//            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-//        }
-//    }
-    @RequiresApi(34)
-    @SuppressLint("MissingPermission")
-    private fun setupMap() {
-        val fineLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-        val coarseLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-        if (fineLocationPermissionGranted && coarseLocationPermissionGranted) {
-            googleMap.isMyLocationEnabled= true
-            googleMap.uiSettings.isMyLocationButtonEnabled = true
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location ->
-                    if (location != null) {
-                        var currentLatLng = LatLng(location.latitude, location.longitude)
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
-                        googleMap.setOnCameraIdleListener {
-                            val cameraPosition = googleMap.cameraPosition.target
-                            val distance = calculateDistance(currentLatLng, cameraPosition)
-                            if (distance > 100) {
-                                currentLatLng = cameraPosition
-                                updateNearbyAgencies(cameraPosition)
-                            }
-                        }
-                    }
-                }
 
-        } else {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-        }
+    private fun requestLocationPermissions() {
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
     }
 
     @RequiresApi(34)
@@ -662,7 +617,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//            setupMap() was
+//            setupMap()
         }
     }
 
