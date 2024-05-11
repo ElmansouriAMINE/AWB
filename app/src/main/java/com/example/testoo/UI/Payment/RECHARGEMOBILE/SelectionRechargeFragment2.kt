@@ -1,4 +1,4 @@
-package com.example.testoo.UI.Payment.IAM
+package com.example.testoo.UI.Payment.RECHARGEMOBILE
 
 import android.graphics.Color
 import android.os.Bundle
@@ -13,12 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.Domain.models.Compte
 import com.example.testoo.R
-import com.example.testoo.UI.Adapters.CompteAutoCompleteAdapter
 import com.example.testoo.UI.Adapters.CompteListAdapterForPaiement
-import com.example.testoo.UI.Adapters.RechargeListAdapter
 import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.ViewModels.PaiementViewModel
-import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentSelectionRecharge2Binding
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers

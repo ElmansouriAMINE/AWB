@@ -16,8 +16,6 @@ import com.example.testoo.R
 import com.example.testoo.UI.Adapters.OptionsAdapter
 import com.example.testoo.UI.Adapters.PaiementChildRecyclerViewAdapter
 import com.example.testoo.UI.Adapters.PaiementParentRecyclerViewAdapter
-import com.example.testoo.UI.Payment.IAM.IamRechargeFragment
-import com.example.testoo.UI.VirementFragments.VirementFragment2
 import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.ViewModels.PaiementViewModel
 import com.example.testoo.databinding.FragmentPaiementBinding
@@ -94,6 +92,7 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
             "IAM Factures: Mobile" -> {
                 operatorTelecomChoisie("IAM")
                 println("Performing action for IAM Factures: Mobile")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "IAM Factures: INTERNET" -> {
                 operatorTelecomChoisie("IAM")
@@ -102,6 +101,8 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
             "Orange Recharges" -> {
                 operatorTelecomChoisie("Orange")
                 println("Performing action for Orange Recharges")
+                operatorTelecomChoisie("Orange")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_iamRechargeFragment)
             }
             "Orange Factures: Mobile" -> {
                 operatorTelecomChoisie("Orange")
@@ -114,6 +115,8 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
             "Inwi Recharges" -> {
                 operatorTelecomChoisie("Inwi")
                 println("Performing action for Inwi Recharges")
+                operatorTelecomChoisie("Inwi")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_iamRechargeFragment)
             }
             "Inwi Factures: Mobile" -> {
                 operatorTelecomChoisie("Inwi")

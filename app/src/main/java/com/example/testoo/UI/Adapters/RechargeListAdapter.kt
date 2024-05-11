@@ -8,10 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.example.testoo.Domain.models.Recharge
-import com.example.testoo.Domain.models.Transaction
 import com.example.testoo.R
 
 class RechargeListAdapter(items: ArrayList<Recharge>):
@@ -48,7 +45,7 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
         val item = items[position]
         holder.textRef.text = "Réf : ${item.ref}"
         holder.textRechargeType.text = item.rechargeType
-        holder.textRechargeMontant.text = "${item.montantRecharge} DH"
+        holder.textRechargeMontant.text = "${item.montantRecharge}"
 //        holder.itemView.setOnClickListener {
 //            listener?.onRechargeClicked(item)
 //            holder.isRechargeSelected.visibility=View.VISIBLE
@@ -117,7 +114,7 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
 
         init {
             textRef = itemView.findViewById(R.id.textRef)
-            textRechargeType = itemView.findViewById(R.id.textTypeRecharge)
+            textRechargeType = itemView.findViewById(R.id.textNomFacture)
             textRechargeMontant = itemView.findViewById(R.id.textMontantRecharge)
 
             isRechargeSelected = itemView.findViewById(R.id.isRechargeSelected)

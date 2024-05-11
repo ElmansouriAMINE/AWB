@@ -1,4 +1,4 @@
-package com.example.testoo.UI.Payment.IAM
+package com.example.testoo.UI.Payment.RECHARGEMOBILE
 
 import android.graphics.Color
 import android.os.Bundle
@@ -13,7 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.example.testoo.R
 import com.example.testoo.ViewModels.PaiementViewModel
-import com.example.testoo.ViewModels.VirementViewModel
 import com.example.testoo.databinding.FragmentRecapilatifPaiementBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -58,7 +57,7 @@ class RecapilatifPaiementFragment : Fragment() {
 
         binding.buttonContinue.setOnClickListener {
 
-//            Navigation.findNavController(binding.root).navigate(R.id.action_virementFragment3_to_validationFragment)
+            Navigation.findNavController(binding.root).navigate(R.id.action_recapilatifPaiementFragment_to_otpValidationFragment)
 
         }
 

@@ -1,4 +1,4 @@
-package com.example.testoo.UI.Payment.IAM
+package com.example.testoo.UI.Payment.RECHARGEMOBILE
 
 import android.graphics.Color
 import android.os.Bundle
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.Domain.models.Recharge
 import com.example.testoo.R
-import com.example.testoo.UI.Adapters.OptionsAdapter
 import com.example.testoo.UI.Adapters.RechargeListAdapter
 import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.ViewModels.PaiementViewModel
@@ -104,6 +103,7 @@ class SelectionRechargeFragment : Fragment() , RechargeListAdapter.OnRechargeCli
 
     private fun initRechargeRecyclerView(montantRecharge : String){
         val recharges : ArrayList<Recharge> = ArrayList<Recharge>()
+        var montantRecharge = montantRecharge+ " DH"
         recharges.add(Recharge("0","Recharge Normale",montantRecharge))
         recharges.add(Recharge("1","Pass SMS *1",montantRecharge))
         recharges.add(Recharge("2","Pass National et Internet *2",montantRecharge))

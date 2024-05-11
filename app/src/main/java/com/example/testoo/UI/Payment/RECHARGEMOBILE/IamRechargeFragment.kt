@@ -1,16 +1,12 @@
-package com.example.testoo.UI.Payment.IAM
+package com.example.testoo.UI.Payment.RECHARGEMOBILE
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -61,7 +57,7 @@ class IamRechargeFragment : Fragment() {
 //                ?.commit()
             paiementViewModel.apply {
                 setNumero("+212${binding.numeroEt.text.toString()}")
-                setMontant("${binding.montantET.text.toString()},00")
+                setMontant("${binding.montantET.text.toString()}")
             }
             Navigation.findNavController(binding.root).navigate(R.id.action_iamRechargeFragment_to_selectionRechargeFragment)
 

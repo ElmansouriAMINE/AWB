@@ -131,10 +131,13 @@
         <action
             android:id="@+id/action_paiementFragment_to_iamRechargeFragment"
             app:destination="@id/iamRechargeFragment" />
+        <action
+            android:id="@+id/action_paiementFragment_to_referenceFactureFragment"
+            app:destination="@id/referenceFactureFragment" />
     </fragment>
     <fragment
         android:id="@+id/iamRechargeFragment"
-        android:name="com.example.testoo.UI.Payment.IAM.IamRechargeFragment"
+        android:name="com.example.testoo.UI.Payment.RECHARGEMOBILE.IamRechargeFragment"
         android:label="fragment_iam_recharge"
         tools:layout="@layout/fragment_iam_recharge" >
         <action
@@ -146,7 +149,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectionRechargeFragment"
-        android:name="com.example.testoo.UI.Payment.IAM.SelectionRechargeFragment"
+        android:name="com.example.testoo.UI.Payment.RECHARGEMOBILE.SelectionRechargeFragment"
         android:label="fragment_selection_recharge"
         tools:layout="@layout/fragment_selection_recharge" >
         <action
@@ -158,7 +161,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectionRechargeFragment2"
-        android:name="com.example.testoo.UI.Payment.IAM.SelectionRechargeFragment2"
+        android:name="com.example.testoo.UI.Payment.RECHARGEMOBILE.SelectionRechargeFragment2"
         android:label="fragment_selection_recharge2"
         tools:layout="@layout/fragment_selection_recharge2" >
         <action
@@ -212,11 +215,44 @@
     </fragment>
     <fragment
         android:id="@+id/recapilatifPaiementFragment"
-        android:name="com.example.testoo.UI.Payment.IAM.RecapilatifPaiementFragment"
+        android:name="com.example.testoo.UI.Payment.RECHARGEMOBILE.RecapilatifPaiementFragment"
         android:label="fragment_recapilatif_paiement"
         tools:layout="@layout/fragment_recapilatif_paiement" >
         <action
             android:id="@+id/action_recapilatifPaiementFragment_to_selectionRechargeFragment2"
             app:destination="@id/selectionRechargeFragment2" />
+        <action
+            android:id="@+id/action_recapilatifPaiementFragment_to_otpValidationFragment"
+            app:destination="@id/otpValidationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpValidationFragment"
+        android:name="com.example.testoo.UI.Payment.RECHARGEMOBILE.OtpValidationFragment"
+        android:label="fragment_otp_validation"
+        tools:layout="@layout/fragment_otp_validation" >
+        <action
+            android:id="@+id/action_otpValidationFragment_to_recapilatifPaiementFragment"
+            app:destination="@id/recapilatifPaiementFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/referenceFactureFragment"
+        android:name="com.example.testoo.UI.Payment.Factures.ReferenceFactureFragment"
+        android:label="fragment_reference_facture"
+        tools:layout="@layout/fragment_reference_facture" >
+        <action
+            android:id="@+id/action_referenceFactureFragment_to_paiementFragment"
+            app:destination="@id/paiementFragment" />
+        <action
+            android:id="@+id/action_referenceFactureFragment_to_listFacturesFragment"
+            app:destination="@id/listFacturesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFacturesFragment"
+        android:name="com.example.testoo.UI.Payment.Factures.ListFacturesFragment"
+        android:label="fragment_list_factures"
+        tools:layout="@layout/fragment_list_factures" >
+        <action
+            android:id="@+id/action_listFacturesFragment_to_referenceFactureFragment"
+            app:destination="@id/referenceFactureFragment" />
     </fragment>
 </navigation>
