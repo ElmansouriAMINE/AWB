@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.Domain.models.Compte
@@ -90,6 +91,10 @@ class SelectionRechargeFragment2 : Fragment() , CompteListAdapterForPaiement.OnC
             }
         }
 
+        binding.buttonContinue.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_selectionRechargeFragment2_to_recapilatifPaiementFragment)
+        }
+
 
 
 
@@ -105,6 +110,10 @@ class SelectionRechargeFragment2 : Fragment() , CompteListAdapterForPaiement.OnC
 
     override fun onCompteClicked(compte: Compte) {
         println("this is the compte: $compte")
+
+        paiementViewModel.apply {
+            setCompteBancaire(compte)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

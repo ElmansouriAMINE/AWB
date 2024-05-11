@@ -215,10 +215,11 @@ class ValidationFragment : Fragment() {
                                                                                         dateHeure=currentDateTime
                                                                                     )
 //                                                                                receiverName =beneficiaire,
-                                                                                virementViewModel.createTransaction(currTransaction)
+//                                                                                virementViewModel.createTransaction(currTransaction)
                                                                                 try {
                                                                                     montant?.toInt()
                                                                                         ?.let { it1 ->
+                                                                                            virementViewModel.createTransaction(currTransaction)
                                                                                             virementViewModel.updateCompteSoldeForUserId(currentUser.uid,
                                                                                                 (solde-it1).toInt()
                                                                                             )
@@ -245,28 +246,12 @@ class ValidationFragment : Fragment() {
                                                                                     }, delayDuration)
 
                                                                                     Navigation.findNavController(binding.root).navigate(R.id.action_validationFragment_to_locationFragment)
-//                                                                                    val successDialog = SuccessDialogFragment()
-//                                                                                    successDialog.show(activity?.supportFragmentManager!!, "SuccessDialog")
-//                                                                                    handler.postDelayed({
-//                                                                                        successDialog.dismiss()
-//                                                                                    }, delayDuration)
-//                                                                                    val dialog = Dialog(requireActivity())
-//                                                                                    dialog.setContentView(R.layout.success_popup)
-//                                                                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                                                                                        dialog.window?.setBackgroundDrawableResource(R.drawable.success_dialogue_background)
-//                                                                                    }
-//                                                                                    dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//                                                                                    dialog.setCancelable(false) // Optional
-//                                                                                    dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
-//                                                                                    dialog.show()
+//
 
                                                                                 } catch (e: Exception) {
                                                                                     println("Error updating solde: ${e.message}")
                                                                                 }
-//                                                                                compte.solde = compte.solde?.minus(
-//                                                                                    montantTransaction
-//                                                                                )  // Subtract the montant from solde
-//                                                                                viewModel.updateCompte(compte)
+//
                                                                             }
                                                                     }
                                                                 })
@@ -281,8 +266,7 @@ class ValidationFragment : Fragment() {
                                                         }
 
                                                     }
-//                                binding.editTextName.setText(user?.userName)
-//                                binding.textPhone.setText(if (user?.phoneNumber.isNullOrEmpty())  user?.phoneNumber else phoneNumber)
+//
 
                                                 }
                                             }
@@ -291,14 +275,7 @@ class ValidationFragment : Fragment() {
                                                 println("$error")
                                             }
                                         })
-//                                            currentUser?.let {
-//                                                val currTransaction = Transaction("","","","","")
-//                                                virementViewModel.createTransaction(currTransaction)
-//                                            }
-
-//                                        val comptes = withContext(Dispatchers.IO){
-//                                            currentUser?.let { virementViewModel.getComptesForUserId(userId = it.uid) }
-//                                        }
+//
                                     }
                                 }
 
@@ -309,22 +286,6 @@ class ValidationFragment : Fragment() {
                         }
                     }
 
-//                        binding.buttonValider.setOnClickListener{
-//                            val solde = compte?.solde.toString().toIntOrNull() ?: 0
-//                            val montantTransaction = virementViewModel.montant.value.toString().toIntOrNull() ?: 0
-//
-//
-//                            if (compte != null) {
-//                                println("this is the compte for otp : $compte")
-//                                if(otp == otpCodeGenereted){
-////                                    && solde > 0 && montantTransaction <= solde
-//                                  println("otp is correct and $montantTransaction <= $solde ")
-//
-//                                }else{
-//                                  println("incorrect otp")
-//                                }
-//                            }
-//                        }
                 } else {
                     ActivityCompat.requestPermissions(
                         requireActivity(),

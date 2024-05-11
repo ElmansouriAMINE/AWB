@@ -164,6 +164,9 @@
         <action
             android:id="@+id/action_selectionRechargeFragment2_to_selectionRechargeFragment"
             app:destination="@id/selectionRechargeFragment" />
+        <action
+            android:id="@+id/action_selectionRechargeFragment2_to_recapilatifPaiementFragment"
+            app:destination="@id/recapilatifPaiementFragment" />
     </fragment>
     <fragment
         android:id="@+id/fingerPrintFragment"
@@ -206,5 +209,14 @@
         <action
             android:id="@+id/action_profileFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recapilatifPaiementFragment"
+        android:name="com.example.testoo.UI.Payment.IAM.RecapilatifPaiementFragment"
+        android:label="fragment_recapilatif_paiement"
+        tools:layout="@layout/fragment_recapilatif_paiement" >
+        <action
+            android:id="@+id/action_recapilatifPaiementFragment_to_selectionRechargeFragment2"
+            app:destination="@id/selectionRechargeFragment2" />
     </fragment>
 </navigation>

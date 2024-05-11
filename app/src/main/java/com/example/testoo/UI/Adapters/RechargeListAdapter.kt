@@ -54,18 +54,37 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
 //            holder.isRechargeSelected.visibility=View.VISIBLE
 //
 //        }
+//        holder.apply {
+//            isRechargeSelected.visibility = if (position == lastClickedPosition) {
+//                View.VISIBLE
+//                holder.rechargeLayout.setBackgroundResource(R.drawable.recharge_selected_banner)
+//
+//            } else {
+//                View.GONE
+//            }
+//            isColorSelected.visibility = if (position == lastClickedPosition) {
+//                View.VISIBLE
+//            } else {
+//                View.GONE
+//            }
+//        }
+
         holder.apply {
-            isRechargeSelected.visibility = if (position == lastClickedPosition) {
-                View.VISIBLE
+            if (position == lastClickedPosition) {
+                isRechargeSelected.visibility = View.VISIBLE
+                rechargeLayout.setBackgroundResource(R.drawable.recharge_selected_banner)
             } else {
-                View.GONE
+                isRechargeSelected.visibility = View.GONE
+                rechargeLayout.setBackgroundResource(R.drawable.transaction_banner)
             }
-            isColorSelected.visibility = if (position == lastClickedPosition) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+
+//            isColorSelected.visibility = if (position == lastClickedPosition) {
+//                View.VISIBLE
+//            } else {
+//                View.GONE
+//            }
         }
+
 
         holder.itemView.setOnClickListener {
             if (lastClickedPosition != -1) {
@@ -90,7 +109,9 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
 
         var isRechargeSelected : ImageView
 
-        var isColorSelected : ConstraintLayout
+//        var isColorSelected : ConstraintLayout
+
+        var rechargeLayout: ConstraintLayout
 
 
 
@@ -100,7 +121,9 @@ class RechargeListAdapter(items: ArrayList<Recharge>):
             textRechargeMontant = itemView.findViewById(R.id.textMontantRecharge)
 
             isRechargeSelected = itemView.findViewById(R.id.isRechargeSelected)
-            isColorSelected = itemView.findViewById(R.id.isColorSelected)
+//            isColorSelected = itemView.findViewById(R.id.isColorSelected)
+
+            rechargeLayout = itemView.findViewById(R.id.rechargeLayout)
         }
 
     }

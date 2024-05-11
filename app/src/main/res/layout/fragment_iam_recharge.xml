@@ -52,7 +52,7 @@
         android:id="@+id/numeroLayout"
         style="@style/LoginTextInputOuterFieldStyle"
         android:layout_width="290dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="54dp"
         app:boxStrokeColor="@color/yellow"
@@ -64,7 +64,7 @@
             android:id="@+id/numeroEt"
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="Numero de telephone"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -125,11 +125,9 @@
 
     <TextView
         android:id="@+id/textView32"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="IAM RECHARGE: TELEPHONIE ET INTERNET"
         android:textColor="@color/black"

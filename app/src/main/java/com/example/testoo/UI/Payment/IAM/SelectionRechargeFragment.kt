@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +18,7 @@ import com.example.testoo.R
 import com.example.testoo.UI.Adapters.OptionsAdapter
 import com.example.testoo.UI.Adapters.RechargeListAdapter
 import com.example.testoo.Utils.BottomNavBarHandler
+import com.example.testoo.ViewModels.PaiementViewModel
 import com.example.testoo.databinding.FragmentSelectionRechargeBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,7 +27,7 @@ import kotlinx.coroutines.launch
 class SelectionRechargeFragment : Fragment() , RechargeListAdapter.OnRechargeClickListener {
 
     private lateinit var binding : FragmentSelectionRechargeBinding
-
+    private val paiementViewModel by activityViewModels<PaiementViewModel>()
     private var rechargeRecyclerView : RecyclerView? =null
     private var rechargeRecyclerViewAdapter : RecyclerView.Adapter<*>? = null
 
@@ -34,7 +38,10 @@ class SelectionRechargeFragment : Fragment() , RechargeListAdapter.OnRechargeCli
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentSelectionRechargeBinding.inflate(layoutInflater)
-        initRechargeRecyclerView("10,00")
+        paiementViewModel.montant.observe(viewLifecycleOwner, Observer { data ->
+            initRechargeRecyclerView(data)
+        })
+//        initRechargeRecyclerView("10,00")
 
         val circularProgressBar = binding.
         circularProgressBar.apply {
@@ -85,6 +92,12 @@ class SelectionRechargeFragment : Fragment() , RechargeListAdapter.OnRechargeCli
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
+        paiementViewModel.montant.observe(viewLifecycleOwner, Observer { data ->
+            Toast.makeText(requireContext(),data, Toast.LENGTH_LONG).show()
+        })
+        paiementViewModel.numero.observe(viewLifecycleOwner, Observer { data ->
+            Toast.makeText(requireContext(),data, Toast.LENGTH_LONG).show()
+        })
 
     }
 

@@ -9,17 +9,23 @@ import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.example.testoo.R
 import com.example.testoo.Utils.BottomNavBarHandler
+import com.example.testoo.ViewModels.PaiementViewModel
 import com.example.testoo.databinding.FragmentIamRechargeBinding
 
 
 class IamRechargeFragment : Fragment() {
 
     private lateinit var binding:FragmentIamRechargeBinding
+
+    private val paiementViewModel by activityViewModels<PaiementViewModel>()
 
     private val maxLength = 9
 
@@ -53,6 +59,10 @@ class IamRechargeFragment : Fragment() {
 //                ?.replace(R.id.fragment_container, SelectionRechargeFragment())
 //                ?.addToBackStack(null)
 //                ?.commit()
+            paiementViewModel.apply {
+                setNumero("+212${binding.numeroEt.text.toString()}")
+                setMontant("${binding.montantET.text.toString()},00")
+            }
             Navigation.findNavController(binding.root).navigate(R.id.action_iamRechargeFragment_to_selectionRechargeFragment)
 
         }
@@ -74,6 +84,9 @@ class IamRechargeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
+        paiementViewModel.operatorTelecom.observe(viewLifecycleOwner, Observer { data ->
+            Toast.makeText(requireContext(),data, Toast.LENGTH_LONG).show()
+        })
     }
 
 

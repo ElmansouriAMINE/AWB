@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.testoo.Domain.models.Compte
+import com.example.testoo.Domain.models.Recharge
 import com.example.testoo.Domain.models.Transaction
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
@@ -15,6 +16,21 @@ class PaiementViewModel : ViewModel() {
     private val database = FirebaseDatabase.getInstance()
     private val _data = MutableLiveData<String>()
     val data: LiveData<String> get() = _data
+
+    private val _montant =MutableLiveData<String>()
+    val montant: LiveData<String> get() = _montant
+
+    private val _numero =MutableLiveData<String>()
+    val numero: LiveData<String> get() = _numero
+
+    private val _recharge = MutableLiveData<Recharge>()
+    val recharge: LiveData<Recharge> get() = _recharge
+
+    private val _compteBancaire = MutableLiveData<Compte>()
+    val compteBancaire : LiveData<Compte> get() = _compteBancaire
+
+    private val _operatorTelecom = MutableLiveData<String>()
+    val operatorTelecom : LiveData<String> get() = _operatorTelecom
 
 
 
@@ -74,6 +90,25 @@ class PaiementViewModel : ViewModel() {
 
     fun setData(data:String){
         _data.value= data
+    }
+
+    fun setMontant(data:String){
+        _montant.value= data
+    }
+
+    fun setNumero(data:String){
+        _numero.value = data
+    }
+
+    fun setRecharge(data: Recharge){
+        _recharge.value = data
+    }
+    fun setCompteBancaire(data: Compte){
+        _compteBancaire.value= data
+    }
+
+    fun setOperatorTelecom(data: String){
+        _operatorTelecom.value = data
     }
 
 
