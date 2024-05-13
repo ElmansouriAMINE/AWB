@@ -8,6 +8,9 @@
         android:id="@+id/toSignInFragment"
         app:destination="@id/signInFragment" />
     <action
+        android:id="@+id/toPaiementFragment"
+        app:destination="@+id/paiementFragment" />
+    <action
         android:id="@+id/toLocationFragment"
         app:destination="@id/locationFragment" />
 

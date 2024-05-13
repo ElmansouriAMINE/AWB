@@ -136,12 +136,8 @@ class LocationFragment : Fragment() {
         }
 
         binding.paiement.setOnClickListener {
-//            activity?.supportFragmentManager?.beginTransaction()
-//                ?.replace(R.id.fragment_container, PaiementFragment())
-//                ?.addToBackStack(null)
-//                ?.commit()
 
-            Navigation.findNavController(binding.root).navigate(R.id.action_locationFragment_to_paiementFragment)
+            Navigation.findNavController(binding.root).navigate(R.id.toPaiementFragment)
         }
 
 
@@ -149,9 +145,9 @@ class LocationFragment : Fragment() {
 
     private fun initRecyclerView() {
         val items: ArrayList<Transaction> = ArrayList<Transaction>()
-        items.add(Transaction("orange",  "Ali","Ali","Ali" ,"2000","22-06-2022 16:30"))
-        items.add(Transaction("attijariwafa",  "Amine","Amine", "Amine","30","24-06-2022 16:30"))
-        items.add(Transaction("attijariwafa", "ziad", "ziad","ziad", "560","25-06-2022 16:30"))
+        items.add(Transaction("orange",  "Ali","","","Ali","Ali" ,"2000","22-06-2022 16:30"))
+        items.add(Transaction("attijariwafa",  "Amine","","","Amine", "Amine","30","24-06-2022 16:30"))
+        items.add(Transaction("attijariwafa", "ziad", "","","ziad","ziad", "560","25-06-2022 16:30"))
 
         adapterTransaction = TransationListAdapter(items)
         recyclerViewTransaction = binding.view1

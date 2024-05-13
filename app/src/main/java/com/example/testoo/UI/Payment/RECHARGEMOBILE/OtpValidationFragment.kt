@@ -192,7 +192,7 @@ class OtpValidationFragment : Fragment() {
 //                                                                                receiverName =beneficiaire,
 //                                                                                paiementViewModel.createTransaction(currTransaction)
                                                                                 try {
-                                                                                    montant?.toInt()
+                                                                                    montantTransaction?.toInt()
                                                                                         ?.let { it1 ->
                                                                                             paiementViewModel.createTransaction(currTransaction)
                                                                                             paiementViewModel.updateCompteSoldeForUserId(currentUser.uid,
