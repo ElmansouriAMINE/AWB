@@ -8,10 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
+import com.example.testoo.Domain.models.*
 import com.example.testoo.databinding.FragmentSignUpBinding
-import com.example.testoo.Domain.models.Carte
-import com.example.testoo.Domain.models.Compte
-import com.example.testoo.Domain.models.User
 import com.example.testoo.R
 import com.example.testoo.Utils.BottomNavBarHandler
 import com.google.firebase.auth.FirebaseAuth
@@ -59,6 +58,7 @@ class SignUpFragment : Fragment() {
 //                                  database = FirebaseDatabase.getInstance("https://awb-test-2eaa2-default-rtdb.firebaseio.com/").getReference("users")
                                   val usersCollection = FirebaseDatabase.getInstance().getReference("users")
                                   val comptesCollection = FirebaseDatabase.getInstance().getReference("comptes")
+//                                  val contratCollection = FirebaseDatabase.getInstance().getReference("contrats")
                                   val cartesCollection = FirebaseDatabase.getInstance().getReference("cartes")
                                   val compteInitial = Compte(userId=userId,numero = "C14452627778828", solde = 20000.0, dateOuverture = "14/04/2024")
                                   val carteInitial = Carte(
@@ -67,8 +67,65 @@ class SignUpFragment : Fragment() {
                                       codeSecret = "123",
                                       dateExpiration = "12/24"
                                   )
+//                                  val contratInitial = Contrat(reference = "1234A",userId=userId, domaine = "IAM Factures: Mobile", factures = null)
+//                                  val contratInitial2 = Contrat(reference = "1234B",userId=userId, domaine = "IAM Factures: INTERNET", factures = null)
+//                                  val contratInitial3 = Contrat(reference = "1234C",userId=userId, domaine = "Orange Factures: Mobile", factures = null)
+//                                  val contratInitial4 = Contrat(reference = "1234D",userId=userId, domaine = "Orange Factures: INTERNET", factures = null)
+//                                  val contratInitial5 = Contrat(reference = "1234E",userId=userId, domaine = "Inwi Factures: Mobile", factures = null)
+//                                  val contratInitial6 = Contrat(reference = "1234F",userId=userId, domaine = "Inwi Factures: INTERNET", factures = null)
+//                                  val contratInitial7 = Contrat(reference = "1234G",userId=userId, domaine = "Paiement de vignette", factures = null)
+//                                  val contratInitial8 = Contrat(reference = "1234H",userId=userId, domaine = "Paiement de factures", factures = null)
+//                                  val contratInitial9 = Contrat(reference = "1234I",userId=userId, domaine = "Paiement de factures", factures = null)
+//                                  val contratInitial10 = Contrat(reference = "1234G",userId=userId, domaine = "Paiement de factures", factures = null)
+//                                  val factures : ArrayList<Facture> = ArrayList<Facture>()
+//                                  factures.add(Facture("facture 1","1000",false,userId,contratInitial.reference))
+//                                  factures.add(Facture("facture 2","2000",false,userId,contratInitial.reference))
+//                                  factures.add(Facture("facture 3","3000",false,userId,contratInitial.reference))
+//                                  factures.add(Facture("facture 4","1000",false,userId,contratInitial.reference))
+//                                  factures.add(Facture("facture 5","1000",false,userId,contratInitial.reference))
+//                                  factures.add(Facture("facture 6","1000",false,userId,contratInitial.reference))
+//                                  factures.add(Facture("facture 7","1000",false,userId,contratInitial.reference))
+//                                  factures.add(Facture("facture 8","1000",false,userId,contratInitial.reference))
+                                  val contratInitial = Contrat(reference = "1234A",userId=userId, domaine = "IAM Factures: Mobile", factures = null)
+                                  val contratInitial2 = Contrat(reference = "1234B",userId=userId, domaine = "IAM Factures: INTERNET", factures = null)
+                                  val contratInitial3 = Contrat(reference = "1234C",userId=userId, domaine = "Orange Factures: Mobile", factures = null)
+                                  val contratInitial4 = Contrat(reference = "1234D",userId=userId, domaine = "Orange Factures: INTERNET", factures = null)
+                                  val contratInitial5 = Contrat(reference = "1234E",userId=userId, domaine = "Inwi Factures: Mobile", factures = null)
+                                  val contratInitial6 = Contrat(reference = "1234F",userId=userId, domaine = "Inwi Factures: INTERNET", factures = null)
+                                  val contratInitial7 = Contrat(reference = "1234G",userId=userId, domaine = "Paiement de vignette", factures = null)
+                                  val contratInitial8 = Contrat(reference = "1234H",userId=userId, domaine = "Paiement de factures", factures = null)
+                                  val contratInitial9 = Contrat(reference = "1234I",userId=userId, domaine = "Paiement de factures", factures = null)
+                                  val contratInitial10 = Contrat(reference = "1234G",userId=userId, domaine = "Paiement de factures", factures = null)
+
+                                  val contrats = listOf(
+                                      contratInitial, contratInitial2, contratInitial3, contratInitial4,
+                                      contratInitial5, contratInitial6, contratInitial7, contratInitial8,
+                                      contratInitial9, contratInitial10
+                                  )
+
+                                  contrats.forEach { contrat ->
+                                      val factures: ArrayList<Facture> = ArrayList<Facture>()
+                                      factures.add(Facture("facture 1", "1000", false, userId, contrat.reference))
+                                      factures.add(Facture("facture 2", "2000", false, userId, contrat.reference))
+                                      factures.add(Facture("facture 3", "3000", false, userId, contrat.reference))
+                                      factures.add(Facture("facture 4", "1000", false, userId, contrat.reference))
+                                      factures.add(Facture("facture 5", "1000", false, userId, contrat.reference))
+                                      factures.add(Facture("facture 6", "1000", false, userId, contrat.reference))
+                                      factures.add(Facture("facture 7", "1000", false, userId, contrat.reference))
+                                      factures.add(Facture("facture 8", "1000", false, userId, contrat.reference))
+
+                                      val facturesCollection = FirebaseDatabase.getInstance().getReference("factures")
+                                      factures.forEach { facture ->
+                                          facturesCollection.push().setValue(facture)
+                                      }
+                                  }
+
+
+                                  val contratsCollection = FirebaseDatabase.getInstance().getReference("contrats")
+                                  val contratKey = contratsCollection.push().key
                                   val comptekey = comptesCollection.push().key
                                   val cartekey = cartesCollection.push().key
+                                  val contratkey = contratsCollection.push().key
                                   usersCollection.child(userId).setValue(user).addOnCompleteListener { userTask ->
                                       if (userTask.isSuccessful) {
                                           comptekey?.let{
@@ -78,6 +135,16 @@ class SignUpFragment : Fragment() {
                                           cartekey?.let {
                                               cartesCollection.child(it).setValue(carteInitial)
                                           }
+                                          contratkey?.let {
+                                              contratsCollection.child(it).setValue(contratInitial)
+                                          }
+
+                                          for (i in contrats) {
+                                              val contratKey = contratsCollection.push().key
+                                              contratKey?.let {
+                                                  contratsCollection.child(it).setValue(i)
+                                              }
+                                          }
 
                                           // Save user information in SharedPreferences
                                           val editor = sharedPreferences.edit()
@@ -85,20 +152,8 @@ class SignUpFragment : Fragment() {
                                           editor.apply()
 
                                           // Navigate to FingerPrintFragment
-                                          val fingerprintFragment = FingerPrintFragment()
-                                          parentFragmentManager.beginTransaction()
-                                              .replace(
-                                                  R.id.fragment_container,
-                                                  fingerprintFragment
-                                              )
-                                              .addToBackStack(null)
-                                              .commit()
-
-//                                          val signInFragment = SignInFragment()
-//                                          parentFragmentManager.beginTransaction()
-//                                              .replace(R.id.fragment_container, signInFragment)
-//                                              .addToBackStack(null)
-//                                              .commit()
+//
+                                          Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_fingerPrintFragment)
                                       } else {
                                           Toast.makeText(requireContext(), userTask.exception.toString(), Toast.LENGTH_SHORT).show()
                                       }

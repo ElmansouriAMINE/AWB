@@ -74,6 +74,13 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
         }
     }
 
+    fun domaineChoisi(domaine:  String){
+        paiementViewModel.apply {
+            setDomaine(domaine)
+        }
+
+    }
+
 
     override fun onOptionClicked(option: String) {
         when (option) {
@@ -91,11 +98,13 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
             }
             "IAM Factures: Mobile" -> {
                 operatorTelecomChoisie("IAM")
+                domaineChoisi("IAM Factures: Mobile")
                 println("Performing action for IAM Factures: Mobile")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "IAM Factures: INTERNET" -> {
                 operatorTelecomChoisie("IAM")
+                domaineChoisi("IAM Factures: INTERNET")
                 println("Performing action for IAM Factures: INTERNET")
             }
             "Orange Recharges" -> {
@@ -106,10 +115,12 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
             }
             "Orange Factures: Mobile" -> {
                 operatorTelecomChoisie("Orange")
+                domaineChoisi("Orange Factures: Mobile")
                 println("Performing action for Orange Factures: Mobile")
             }
             "Orange Factures: INTERNET" -> {
                 operatorTelecomChoisie("Orange")
+                domaineChoisi("Orange Factures: INTERNET")
                 println("Performing action for Orange Factures: INTERNET")
             }
             "Inwi Recharges" -> {
@@ -120,11 +131,22 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
             }
             "Inwi Factures: Mobile" -> {
                 operatorTelecomChoisie("Inwi")
+                domaineChoisi("Inwi Factures: Mobile")
                 println("Performing action for Inwi Factures: Mobile")
             }
             "Inwi Factures: INTERNET" -> {
                 operatorTelecomChoisie("Inwi")
+                domaineChoisi("Inwi Factures: INTERNET")
                 println("Performing action for Inwi Factures: INTERNET")
+            }
+            "Paiement de vignette" ->{
+                domaineChoisi("Paiement de vignette")
+            }
+            "Paiement de factures" ->{
+                domaineChoisi("Paiement de factures")
+            }
+            "Paiement de vignette" ->{
+                domaineChoisi("Paiement de vignette")
             }
             else -> {
                 // Handle other cases
@@ -169,6 +191,10 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
             "IAM" -> listOf("IAM Recharges", "IAM Factures: Mobile", "IAM Factures: INTERNET")
             "Orange" -> listOf("Orange Recharges", "Orange Factures: Mobile", "Orange Factures: INTERNET")
             "Inwi" -> listOf("Inwi Recharges", "Inwi Factures: Mobile", "Inwi Factures: INTERNET")
+            "vignette" -> listOf("Vignette Factures")
+            "REDAL" -> listOf("Redal Factures")
+            "RAMSA" -> listOf("Ramsa Factures")
+            "Amendis Tanger" -> listOf("Amendis Factures")
             else -> emptyList()
         }
 

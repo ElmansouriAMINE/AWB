@@ -1,8 +1,10 @@
 package com.example.testoo.UI
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.testoo.databinding.FragmentProfileBinding
 import com.example.testoo.Domain.models.User
@@ -29,6 +32,8 @@ import java.io.ByteArrayOutputStream
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
+
+    private val REQUEST_CAMERA_PERMISSION = 101
 
     private val DEFAULT_IMAGE_URL = "https://picsum.photos/200"
 
@@ -188,19 +193,53 @@ class ProfileFragment : Fragment() {
         }
     }
 
+//    private fun takePictureIntent() {
+//        println("Testiiiing.....")
+//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { pictureIntent ->
+//            println("Pic.....")
+//            pictureIntent.resolveActivity(activity?.packageManager!!)?.also {
+//                println("Pic99.....")
+//                startActivityForResult(pictureIntent, REQUEST_IMAGE_CAPTURE)
+//                println("Pic100.....")
+//            }
+//        }
+//    }
+
     private fun takePictureIntent() {
-        println("Testiiiing.....")
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request it
+            requestPermissions(arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_PERMISSION)
+            return
+        }
+
+        // Permission is granted, proceed with the camera intent
+        startCameraIntent()
+    }
+
+    private fun startCameraIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { pictureIntent ->
-            println("Pic.....")
-            pictureIntent.resolveActivity(activity?.packageManager!!)?.also {
-                println("Pic99.....")
+            pictureIntent.resolveActivity(requireActivity().packageManager)?.also {
                 startActivityForResult(pictureIntent, REQUEST_IMAGE_CAPTURE)
-                println("Pic100.....")
             }
         }
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Camera permission granted, start the camera intent
+                startCameraIntent()
+            } else {
+                // Camera permission denied
+                Toast.makeText(requireContext(), "Camera permission required", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
 //        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 //            println("Pic ok ok .....")

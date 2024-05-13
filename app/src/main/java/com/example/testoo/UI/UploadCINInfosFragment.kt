@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.example.testoo.R
 import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.databinding.FragmentUploadCINInfosBinding
@@ -42,11 +43,7 @@ class UploadCINInfosFragment : Fragment() {
 
         binding = FragmentUploadCINInfosBinding.inflate(inflater, container, false)
         binding.buttonContinue.setOnClickListener{
-            val signInFragment = SignInFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, signInFragment)
-                .addToBackStack(null)
-                .commit()
+            Navigation.findNavController(binding.root).navigate(R.id.action_uploadCINInfosFragment_to_signInFragment)
         }
 
         setupCameraCapture()

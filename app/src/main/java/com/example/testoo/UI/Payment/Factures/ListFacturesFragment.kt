@@ -6,19 +6,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testoo.Domain.models.Compte
 import com.example.testoo.Domain.models.Facture
+import com.example.testoo.Domain.models.User
 import com.example.testoo.R
 import com.example.testoo.UI.Adapters.FactureListAdapter
 import com.example.testoo.UI.Adapters.QuantityListener
 import com.example.testoo.UI.Adapters.RechargeListAdapter
+import com.example.testoo.ViewModels.UserViewModel
 import com.example.testoo.databinding.FragmentListFacturesBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
-
+@AndroidEntryPoint
 class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListener{
 
     private val factures: ArrayList<Facture> = ArrayList<Facture>()
+    private val currentUser = FirebaseAuth.getInstance().currentUser
+
+    private val userViewModel: UserViewModel by viewModels()
 
     private lateinit var binding: FragmentListFacturesBinding
     private var factureRecyclerView : RecyclerView? =null
@@ -32,20 +50,74 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
 
         binding = FragmentListFacturesBinding.inflate(layoutInflater)
 
+
+
         return binding.root
 
     }
 
-    private fun initFactureRecyclerView(){
+    private fun initFactureRecyclerView(factures: ArrayList<Facture>) {
+        factureRecyclerViewAdapter = FactureListAdapter(factures)
+        (factureRecyclerViewAdapter as FactureListAdapter).setOnFactureeClickListener(this@ListFacturesFragment)
+
+        factureRecyclerView = binding.recyclerView
+
+        factureRecyclerView?.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        factureRecyclerView?.adapter = factureRecyclerViewAdapter
+
+        binding.checkBoxToutSelectionner.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(true)
+                (factureRecyclerViewAdapter as FactureListAdapter)?.isAllItemsSelected = true
+                var somme: Double = 0.00
+                if (factures.isNotEmpty()) {
+                    for (i in factures) {
+                        i.montant?.let {
+                            somme += it.toDouble()
+                        }
+                    }
+                }
+                somme += 5.50
+                val formattedSomme = String.format("%.2f", somme)
+                binding.textSommeFactures.text = "$formattedSomme"
+                Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT).show()
+            } else if (!isChecked) {
+                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(false)
+                (factureRecyclerViewAdapter as FactureListAdapter)?.isAllItemsSelected = false
+                binding.textSommeFactures.text = "0"
+            }
+        }
+    }
+
+
+
+
+    private fun initFFactureRecyclerView(){
         val factures : ArrayList<Facture> = ArrayList<Facture>()
-        factures.add(Facture("facture 1","1000"))
-        factures.add(Facture("facture 2","2000"))
-        factures.add(Facture("facture 3","3000"))
-        factures.add(Facture("facture 4","1000"))
-        factures.add(Facture("facture 5","1000"))
-        factures.add(Facture("facture 6","1000"))
-        factures.add(Facture("facture 7","1000"))
-        factures.add(Facture("facture 8","1000"))
+        factures.add(Facture("facture 1","1000",false))
+        factures.add(Facture("facture 2","2000",false))
+        factures.add(Facture("facture 3","3000",false))
+        factures.add(Facture("facture 4","1000",false))
+        factures.add(Facture("facture 5","1000",false))
+        factures.add(Facture("facture 6","1000",false))
+        factures.add(Facture("facture 7","1000",false))
+        factures.add(Facture("facture 8","1000",false))
+
+//        currentUser?.let {
+//            user -> {
+//            viewLifecycleOwner.lifecycleScope.launch {
+//                val factures = withContext(Dispatchers.IO) {
+//                    userViewModel.getFactureNonPayeForUserId(userId =user.uid )
+////                userViewModel.getCompteForUserId(userId = user.uid)
+//                }
+//
+//            }
+//        }
+//        }
+
+
+
 
         factureRecyclerViewAdapter = FactureListAdapter(factures)
 //        (rechargeRecyclerViewAdapter as RechargeListAdapter).setOnRechargeClickListener(this@SelectionRechargeFragment)
@@ -121,7 +193,38 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initFactureRecyclerView()
+//        initFactureRecyclerView()
+
+        currentUser?.let { user ->
+            val current_user=FirebaseDatabase.getInstance().reference
+                .child("users")
+                .child(currentUser.uid)
+
+            current_user.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val user = snapshot.getValue(User::class.java)
+                        val userName = user?.userName
+                        binding.textCurrentUserName.setText(if (user?.userName.isNullOrEmpty()) "Nothing" else userName)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println(error.toString())
+                }
+            })
+        }
+
+
+        currentUser?.let { user ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                val factures = withContext(Dispatchers.IO) {
+                    userViewModel.getFactureNonPayeForUserId(userId = user.uid, idContrat = "1234A")
+                }
+                initFactureRecyclerView(factures as ArrayList<Facture>)
+            }
+        }
+
         if (binding.checkBoxToutSelectionner.isChecked) {
 //            itemsFactureChecked.addAll(factures)
 //            onFactureClicked(Facture("facture 1","1000"),factures)

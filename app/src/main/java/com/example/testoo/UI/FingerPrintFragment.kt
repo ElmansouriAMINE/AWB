@@ -14,6 +14,7 @@ import com.example.testoo.R
 import com.example.testoo.databinding.FragmentFingerPrintBinding
 import java.util.Date.from
 import androidx.biometric.BiometricPrompt;
+import androidx.navigation.Navigation
 
 
 class FingerPrintFragment : Fragment() {
@@ -26,11 +27,7 @@ class FingerPrintFragment : Fragment() {
     ): View? {
         binding = FragmentFingerPrintBinding.inflate(inflater, container, false)
         binding.button.setOnClickListener{
-            val uploadCINInfosFragment = UploadCINInfosFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, uploadCINInfosFragment)
-                .addToBackStack(null)
-                .commit()
+            Navigation.findNavController(binding.root).navigate(R.id.action_fingerPrintFragment_to_uploadCINInfosFragment)
         }
         binding.fingerPrint.setOnClickListener {
             val biometricManager = BiometricManager.from(requireContext())

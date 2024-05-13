@@ -32,6 +32,9 @@ class PaiementViewModel : ViewModel() {
     private val _operatorTelecom = MutableLiveData<String>()
     val operatorTelecom : LiveData<String> get() = _operatorTelecom
 
+    private val _domaine = MutableLiveData<String>()
+    val domaine : LiveData<String> get() = _domaine
+
 
 
 
@@ -109,6 +112,10 @@ class PaiementViewModel : ViewModel() {
 
     fun setOperatorTelecom(data: String){
         _operatorTelecom.value = data
+    }
+
+    fun setDomaine(data: String){
+        _domaine.value = data
     }
 
 
