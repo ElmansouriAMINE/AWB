@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.testoo.Domain.models.Compte
+import com.example.testoo.Domain.models.Facture
 import com.example.testoo.Domain.models.Recharge
 import com.example.testoo.Domain.models.Transaction
 import com.google.firebase.database.FirebaseDatabase
@@ -89,6 +90,24 @@ class PaiementViewModel : ViewModel() {
             println("Error updating compte solde: ${e.message}")
         }
     }
+
+    suspend fun updateFactureEtatForIdContrat(idContrat: String) {
+        val currentUserFactures = database.getReference("factures")
+        val query = currentUserFactures.orderByChild("idContrat").equalTo(idContrat)
+        try {
+            val dataSnapshot = query.get().await()
+            dataSnapshot.children.forEach { snapshot ->
+                val facture = snapshot.getValue(Facture::class.java)
+                facture?.let {
+                    it.etat = true
+                    snapshot.ref.setValue(it)
+                }
+            }
+        } catch (e: Exception) {
+            println("Error updating facture etat: ${e.message}")
+        }
+    }
+
 
     internal fun generateOTP(length: Int): String {
         return (0 until length)

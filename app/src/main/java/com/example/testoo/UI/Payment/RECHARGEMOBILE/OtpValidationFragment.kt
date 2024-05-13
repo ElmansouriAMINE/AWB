@@ -172,6 +172,7 @@ class OtpValidationFragment : Fragment() {
                                                         if (userName.isNotEmpty()) {
 
                                                             paiementViewModel.montant.observe(viewLifecycleOwner, Observer { montant ->
+                                                                paiementViewModel.reference.observe(viewLifecycleOwner, Observer { reference ->
                                                                 paiementViewModel.domaine.observe(viewLifecycleOwner, Observer { domaine ->
                                                                 paiementViewModel.operatorTelecom.observe(viewLifecycleOwner, Observer { operatorTelecom ->
                                                                     viewLifecycleOwner.lifecycleScope.launch {
@@ -198,22 +199,14 @@ class OtpValidationFragment : Fragment() {
                                                                                             paiementViewModel.updateCompteSoldeForUserId(currentUser.uid,
                                                                                                 (solde-it1).toInt()
                                                                                             )
+                                                                                            paiementViewModel.updateFactureEtatForIdContrat(reference)
 
 
-//                                                                                            println("BeneficiaireSolde: ${soldeCompteBeneficiare!!}")
 //
-//                                                                                            paiementViewModel.updateCompteSoldeForUserId(beneficiaireIdd!!,
-//                                                                                                (soldeCompteBeneficiare!!+it1).toInt()
-//                                                                                            )
-//                                                                                            println("Money added succefully to beneficiaire account")
                                                                                         }
 
                                                                                     println("Solde updated successfully")
 
-//                                                                                    activity?.supportFragmentManager?.beginTransaction()
-//                                                                                        ?.replace(R.id.fragment_container, LocationFragment())
-//                                                                                        ?.addToBackStack(null)
-//                                                                                        ?.commit()
                                                                                     val successDialog = SuccessDialogFragment()
                                                                                     successDialog.show(activity?.supportFragmentManager!!, "SuccessDialog")
                                                                                     handler.postDelayed({
@@ -231,7 +224,7 @@ class OtpValidationFragment : Fragment() {
                                                                     }
                                                                 })
                                                             })
-
+                                                                })
                                                             })
 
 
