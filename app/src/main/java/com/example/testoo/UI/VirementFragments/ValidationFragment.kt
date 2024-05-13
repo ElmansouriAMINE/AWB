@@ -209,6 +209,7 @@ class ValidationFragment : Fragment() {
                                                                                     Transaction(
                                                                                         "",
                                                                                         userId = currentUser.uid,
+                                                                                        type="Virement",
                                                                                         senderName= userName,
                                                                                         receiverName =beneficiaire,
                                                                                         montant=montant,

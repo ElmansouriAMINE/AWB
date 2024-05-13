@@ -172,6 +172,7 @@ class OtpValidationFragment : Fragment() {
                                                         if (userName.isNotEmpty()) {
 
                                                             paiementViewModel.montant.observe(viewLifecycleOwner, Observer { montant ->
+                                                                paiementViewModel.domaine.observe(viewLifecycleOwner, Observer { domaine ->
                                                                 paiementViewModel.operatorTelecom.observe(viewLifecycleOwner, Observer { operatorTelecom ->
                                                                     viewLifecycleOwner.lifecycleScope.launch {
                                                                         val transaction =
@@ -181,6 +182,8 @@ class OtpValidationFragment : Fragment() {
                                                                                     Transaction(
                                                                                         "",
                                                                                         userId = currentUser.uid,
+                                                                                        type="Paiement",
+                                                                                        domaine=domaine,
                                                                                         senderName= userName,
                                                                                         receiverName =operatorTelecom,
                                                                                         montant=montant,
@@ -227,6 +230,8 @@ class OtpValidationFragment : Fragment() {
                                                                             }
                                                                     }
                                                                 })
+                                                            })
+
                                                             })
 
 

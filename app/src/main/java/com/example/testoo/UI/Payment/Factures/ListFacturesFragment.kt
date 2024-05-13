@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.Domain.models.Compte
@@ -17,6 +20,7 @@ import com.example.testoo.R
 import com.example.testoo.UI.Adapters.FactureListAdapter
 import com.example.testoo.UI.Adapters.QuantityListener
 import com.example.testoo.UI.Adapters.RechargeListAdapter
+import com.example.testoo.ViewModels.PaiementViewModel
 import com.example.testoo.ViewModels.UserViewModel
 import com.example.testoo.databinding.FragmentListFacturesBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +39,7 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
 
     private val factures: ArrayList<Facture> = ArrayList<Facture>()
     private val currentUser = FirebaseAuth.getInstance().currentUser
+    private val paiementViewModel by activityViewModels<PaiementViewModel>()
 
     private val userViewModel: UserViewModel by viewModels()
 
@@ -49,6 +54,22 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
     ): View? {
 
         binding = FragmentListFacturesBinding.inflate(layoutInflater)
+
+        paiementViewModel.operatorTelecom.observe(viewLifecycleOwner, Observer{ operatorTelecom ->
+            Toast.makeText(requireContext(),operatorTelecom, Toast.LENGTH_LONG).show()
+        })
+        paiementViewModel.reference.observe(viewLifecycleOwner, Observer{ reference ->
+            binding.textReferenceContrat.setText("$reference")
+        })
+        paiementViewModel.domaine.observe(viewLifecycleOwner, Observer{ domaine ->
+            Toast.makeText(requireContext(),domaine,Toast.LENGTH_LONG).show()
+        })
+
+
+        binding.button.setOnClickListener {
+            paiementViewModel.setMontant(binding.textSommeFactures.text.toString())
+            Navigation.findNavController(binding.root).navigate(R.id.action_listFacturesFragment_to_selectionCompteBancaireFragment)
+        }
 
 
 
@@ -217,12 +238,19 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
 
 
         currentUser?.let { user ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                val factures = withContext(Dispatchers.IO) {
-                    userViewModel.getFactureNonPayeForUserId(userId = user.uid, idContrat = "1234A")
-                }
-                initFactureRecyclerView(factures as ArrayList<Facture>)
-            }
+            paiementViewModel.reference.observe(viewLifecycleOwner, Observer{ reference ->
+                paiementViewModel.domaine.observe(viewLifecycleOwner, Observer{ domaine ->
+
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        val factures = withContext(Dispatchers.IO) {
+                            userViewModel.getFactureNonPayeForUserId(userId = user.uid, idContrat = "$reference",domaine=domaine)
+                        }
+                        initFactureRecyclerView(factures as ArrayList<Facture>)
+                    }
+
+                })
+            })
+
         }
 
         if (binding.checkBoxToutSelectionner.isChecked) {

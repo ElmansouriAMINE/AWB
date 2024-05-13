@@ -35,6 +35,11 @@ class PaiementViewModel : ViewModel() {
     private val _domaine = MutableLiveData<String>()
     val domaine : LiveData<String> get() = _domaine
 
+    private val _reference = MutableLiveData<String>()
+    val reference : LiveData<String> get() = _reference
+
+
+
 
 
 
@@ -116,6 +121,10 @@ class PaiementViewModel : ViewModel() {
 
     fun setDomaine(data: String){
         _domaine.value = data
+    }
+
+    fun setReference(data: String){
+        _reference.value = data
     }
 
 

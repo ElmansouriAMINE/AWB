@@ -9,6 +9,6 @@ interface UserRepository {
 
     suspend fun getCompteForUserId(userId: String): Compte?
 
-    suspend fun getFactureNonPayeForUserId(userId: String,idContrat: String) : List<Facture>
+    suspend fun getFactureNonPayeForUserId(userId: String,idContrat: String,domaine: String) : ArrayList<Facture>
 
 }

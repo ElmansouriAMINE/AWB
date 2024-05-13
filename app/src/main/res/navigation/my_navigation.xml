@@ -233,6 +233,9 @@
         <action
             android:id="@+id/action_otpValidationFragment_to_recapilatifPaiementFragment"
             app:destination="@id/recapilatifPaiementFragment" />
+        <action
+            android:id="@+id/action_otpValidationFragment_to_selectionCompteBancaireFragment"
+            app:destination="@id/selectionCompteBancaireFragment" />
     </fragment>
     <fragment
         android:id="@+id/referenceFactureFragment"
@@ -254,5 +257,20 @@
         <action
             android:id="@+id/action_listFacturesFragment_to_referenceFactureFragment"
             app:destination="@id/referenceFactureFragment" />
+        <action
+            android:id="@+id/action_listFacturesFragment_to_selectionCompteBancaireFragment"
+            app:destination="@id/selectionCompteBancaireFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectionCompteBancaireFragment"
+        android:name="com.example.testoo.UI.Payment.Factures.SelectionCompteBancaireFragment"
+        android:label="fragment_selection_compte_bancaire"
+        tools:layout="@layout/fragment_selection_compte_bancaire" >
+        <action
+            android:id="@+id/action_selectionCompteBancaireFragment_to_listFacturesFragment"
+            app:destination="@id/listFacturesFragment" />
+        <action
+            android:id="@+id/action_selectionCompteBancaireFragment_to_otpValidationFragment"
+            app:destination="@id/otpValidationFragment" />
     </fragment>
 </navigation>

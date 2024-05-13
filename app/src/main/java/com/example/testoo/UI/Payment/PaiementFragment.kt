@@ -106,6 +106,7 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
                 operatorTelecomChoisie("IAM")
                 domaineChoisi("IAM Factures: INTERNET")
                 println("Performing action for IAM Factures: INTERNET")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Orange Recharges" -> {
                 operatorTelecomChoisie("Orange")
@@ -117,11 +118,13 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
                 operatorTelecomChoisie("Orange")
                 domaineChoisi("Orange Factures: Mobile")
                 println("Performing action for Orange Factures: Mobile")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Orange Factures: INTERNET" -> {
                 operatorTelecomChoisie("Orange")
                 domaineChoisi("Orange Factures: INTERNET")
                 println("Performing action for Orange Factures: INTERNET")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Inwi Recharges" -> {
                 operatorTelecomChoisie("Inwi")
@@ -133,20 +136,29 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
                 operatorTelecomChoisie("Inwi")
                 domaineChoisi("Inwi Factures: Mobile")
                 println("Performing action for Inwi Factures: Mobile")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Inwi Factures: INTERNET" -> {
                 operatorTelecomChoisie("Inwi")
                 domaineChoisi("Inwi Factures: INTERNET")
                 println("Performing action for Inwi Factures: INTERNET")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
-            "Paiement de vignette" ->{
-                domaineChoisi("Paiement de vignette")
+            "Vignette Factures" ->{
+                domaineChoisi("Vignette Factures")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
-            "Paiement de factures" ->{
-                domaineChoisi("Paiement de factures")
+            "Redal Factures" ->{
+                domaineChoisi("Redal Factures")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
-            "Paiement de vignette" ->{
-                domaineChoisi("Paiement de vignette")
+            "Ramsa Factures" ->{
+                domaineChoisi("Ramsa Factures")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
+            }
+            "Amendis Factures" ->{
+                domaineChoisi("Amendis Factures")
+                Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             else -> {
                 // Handle other cases
@@ -191,7 +203,7 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
             "IAM" -> listOf("IAM Recharges", "IAM Factures: Mobile", "IAM Factures: INTERNET")
             "Orange" -> listOf("Orange Recharges", "Orange Factures: Mobile", "Orange Factures: INTERNET")
             "Inwi" -> listOf("Inwi Recharges", "Inwi Factures: Mobile", "Inwi Factures: INTERNET")
-            "vignette" -> listOf("Vignette Factures")
+            "Vignette" -> listOf("Vignette Factures")
             "REDAL" -> listOf("Redal Factures")
             "RAMSA" -> listOf("Ramsa Factures")
             "Amendis Tanger" -> listOf("Amendis Factures")
@@ -213,7 +225,7 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
         items.add(PaiementParentItem("TELEPHONIE ET INTERNET", "telephonie", childItems1))
 
         val childItem2 = ArrayList<PaiementChildItem>()
-        childItem2.add(PaiementChildItem("Paiement de vignette", "vignette"))
+        childItem2.add(PaiementChildItem("Vignette", "vignette"))
         items.add(
             PaiementParentItem(
                 "ADMINISTRATION",

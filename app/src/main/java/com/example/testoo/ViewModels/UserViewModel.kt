@@ -49,8 +49,8 @@ class UserViewModel  @Inject constructor(
         return userRepository.getCompteForUserId(userId)
     }
 
-    suspend fun getFactureNonPayeForUserId(userId: String , idContrat: String): List<Facture> {
-        return userRepository.getFactureNonPayeForUserId(userId,idContrat)
+    suspend fun getFactureNonPayeForUserId(userId: String , idContrat: String , domaine :String): ArrayList<Facture> {
+        return userRepository.getFactureNonPayeForUserId(userId,idContrat,domaine)
     }
 
 }
