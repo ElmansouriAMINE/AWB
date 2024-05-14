@@ -27,6 +27,7 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
 //    private lateinit var parentRecyclerView: RecyclerView
 //    private lateinit var parentList : ArrayList<PaiementParentItem>
 
+
     private var adapterRecyclerView: RecyclerView.Adapter<*>? = null
     private var parentRecyclerView: RecyclerView? = null
 

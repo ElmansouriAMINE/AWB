@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class PaiementViewModel : ViewModel() {
 
@@ -38,6 +39,9 @@ class PaiementViewModel : ViewModel() {
 
     private val _reference = MutableLiveData<String>()
     val reference : LiveData<String> get() = _reference
+
+    private val _facturesClicked = MutableLiveData<ArrayList<Facture>>()
+    val facturesClicked : LiveData<ArrayList<Facture>> get() = _facturesClicked
 
 
 
@@ -91,7 +95,23 @@ class PaiementViewModel : ViewModel() {
         }
     }
 
-    suspend fun updateFactureEtatForIdContrat(idContrat: String) {
+//    suspend fun updateFactureEtatForIdContrat(idContrat: String) {
+//        val currentUserFactures = database.getReference("factures")
+//        val query = currentUserFactures.orderByChild("idContrat").equalTo(idContrat)
+//        try {
+//            val dataSnapshot = query.get().await()
+//            dataSnapshot.children.forEach { snapshot ->
+//                val facture = snapshot.getValue(Facture::class.java)
+//                facture?.let {
+//                    it.etat = true
+//                    snapshot.ref.setValue(it)
+//                }
+//            }
+//        } catch (e: Exception) {
+//            println("Error updating facture etat: ${e.message}")
+//        }
+//    }
+    suspend fun updateFactureEtatForIdContrat(idContrat: String, facturesToUpdate: List<Facture>) {
         val currentUserFactures = database.getReference("factures")
         val query = currentUserFactures.orderByChild("idContrat").equalTo(idContrat)
         try {
@@ -99,14 +119,17 @@ class PaiementViewModel : ViewModel() {
             dataSnapshot.children.forEach { snapshot ->
                 val facture = snapshot.getValue(Facture::class.java)
                 facture?.let {
-                    it.etat = true
-                    snapshot.ref.setValue(it)
+                    if (facturesToUpdate.contains(it)) {
+                        it.etat = true
+                        snapshot.ref.setValue(it)
+                    }
                 }
             }
         } catch (e: Exception) {
             println("Error updating facture etat: ${e.message}")
         }
     }
+
 
 
     internal fun generateOTP(length: Int): String {
@@ -144,6 +167,10 @@ class PaiementViewModel : ViewModel() {
 
     fun setReference(data: String){
         _reference.value = data
+    }
+
+    fun setFactureClicked(data: ArrayList<Facture>){
+        _facturesClicked.value = data
     }
 
 

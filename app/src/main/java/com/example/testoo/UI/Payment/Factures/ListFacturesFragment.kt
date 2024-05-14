@@ -41,6 +41,8 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val paiementViewModel by activityViewModels<PaiementViewModel>()
 
+    private val facturesClicked: ArrayList<Facture> = ArrayList<Facture>()
+
     private val userViewModel: UserViewModel by viewModels()
 
     private lateinit var binding: FragmentListFacturesBinding
@@ -102,6 +104,7 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
                 somme += 5.50
                 val formattedSomme = String.format("%.2f", somme)
                 binding.textSommeFactures.text = "$formattedSomme"
+                paiementViewModel.setFactureClicked(factures)
                 Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT).show()
             } else if (!isChecked) {
                 (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(false)
@@ -174,6 +177,8 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
                 somme += 5.50
                 val formattedSomme = String.format("%.2f", somme)
                 binding.textSommeFactures.text = "$formattedSomme"
+
+//                paiementViewModel.setFactureClicked(factures)
                 Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT).show()
             }
             else if (!isChecked){
@@ -291,6 +296,8 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
             somme += 5.50
             val formattedSomme = String.format("%.2f", somme)
             binding.textSommeFactures.setText("$formattedSomme")
+            facturesClicked.add(facture)
+            paiementViewModel.setFactureClicked(facturesClicked)
 //        Toast.makeText(requireContext(), "${facture.nomFacture}", Toast.LENGTH_SHORT).show()
             Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT)
                 .show()
