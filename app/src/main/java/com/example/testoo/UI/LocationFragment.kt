@@ -129,10 +129,7 @@ class LocationFragment : Fragment() {
         }
 
         binding.requestView.setOnClickListener {
-//            activity?.supportFragmentManager?.beginTransaction()
-//                ?.replace(R.id.fragment_container, UploadCINInfosFragment())
-//                ?.addToBackStack(null)
-//                ?.commit()
+           Navigation.findNavController(binding.root).navigate(R.id.toHistoriqueTransactionsFragment)
         }
 
         binding.paiement.setOnClickListener {

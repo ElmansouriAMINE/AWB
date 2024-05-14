@@ -8,6 +8,9 @@
         android:id="@+id/toSignInFragment"
         app:destination="@id/signInFragment" />
     <action
+        android:id="@+id/toHistoriqueTransactionsFragment"
+        app:destination="@+id/historiqueTransactionsFragment" />
+    <action
         android:id="@+id/toPaiementFragment"
         app:destination="@+id/paiementFragment" />
     <action
@@ -69,6 +72,9 @@
         <action
             android:id="@+id/action_locationFragment_to_virementFragment"
             app:destination="@id/virementFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_historiqueTransactionsFragment"
+            app:destination="@id/historiqueTransactionsFragment" />
 
     </fragment>
     <fragment
@@ -275,5 +281,14 @@
         <action
             android:id="@+id/action_selectionCompteBancaireFragment_to_otpValidationFragment"
             app:destination="@id/otpValidationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historiqueTransactionsFragment"
+        android:name="com.example.testoo.UI.HistoriqueTransactionsFragment"
+        android:label="fragment_historique_transactions"
+        tools:layout="@layout/fragment_historique_transactions" >
+        <action
+            android:id="@+id/action_historiqueTransactionsFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
     </fragment>
 </navigation>
