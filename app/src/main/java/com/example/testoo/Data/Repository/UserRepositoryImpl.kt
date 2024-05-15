@@ -4,6 +4,7 @@ import com.example.testoo.Domain.Repository.UserRepository
 import com.example.testoo.Domain.models.Compte
 import com.example.testoo.Domain.models.Contrat
 import com.example.testoo.Domain.models.Facture
+import com.example.testoo.Domain.models.User
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -64,6 +65,20 @@ class UserRepositoryImpl @Inject constructor(): UserRepository {
         } catch (e: Exception) {
             println("Error fetching factures: ${e.message}")
             ArrayList()
+        }
+    }
+
+    override suspend fun getCurrentUser(userId: String): User? {
+        val currentUser = FirebaseDatabase.getInstance().getReference("users")
+        val query = currentUser.orderByChild("id").equalTo(userId)
+
+        return try {
+            val dataSnapshot = query.get().await()
+            val user = dataSnapshot.children.mapNotNull { it.getValue(User::class.java) }.firstOrNull()
+            user
+        } catch (e: Exception) {
+            println("Error fetching user: ${e.message}")
+            null
         }
     }
 

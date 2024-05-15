@@ -500,7 +500,7 @@ class OtpValidationFragment : Fragment() {
                                                                                 val currentDateTime = paiementViewModel.getCurrentDateTimeFormatted()
                                                                                 val currTransaction =
                                                                                     Transaction(
-                                                                                        "",
+                                                                                        "${operatorTelecom.toLowerCase()}",
                                                                                         userId = currentUser.uid,
                                                                                         type="Paiement",
                                                                                         domaine=domaine,

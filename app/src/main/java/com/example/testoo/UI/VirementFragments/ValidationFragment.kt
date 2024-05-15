@@ -181,7 +181,7 @@ class ValidationFragment : Fragment() {
                             var solde = compte?.solde
                             var soldeCompteBeneficiare = compteBeneficiaire?.solde
                             val montantTransaction = virementViewModel.montant.value.toString().toIntOrNull() ?: 0
-
+                            val beneficiaire = virementViewModel.beneficiaire.value.toString()
                             if (compte != null) {
                                 val otpp = binding.etotp.text.toString()
                                 println("yyyyy:$otpp")
@@ -200,7 +200,6 @@ class ValidationFragment : Fragment() {
                                                         if (userName.isNotEmpty()) {
 
                                                             virementViewModel.montant.observe(viewLifecycleOwner, Observer { montant ->
-                                                                virementViewModel.beneficiaire.observe(viewLifecycleOwner, Observer { beneficiaire ->
                                                                     viewLifecycleOwner.lifecycleScope.launch {
                                                                         val transaction =
                                                                             withContext(Dispatchers.IO) {
@@ -257,7 +256,7 @@ class ValidationFragment : Fragment() {
                                                                     }
                                                                 })
 
-                                                            })
+
 
 
 

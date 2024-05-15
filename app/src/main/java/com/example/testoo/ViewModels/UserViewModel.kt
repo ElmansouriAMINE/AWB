@@ -15,6 +15,7 @@ import com.example.testoo.Domain.Repository.UserRepository
 //import com.example.testoo.Domain.Repository.UserRepository
 import com.example.testoo.Domain.models.Compte
 import com.example.testoo.Domain.models.Facture
+import com.example.testoo.Domain.models.User
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 //import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,6 +52,9 @@ class UserViewModel  @Inject constructor(
 
     suspend fun getFactureNonPayeForUserId(userId: String , idContrat: String , domaine :String): ArrayList<Facture> {
         return userRepository.getFactureNonPayeForUserId(userId,idContrat,domaine)
+    }
+    suspend fun getCurrentUser(userId: String) : User? {
+        return userRepository.getCurrentUser(userId)
     }
 
 }

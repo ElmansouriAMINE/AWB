@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -38,6 +39,7 @@ class LocationFragment : Fragment() {
     private var recyclerViewTransaction: RecyclerView? = null
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val bottomSheetFragment = BottomSheetFragment()
+    private val userViewModel by activityViewModels<UserViewModel>()
 
     private lateinit var auth: FirebaseAuth
 
@@ -65,7 +67,7 @@ class LocationFragment : Fragment() {
 //                parentFragmentManager.beginTransaction()
 //                    .replace(R.id.fragment_container, signInFragment)
 //                    .commit()
-                Navigation.findNavController(binding.root).navigate(R.id.action_locationFragment_to_signInFragment)
+                Navigation.findNavController(binding.root).navigate(R.id.toSignInFragment)
             }
             builder.setNegativeButton("No") { dialog, which ->
                 dialog.dismiss()
@@ -123,7 +125,15 @@ class LocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
-        initRecyclerView()
+        currentUser?.let {
+            viewLifecycleOwner.lifecycleScope.launch {
+                val userCrr = withContext(Dispatchers.IO) {
+                    userViewModel.getCurrentUser(currentUser.uid)
+                }
+                userCrr?.let { it1 -> initRecyclerView(it1) }
+            }
+        }
+
         binding.transferView.setOnClickListener {
             bottomSheetFragment.show(childFragmentManager,"BottomSheetDialog")
         }
@@ -140,13 +150,13 @@ class LocationFragment : Fragment() {
 
     }
 
-    private fun initRecyclerView() {
+    private fun initRecyclerView(user: User) {
         val items: ArrayList<Transaction> = ArrayList<Transaction>()
         items.add(Transaction("orange",  "Ali","","","Ali","Ali" ,"2000","22-06-2022 16:30"))
         items.add(Transaction("attijariwafa",  "Amine","","","Amine", "Amine","30","24-06-2022 16:30"))
         items.add(Transaction("attijariwafa", "ziad", "","","ziad","ziad", "560","25-06-2022 16:30"))
 
-        adapterTransaction = TransationListAdapter(items)
+        adapterTransaction = TransationListAdapter(items,"${currentUser?.uid}",user)
         recyclerViewTransaction = binding.view1
         recyclerViewTransaction?.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

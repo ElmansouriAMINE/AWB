@@ -32,10 +32,10 @@
         app:layout_constraintTop_toTopOf="@+id/imageProfile" />
 
     <TextView
-        android:id="@+id/textSendMoney"
+        android:id="@+id/textTypeTransaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="send money"
+        android:text="type"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -62,6 +62,6 @@
         android:text="28-03-2024 16:30"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textSendMoney"
+        app:layout_constraintBottom_toBottomOf="@+id/textTypeTransaction"
         app:layout_constraintEnd_toEndOf="@+id/textMontant" />
 </androidx.constraintlayout.widget.ConstraintLayout>
