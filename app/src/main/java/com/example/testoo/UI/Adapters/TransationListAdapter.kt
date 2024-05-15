@@ -34,8 +34,13 @@ class TransationListAdapter(items: ArrayList<Transaction>,userId: String, user :
     val currentUser = FirebaseAuth.getInstance().currentUser
     var items: ArrayList<Transaction>
     var userId: String
-    var user: User
+    var user: User?
     var context: Context? = null
+
+    fun updateList(newList: ArrayList<Transaction>) {
+        items = newList
+        notifyDataSetChanged()
+    }
 
 
 
@@ -97,14 +102,23 @@ class TransationListAdapter(items: ArrayList<Transaction>,userId: String, user :
 //            })
 //        }
 
-                if (holder.typeTransaction.text == "Virement" && items[position].receiverName == user.userName) {
+                if (holder.typeTransaction.text == "Virement" && items[position].receiverName == user?.userName) {
                     Glide.with(holder.itemView.context)
-                                    .load(user?.photoUrl)
-                                    .into(holder.imageProfile)
+                        .load(user?.photoUrl)
+                        .transform(GranularRoundedCorners(30F, 30F, 30f, 30F))
+                        .into(holder.imageProfile)
                     holder.textMontant.text = "+ ${items[position].montant} DH"
                     holder.typeTransaction.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
                     holder.textMontant.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
                 } else {
+                    val drawableResourceId = holder.itemView.resources.getIdentifier(
+                        items[position].imgProfile,
+                        "drawable", holder.itemView.context.packageName
+                    )
+                    Glide.with(holder.itemView.context)
+                        .load(drawableResourceId)
+                        .transform(GranularRoundedCorners(30F, 30F, 30f, 30F))
+                        .into(holder.imageProfile)
                     holder.textMontant.text = "- ${items[position].montant} DH"
                     holder.typeTransaction.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
                     holder.textMontant.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
@@ -122,14 +136,14 @@ class TransationListAdapter(items: ArrayList<Transaction>,userId: String, user :
 //        }
 
         holder.textDateHeure.text = "" + items[position].dateHeure
-        val drawableResourceId = holder.itemView.resources.getIdentifier(
-            items[position].imgProfile,
-            "drawable", holder.itemView.context.packageName
-        )
-        Glide.with(holder.itemView.context)
-            .load(drawableResourceId)
-            .transform(GranularRoundedCorners(30F, 30F, 0f, 0F))
-            .into(holder.imageProfile)
+//        val drawableResourceId = holder.itemView.resources.getIdentifier(
+//            items[position].imgProfile,
+//            "drawable", holder.itemView.context.packageName
+//        )
+//        Glide.with(holder.itemView.context)
+//            .load(drawableResourceId)
+//            .transform(GranularRoundedCorners(30F, 30F, 0f, 0F))
+//            .into(holder.imageProfile)
         holder.itemView.setOnClickListener { v: View? ->
            println("testing....")
         }

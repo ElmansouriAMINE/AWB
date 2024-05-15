@@ -102,6 +102,7 @@ class ProfileFragment : Fragment() {
             takePictureIntent()
         }
 
+
         binding.buttonSave.setOnClickListener {
 
             val photo = when {
@@ -111,7 +112,6 @@ class ProfileFragment : Fragment() {
             }
 
             val name = binding.editTextName.text.toString().trim()
-
             val phone = binding.textPhone.text.toString().trim()
 
             if (name.isEmpty()) {
@@ -125,16 +125,14 @@ class ProfileFragment : Fragment() {
                 .setPhotoUri(photo)
                 .build()
 
-            println("updates : $updates")
-
             binding.progressbar.visibility = View.VISIBLE
 
             currentUser?.updateProfile(updates)
                 ?.addOnCompleteListener { task ->
                     binding.progressbar.visibility = View.INVISIBLE
                     if (task.isSuccessful) {
-                        println("currentUser : ${currentUser?.displayName}")
-                        val user = User(name, currentUser.email, phone, photo.toString())
+                        // Update the photoUrl in the 'users' collection
+                        val user = User(id=currentUser.uid,userName = name, email =currentUser.email, phoneNumber = phone, photoUrl = photo.toString())
                         FirebaseDatabase.getInstance().reference
                             .child("users")
                             .child(currentUser.uid)
@@ -154,7 +152,6 @@ class ProfileFragment : Fragment() {
                                     ).show()
                                 }
                             }
-//
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -164,9 +161,75 @@ class ProfileFragment : Fragment() {
                     }
 
                 }
-
-
         }
+
+
+//        binding.buttonSave.setOnClickListener {
+//
+//            val photo = when {
+//                ::imageUri.isInitialized -> imageUri
+//                currentUser?.photoUrl == null -> Uri.parse(DEFAULT_IMAGE_URL)
+//                else -> currentUser.photoUrl
+//            }
+//
+//            val name = binding.editTextName.text.toString().trim()
+//
+//            val phone = binding.textPhone.text.toString().trim()
+//
+//            if (name.isEmpty()) {
+//                binding.editTextName.error = "name required"
+//                binding.editTextName.requestFocus()
+//                return@setOnClickListener
+//            }
+//
+//            val updates = UserProfileChangeRequest.Builder()
+//                .setDisplayName(name)
+//                .setPhotoUri(photo)
+//                .build()
+//
+//            println("updates : $updates")
+//
+//            binding.progressbar.visibility = View.VISIBLE
+//
+//            currentUser?.updateProfile(updates)
+//                ?.addOnCompleteListener { task ->
+//                    binding.progressbar.visibility = View.INVISIBLE
+//                    if (task.isSuccessful) {
+//                        println("currentUser : ${currentUser?.displayName}")
+//                        val user = User(name, currentUser.email, phone, photo.toString())
+//                        FirebaseDatabase.getInstance().reference
+//                            .child("users")
+//                            .child(currentUser.uid)
+//                            .setValue(user)
+//                            .addOnCompleteListener { dbTask ->
+//                                if (dbTask.isSuccessful) {
+//                                    Toast.makeText(
+//                                        requireContext(),
+//                                        "Profile Updated",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                    currentUser?.updateProfile(UserProfileChangeRequest.Builder().setPhotoUri(photo).build())
+//                                } else {
+//                                    Toast.makeText(
+//                                        requireContext(),
+//                                        dbTask.exception?.message ?: "Failed to update profile",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//                            }
+////
+//                    } else {
+//                        Toast.makeText(
+//                            requireContext(),
+//                            task.exception?.message!!,
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//
+//                }
+//
+//
+//        }
 
 
         binding.textNotVerified.setOnClickListener {

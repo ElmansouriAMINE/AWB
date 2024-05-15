@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
@@ -22,6 +23,9 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
+import java.util.Locale.filter
+import kotlin.collections.ArrayList
 
 
 class HistoriqueTransactionsFragment : Fragment() {
@@ -29,6 +33,8 @@ class HistoriqueTransactionsFragment : Fragment() {
     private var recyclerViewTransaction: RecyclerView? = null
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val bottomSheetFragment = BottomSheetFragment()
+    private lateinit  var originalTransactions: ArrayList<Transaction>
+    private lateinit var filteredTransactions: ArrayList<Transaction>
 
     private val userViewModel by activityViewModels<UserViewModel>()
 
@@ -49,11 +55,12 @@ class HistoriqueTransactionsFragment : Fragment() {
     ): View? {
 
         binding = FragmentHistoriqueTransactionsBinding.inflate(layoutInflater)
-//        binding.searchView.setOnQueryTextFocusChangeListener()
 
         return binding.root
 
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,16 +68,39 @@ class HistoriqueTransactionsFragment : Fragment() {
 
         currentUser?.let {
             viewLifecycleOwner.lifecycleScope.launch{
-                val transactions = withContext(Dispatchers.IO){
-                    transationViewModel.getAllTransactions(currentUser.uid)
-                }
+
                 val userCrr = withContext(Dispatchers.IO){
                   userViewModel.getCurrentUser(currentUser.uid)
 
                 }
-                initTransactionsForCurrentUser(transactions,currentUser.uid,
+                val transactions = withContext(Dispatchers.IO){
+                    transationViewModel.getAllTransactions(currentUser.uid,userCrr!!)
+                }
+
+                originalTransactions = transactions
+                filteredTransactions = originalTransactions
+
+                initTransactionsForCurrentUser(
+                    filteredTransactions as ArrayList<Transaction>,currentUser.uid,
                     userCrr!!
                 )
+
+                binding.searchView.setOnQueryTextListener(object :
+                    SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(p0: String?): Boolean {
+                        return false
+                    }
+
+                    override fun onQueryTextChange(msg: String): Boolean {
+                        // inside on query text change method we are
+                        // calling a method to filter our recycler view.
+//                        filter(msg)
+                        return false
+                    }
+                })
+
+
+
 //                userCrr?.userName?.let { it1 ->
 //                    initTransactionsForCurrentUser(transactions,currentUser.uid,
 //                        it1
@@ -80,6 +110,22 @@ class HistoriqueTransactionsFragment : Fragment() {
             }
         }
     }
+
+
+    private fun filter(query: String) {
+        filteredTransactions = if (query.isEmpty()) {
+            originalTransactions
+        } else {
+            originalTransactions.filter { transaction ->
+                transaction.receiverName?.contains(query, ignoreCase = true) == true
+            } as ArrayList<Transaction>
+        }
+
+        adapterTransaction?.let {
+            (it as TransationListAdapter).updateList(filteredTransactions)
+        }
+    }
+
 
 //    private fun initRecyclerView() {
 //        val items: ArrayList<Transaction> = ArrayList<Transaction>()

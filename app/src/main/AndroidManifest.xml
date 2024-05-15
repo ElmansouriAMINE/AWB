@@ -21,6 +21,7 @@
 
 
 
+
     <permission
         android:name="com.example.mapexdemo.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
