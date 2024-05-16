@@ -39,15 +39,15 @@ class BankingCardsFragment : Fragment() {
         val imageList = arrayListOf(
             ImageItem(
                 UUID.randomUUID().toString(),
-                "gold2"
+                "bluecard"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "blue2"
+                "goldcard"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "white2"
+                "whitecard"
             )
         )
 
