@@ -8,6 +8,9 @@
         android:id="@+id/toSignInFragment"
         app:destination="@id/signInFragment" />
     <action
+        android:id="@+id/toBankingCardsFragment"
+        app:destination="@+id/bankingCardsFragment" />
+    <action
         android:id="@+id/toHistoriqueTransactionsFragment"
         app:destination="@+id/historiqueTransactionsFragment" />
     <action
@@ -75,6 +78,9 @@
         <action
             android:id="@+id/action_locationFragment_to_historiqueTransactionsFragment"
             app:destination="@id/historiqueTransactionsFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_bankingCardsFragment"
+            app:destination="@id/bankingCardsFragment" />
 
     </fragment>
     <fragment
@@ -289,6 +295,15 @@
         tools:layout="@layout/fragment_historique_transactions" >
         <action
             android:id="@+id/action_historiqueTransactionsFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bankingCardsFragment"
+        android:name="com.example.testoo.UI.CardsManagement.BankingCardsFragment"
+        android:label="fragment_banking_cards"
+        tools:layout="@layout/fragment_banking_cards" >
+        <action
+            android:id="@+id/action_bankingCardsFragment_to_locationFragment"
             app:destination="@id/locationFragment" />
     </fragment>
 </navigation>
