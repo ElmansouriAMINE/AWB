@@ -34,7 +34,7 @@ class ImageAdapter : ListAdapter<ImageItem, ImageAdapter.ViewHolder>(DiffCallbac
                 item.imageUrl,
                 "drawable", itemView.context.packageName
             )
-            Glide.with(itemView.context)
+            Glide.with(itemView)
                 .load(drawableResourceId)
                 .transform(GranularRoundedCorners(30F, 30F, 0f, 0F))
                 .into(imageView)
