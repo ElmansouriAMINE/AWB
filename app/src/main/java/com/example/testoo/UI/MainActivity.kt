@@ -2,6 +2,8 @@ package com.example.testoo.UI
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -33,6 +35,8 @@ class MainActivity : AppCompatActivity() , BottomNavBarHandler {
         FirebaseApp.initializeApp(this)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setUpTabBar()
+
+
 //        Navigation.findNavController(binding.root).navigate(R.id.toSignInFragment)
 
 //        supportFragmentManager.beginTransaction()
