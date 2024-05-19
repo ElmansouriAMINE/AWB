@@ -2,6 +2,8 @@ package com.example.testoo.UI
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.example.testoo.Domain.models.UserData
 import com.example.testoo.R
+import com.example.testoo.UI.Animation.ALodingDialog
 import com.example.testoo.Utils.BottomNavBarHandler
 import com.example.testoo.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +29,8 @@ class SignInFragment : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var aLodingDialog: ALodingDialog
+
 //    private lateinit var navController: NavController
 //    private val login_failed = getString(R.string.login_failed)
 //    private val login_success = getString(R.string.login_success)
@@ -38,8 +43,10 @@ class SignInFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
+
         binding = FragmentSignInBinding.inflate(inflater,container,false)
 //        setUpTabBar()
+        aLodingDialog = ALodingDialog(requireContext())
 
         binding.fingerPrintIcon.setOnClickListener {
             val biometricManager = BiometricManager.from(requireContext())
@@ -77,34 +84,58 @@ class SignInFragment : Fragment() {
             else if(email == "" || pass == ""){
                 Toast.makeText(requireContext(),"Please fill all the fields",Toast.LENGTH_SHORT).show()
             }
-            else{
-                auth.signInWithEmailAndPassword(email,pass)
-                    .addOnCompleteListener{
-                        if(it.isSuccessful){
-                            Toast.makeText(requireContext(),"LogIn successful",Toast.LENGTH_SHORT).show()
-//                            childFragmentManager.beginTransaction()
-//                                .replace(R.id.fragment_container, HomeFragment())
-//                                .commit()
-                            val userData = UserData(email, pass)
-                            val gson = Gson()
-                            val userDataJson = gson.toJson(userData)
-                            val sharedPreferences = requireContext().getSharedPreferences("SharedUser", Context.MODE_PRIVATE)
-                            val editor = sharedPreferences.edit()
-                            editor.putString("userData", userDataJson)
-                            editor.apply()
-
-//                            activity?.supportFragmentManager?.beginTransaction()
-//                                ?.replace(R.id.fragment_container, LocationFragment())
-//                                ?.addToBackStack(null)
-//                                ?.commit()
-
-                            Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_locationFragment)
-
+//            else{
+//                auth.signInWithEmailAndPassword(email,pass)
+//                    .addOnCompleteListener{
+//                        if(it.isSuccessful){
+//                            Toast.makeText(requireContext(),"LogIn successful",Toast.LENGTH_SHORT).show()
+////                            childFragmentManager.beginTransaction()
+////                                .replace(R.id.fragment_container, HomeFragment())
+////                                .commit()
+//                            val userData = UserData(email, pass)
+//                            val gson = Gson()
+//                            val userDataJson = gson.toJson(userData)
+//                            val sharedPreferences = requireContext().getSharedPreferences("SharedUser", Context.MODE_PRIVATE)
+//                            val editor = sharedPreferences.edit()
+//                            editor.putString("userData", userDataJson)
+//                            editor.apply()
+//
+////                            activity?.supportFragmentManager?.beginTransaction()
+////                                ?.replace(R.id.fragment_container, LocationFragment())
+////                                ?.addToBackStack(null)
+////                                ?.commit()
+//
+//                            Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_locationFragment)
+//
+//                        }
+//                        else{
+//                            Toast.makeText(requireContext(),"LogIn failed ${it.exception?.message}",Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                    }
+//            }
+            else {
+                aLodingDialog.show()
+                auth.signInWithEmailAndPassword(email, pass)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            val handler = Handler(Looper.getMainLooper())
+                            handler.postDelayed({
+                                aLodingDialog.dismiss()
+                                Toast.makeText(requireContext(), "LogIn successful", Toast.LENGTH_SHORT).show()
+                                val userData = UserData(email, pass)
+                                val gson = Gson()
+                                val userDataJson = gson.toJson(userData)
+                                val sharedPreferences = requireContext().getSharedPreferences("SharedUser", Context.MODE_PRIVATE)
+                                val editor = sharedPreferences.edit()
+                                editor.putString("userData", userDataJson)
+                                editor.apply()
+                                Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_locationFragment)
+                            }, 3000)
+                        } else {
+                            aLodingDialog.dismiss()
+                            Toast.makeText(requireContext(), "LogIn failed ${it.exception?.message}", Toast.LENGTH_SHORT).show()
                         }
-                        else{
-                            Toast.makeText(requireContext(),"LogIn failed ${it.exception?.message}",Toast.LENGTH_SHORT).show()
-                        }
-
                     }
             }
         }
