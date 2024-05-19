@@ -141,7 +141,11 @@ class VirementFragment : Fragment() {
 //                ?.addToBackStack(null)
 //                ?.commit()
 //            Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_signUpFragment)
-            Navigation.findNavController(binding.root).navigate(R.id.action_virementFragment_to_virementFragment2)
+//
+            if(selectCompte.text.isNotEmpty() && selectBeneficiaire.text.isNotEmpty()){
+                Navigation.findNavController(binding.root).navigate(R.id.action_virementFragment_to_virementFragment2)
+            }
+
         }
 
 

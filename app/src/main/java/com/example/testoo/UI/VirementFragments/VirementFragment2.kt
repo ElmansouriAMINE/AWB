@@ -78,25 +78,59 @@ class VirementFragment2 : Fragment() {
             }
         }
 
+//        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+//            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+//                binding.autoCompleteMontant.setText("$progress")
+//                // Update the progress variable to the value of autoCompleteMontant
+//                val newProgress = binding.autoCompleteMontant.text.toString().toIntOrNull() ?: 0
+//                updateVirementData(newProgress)
+//            }
+//
+//            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+//
+//            }
+//
+//            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+//
+//            }
+//        })
+        var isSeekBarChanging = false
+
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.autoCompleteMontant.setText("$progress")
+                if (fromUser) {
+                    binding.autoCompleteMontant.setText("$progress")
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                isSeekBarChanging = true
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                isSeekBarChanging = false
                 // Update the progress variable to the value of autoCompleteMontant
                 val newProgress = binding.autoCompleteMontant.text.toString().toIntOrNull() ?: 0
                 updateVirementData(newProgress)
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
-            }
         })
+
 
         // Assuming binding.autoCompleteMontant is an AutoCompleteTextView
         binding.autoCompleteMontant.inputType = InputType.TYPE_CLASS_NUMBER
+//        binding.autoCompleteMontant.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                s?.toString()?.toIntOrNull()?.let { value ->
+//                    if (value in 10..5000) { // Assuming the progress bar range is from 0 to 100
+//                        binding.seekBar.progress = value
+//                    }
+//                }
+//            }
+//        })
         binding.autoCompleteMontant.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -104,12 +138,16 @@ class VirementFragment2 : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 s?.toString()?.toIntOrNull()?.let { value ->
-                    if (value in 10..5000) { // Assuming the progress bar range is from 0 to 100
-                        binding.seekBar.progress = value
+                    if (value in 10..5000) {
+                        // Check if the text change was not triggered programmatically
+                        if (!isSeekBarChanging) {
+                            binding.seekBar.progress = value
+                        }
                     }
                 }
             }
         })
+
 
 
 
@@ -119,9 +157,14 @@ class VirementFragment2 : Fragment() {
 //                ?.replace(R.id.fragment_container, VirementFragment3())
 //                ?.addToBackStack(null)
 //                ?.commit()
-            Navigation.findNavController(binding.root).navigate(R.id.action_virementFragment2_to_virementFragment3)
-            binding.autoCompleteMontant.text.toString().toIntOrNull()
-                ?.let { it1 -> updateVirementData(it1) }
+            val montant= binding.autoCompleteMontant.text
+
+            if(montant.isNotEmpty()){
+                Navigation.findNavController(binding.root).navigate(R.id.action_virementFragment2_to_virementFragment3)
+                montant.toString().toIntOrNull()
+                    ?.let { it1 -> updateVirementData(it1) }
+            }
+
         }
 
 
