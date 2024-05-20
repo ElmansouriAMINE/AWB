@@ -60,6 +60,7 @@ class SignUpFragment : Fragment() {
                                   val comptesCollection = FirebaseDatabase.getInstance().getReference("comptes")
 //                                  val contratCollection = FirebaseDatabase.getInstance().getReference("contrats")
                                   val cartesCollection = FirebaseDatabase.getInstance().getReference("cartes")
+                                  val cardsTransaction = FirebaseDatabase.getInstance().getReference("transactions")
                                   val compteInitial = Compte(userId=userId,numero = "C14452627778828", solde = 20000.0, dateOuverture = "14/04/2024")
                                   val carteInitial = Carte(
                                       userId=userId,
@@ -67,25 +68,27 @@ class SignUpFragment : Fragment() {
                                       codeSecret = "123",
                                       dateExpiration = "12/24"
                                   )
-//                                  val contratInitial = Contrat(reference = "1234A",userId=userId, domaine = "IAM Factures: Mobile", factures = null)
-//                                  val contratInitial2 = Contrat(reference = "1234B",userId=userId, domaine = "IAM Factures: INTERNET", factures = null)
-//                                  val contratInitial3 = Contrat(reference = "1234C",userId=userId, domaine = "Orange Factures: Mobile", factures = null)
-//                                  val contratInitial4 = Contrat(reference = "1234D",userId=userId, domaine = "Orange Factures: INTERNET", factures = null)
-//                                  val contratInitial5 = Contrat(reference = "1234E",userId=userId, domaine = "Inwi Factures: Mobile", factures = null)
-//                                  val contratInitial6 = Contrat(reference = "1234F",userId=userId, domaine = "Inwi Factures: INTERNET", factures = null)
-//                                  val contratInitial7 = Contrat(reference = "1234G",userId=userId, domaine = "Paiement de vignette", factures = null)
-//                                  val contratInitial8 = Contrat(reference = "1234H",userId=userId, domaine = "Paiement de factures", factures = null)
-//                                  val contratInitial9 = Contrat(reference = "1234I",userId=userId, domaine = "Paiement de factures", factures = null)
-//                                  val contratInitial10 = Contrat(reference = "1234G",userId=userId, domaine = "Paiement de factures", factures = null)
-//                                  val factures : ArrayList<Facture> = ArrayList<Facture>()
-//                                  factures.add(Facture("facture 1","1000",false,userId,contratInitial.reference))
-//                                  factures.add(Facture("facture 2","2000",false,userId,contratInitial.reference))
-//                                  factures.add(Facture("facture 3","3000",false,userId,contratInitial.reference))
-//                                  factures.add(Facture("facture 4","1000",false,userId,contratInitial.reference))
-//                                  factures.add(Facture("facture 5","1000",false,userId,contratInitial.reference))
-//                                  factures.add(Facture("facture 6","1000",false,userId,contratInitial.reference))
-//                                  factures.add(Facture("facture 7","1000",false,userId,contratInitial.reference))
-//                                  factures.add(Facture("facture 8","1000",false,userId,contratInitial.reference))
+
+                                  val transactions: ArrayList<Transaction> = ArrayList<Transaction>()
+                                  transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA SIEGE HASS","1200","16-05-2024 11:22"))
+                                  transactions.add(Transaction("withdrawal","$userId","Paiement","Card","","Paiement AMOUD ANFA","250","02-05-2024 11:22"))
+                                  transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA MUSTAPHA M","500","13-04-2024 21:32"))
+                                  transactions.add(Transaction("withdrawal","$userId","Paiement","Card","","Paiement PIZZA HUT VELODROME","180","22-02-2024 19:48"))
+                                  transactions.add(Transaction("withdrawal","$userId","Paiement","Card","","Paiement ST C S S HILTON TIZI","350","16-03-2024 14:38"))
+                                  transactions.add(Transaction("withdrawal","$userId","Paiement","Card","","Paiement SHELL-STATION ","550","12-04-2024 21:26"))
+                                  transactions.add(Transaction("withdrawal","$userId","Paiement","Card","","Paiement Internet ADM ECOM","620","12-04-2024 15:20"))
+                                  transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA SIEGE HASS","1200","12-04-2024 11:44"))
+                                  transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA SIEGE HASS","2100","04-03-2024 15:33"))
+                                  transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA VAL D ANFA","3500","01-03-2024 09:44"))
+                                  transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA GHANDI","200","22-02-2024 18:42"))
+                                  transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA Beauséjour","700","27-01-2024 14:36"))
+                                  transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA VAL Fleuri","400","12-01-2024 10:52"))
+                                  transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA Méchouar","600","04-01-2024 12:22"))
+
+
+
+
+//
                                   val contratInitial = Contrat(reference = "1234A",userId=userId, domaine = "IAM Factures: Mobile", factures = null)
                                   val contratInitial2 = Contrat(reference = "1234B",userId=userId, domaine = "IAM Factures: INTERNET", factures = null)
                                   val contratInitial3 = Contrat(reference = "1234C",userId=userId, domaine = "Orange Factures: Mobile", factures = null)
@@ -126,6 +129,7 @@ class SignUpFragment : Fragment() {
                                   val comptekey = comptesCollection.push().key
                                   val cartekey = cartesCollection.push().key
                                   val contratkey = contratsCollection.push().key
+                                  val transactionkey= cardsTransaction.push().key
                                   usersCollection.child(userId).setValue(user).addOnCompleteListener { userTask ->
                                       if (userTask.isSuccessful) {
                                           comptekey?.let{
@@ -143,6 +147,13 @@ class SignUpFragment : Fragment() {
                                               val contratKey = contratsCollection.push().key
                                               contratKey?.let {
                                                   contratsCollection.child(it).setValue(i)
+                                              }
+                                          }
+
+                                          for (j in transactions) {
+                                              val transactionkey = cardsTransaction.push().key
+                                              transactionkey?.let {
+                                                  cardsTransaction.child(it).setValue(j)
                                               }
                                           }
 

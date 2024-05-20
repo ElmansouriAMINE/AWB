@@ -3,6 +3,7 @@ package com.example.testoo.ViewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.testoo.Domain.Repository.UserRepository
+import com.example.testoo.Domain.models.Carte
 //import com.example.testoo.Data.Repository.UserRepositoryImpl
 //import com.example.testoo.Domain.models.Compte
 //import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,6 +57,10 @@ class UserViewModel  @Inject constructor(
     suspend fun getCurrentUser(userId: String) : User? {
         return userRepository.getCurrentUser(userId)
     }
+    suspend fun getCardsForCurrentUser(userId: String) : ArrayList<Carte>{
+        return userRepository.getCardsForCurrentUser(userId)
+    }
+
 
 }
 

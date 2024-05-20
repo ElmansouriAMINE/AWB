@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/screen_background"
     tools:context=".UI.CardsManagement.BankingCardsFragment">
 
 
@@ -46,7 +47,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/rectangle_format_for_paiement"
+            android:background="@drawable/transaction_banner"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,13 +84,13 @@
 
                         <ImageView
                             android:id="@+id/imageBalance"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/dollar" />
+                            app:srcCompat="@drawable/view2" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
@@ -120,13 +121,13 @@
 
                         <ImageView
                             android:id="@+id/imageView4"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/send" />
+                            app:srcCompat="@drawable/lock2" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
@@ -157,13 +158,13 @@
 
                         <ImageView
                             android:id="@+id/imageRequest"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/request" />
+                            app:srcCompat="@drawable/setting2" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
@@ -194,13 +195,13 @@
 
                         <ImageView
                             android:id="@+id/imageTransfer"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/transfer" />
+                            app:srcCompat="@drawable/dots2" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
@@ -217,5 +218,17 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/slideDots" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

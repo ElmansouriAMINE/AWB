@@ -1,10 +1,7 @@
 package com.example.testoo.Data.Repository
 
 import com.example.testoo.Domain.Repository.UserRepository
-import com.example.testoo.Domain.models.Compte
-import com.example.testoo.Domain.models.Contrat
-import com.example.testoo.Domain.models.Facture
-import com.example.testoo.Domain.models.User
+import com.example.testoo.Domain.models.*
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -79,6 +76,21 @@ class UserRepositoryImpl @Inject constructor(): UserRepository {
         } catch (e: Exception) {
             println("Error fetching user: ${e.message}")
             null
+        }
+    }
+
+    override suspend fun getCardsForCurrentUser(userId: String) : ArrayList<Carte>{
+        val cardsCollection = FirebaseDatabase.getInstance().getReference("cartes")
+        val query= cardsCollection.orderByChild(userId).equalTo(userId)
+
+        return try{
+            val datasnapshot = query.get().await()
+            val carte = datasnapshot.children.mapNotNull { it.getValue(Carte::class.java) }
+            ArrayList(carte)
+
+        }catch (e:Exception){
+            println("Error fetching cards : ${e.message}")
+            ArrayList()
         }
     }
 

@@ -46,6 +46,23 @@ class TransactionViewModel : ViewModel() {
         }
     }
 
+    suspend fun getAllCardTransactions(userId: String): ArrayList<Transaction> {
+        val transactionsRef = database.getReference("transactions")
+        val queryById = transactionsRef.orderByChild("userId").equalTo(userId)
+
+        return try {
+            val dataSnapshotById = queryById.get().await()
+            val transactionsListById = dataSnapshotById.children.mapNotNull { it.getValue(Transaction::class.java) }
+            val transactionsListByDomaineName = transactionsListById.filter { it.domaine == "Card" }
+
+            ArrayList(transactionsListByDomaineName)
+        } catch (e: Exception) {
+            println("Error fetching transactions: ${e.message}")
+            ArrayList()
+        }
+    }
+
+
 
 
 

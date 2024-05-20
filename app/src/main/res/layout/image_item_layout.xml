@@ -25,16 +25,16 @@
         android:id="@+id/textNumeroCarte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="204dp"
-        android:textColor="@color/main_color"
-        android:textSize="16dp"
+        android:textColor="@color/red"
+        android:textSize="26dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/textDateExpiration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="168dp"
@@ -44,6 +44,15 @@
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textNumeroCarte" />
+
+    <TextView
+        android:id="@+id/textUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/textNumeroCarte"
         app:layout_constraintTop_toBottomOf="@+id/textNumeroCarte" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,9 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +27,17 @@ class ImageAdapter : ListAdapter<ImageItem, ImageAdapter.ViewHolder>(DiffCallbac
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView = itemView.findViewById<ImageView>(R.id.imageView)
+
+        var textDateExipration: TextView
+        var textNumeroCarte: TextView
+        var userName : TextView
+
+        init {
+            textDateExipration = itemView.findViewById(R.id.textDateExpiration)
+            textNumeroCarte = itemView.findViewById(R.id.textNumeroCarte)
+            userName = itemView.findViewById(R.id.textUserName)
+
+        }
 
         fun bindData(item: ImageItem) {
 //            Glide.with(itemView)
@@ -52,5 +65,9 @@ class ImageAdapter : ListAdapter<ImageItem, ImageAdapter.ViewHolder>(DiffCallbac
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageItem = getItem(position)
         holder.bindData(imageItem)
+
+        holder.textNumeroCarte.setText(imageItem.numeroCarte)
+        holder.textDateExipration.setText(imageItem.dateExpiration)
+        holder.userName.setText(imageItem.userName)
     }
 }
