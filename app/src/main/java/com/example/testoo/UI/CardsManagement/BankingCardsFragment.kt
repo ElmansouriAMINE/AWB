@@ -69,152 +69,8 @@ class BankingCardsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding= FragmentBankingCardsBinding.inflate(layoutInflater)
-
-        currentUser?.let {
-            viewLifecycleOwner.lifecycleScope.launch {
-
-                val userCrr = withContext(Dispatchers.IO) {
-                    userViewModel.getCurrentUser(currentUser.uid)
-
-                }
-                val Cardtransactions = withContext(Dispatchers.IO) {
-                    transationViewModel.getAllCardTransactions(currentUser.uid)
-                }
-
-//                for(i in Cardtransactions){
-//                    cardsListe.add(Carte("","","","",""))
-//
-//                }
-
-                val imageList = arrayListOf(
-                    ImageItem(
-                        UUID.randomUUID().toString(),
-                        "bluecard",
-                        "12/26",
-                        "6162 16261 1626 7172",
-                        ""
-                    ),
-                    ImageItem(
-                        UUID.randomUUID().toString(),
-                        "goldcard",
-                        "12/26",
-                        "6162 16261 1626 7172",
-                        ""
-                    ),
-                    ImageItem(
-                        UUID.randomUUID().toString(),
-                        "whitecard",
-                        "12/26",
-                        "6162 16261 1626 7172",
-                        ""
-                    )
-                )
-
-                val imageAdapter = ImageAdapter()
-                binding.viewPager2.adapter = imageAdapter
-                imageAdapter.submitList(imageList)
-
-                val dotsImage= Array(imageList.size) { ImageView(requireContext())}
-
-                dotsImage.forEach {
-                    it.setImageResource(
-                        R.drawable.non_active_dot
-                    )
-                    binding.slideDots.addView(it,params)
-                }
-
-                dotsImage[0].setImageResource(R.drawable.active_dot)
-
-                pageChangeListener = object : ViewPager2.OnPageChangeCallback(){
-                    override fun onPageSelected(position: Int) {
-
-                        dotsImage.mapIndexed{ index, imageView ->
-
-                            if(position == index){
-                                imageView.setImageResource(
-                                    R.drawable.active_dot
-                                )
-                            }else{
-                                imageView.setImageResource(R.drawable.non_active_dot)
-                            }
-
-                        }
-
-                        super.onPageSelected(position)
-                    }
-
-                }
-
-                binding.viewPager2.registerOnPageChangeCallback(pageChangeListener)
-
-
-
-            }
-        }
-
-//           val imageList = arrayListOf(
-//            ImageItem(
-//                UUID.randomUUID().toString(),
-//                "bluecard",
-//                "12/26",
-//                "6162 16261 1626 7172",
-//                ""
-//            ),
-//            ImageItem(
-//                UUID.randomUUID().toString(),
-//                "goldcard",
-//                "12/26",
-//                "6162 16261 1626 7172",
-//                ""
-//            ),
-//            ImageItem(
-//                UUID.randomUUID().toString(),
-//                "whitecard",
-//                "12/26",
-//                "6162 16261 1626 7172",
-//                ""
-//            )
-//        )
-//
-//        val imageAdapter = ImageAdapter()
-//        binding.viewPager2.adapter = imageAdapter
-//        imageAdapter.submitList(imageList)
-
-//        val dotsImage= Array(imageList.size) { ImageView(requireContext())}
-//
-//        dotsImage.forEach {
-//            it.setImageResource(
-//                R.drawable.non_active_dot
-//            )
-//            binding.slideDots.addView(it,params)
-//        }
-//
-//        dotsImage[0].setImageResource(R.drawable.active_dot)
-//
-//        pageChangeListener = object : ViewPager2.OnPageChangeCallback(){
-//            override fun onPageSelected(position: Int) {
-//
-//                dotsImage.mapIndexed{ index, imageView ->
-//
-//                    if(position == index){
-//                        imageView.setImageResource(
-//                            R.drawable.active_dot
-//                        )
-//                    }else{
-//                        imageView.setImageResource(R.drawable.non_active_dot)
-//                    }
-//
-//                }
-//
-//                super.onPageSelected(position)
-//            }
-//
-//        }
-//
-//        binding.viewPager2.registerOnPageChangeCallback(pageChangeListener)
-
-
 
 
         return binding.root
@@ -228,13 +84,13 @@ class BankingCardsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         currentUser?.let {
-            viewLifecycleOwner.lifecycleScope.launch{
+            viewLifecycleOwner.lifecycleScope.launch {
 
-                val userCrr = withContext(Dispatchers.IO){
+                val userCrr = withContext(Dispatchers.IO) {
                     userViewModel.getCurrentUser(currentUser.uid)
 
                 }
-                val transactions = withContext(Dispatchers.IO){
+                val transactions = withContext(Dispatchers.IO) {
                     transationViewModel.getAllCardTransactions(currentUser.uid)
                 }
 
@@ -242,23 +98,81 @@ class BankingCardsFragment : Fragment() {
                 filteredTransactions = originalTransactions
 
                 initTransactionsForCurrentUser(
-                    filteredTransactions as ArrayList<Transaction>,currentUser.uid,
+                    filteredTransactions as ArrayList<Transaction>, currentUser.uid,
                     userCrr!!
                 )
 
+                val cardsInfos = withContext(Dispatchers.IO) {
+                    userViewModel.getCardsForCurrentUser(currentUser.uid)
+                }
+
+                println("cardsInfos: $cardsInfos")
+
+                val colors = listOf("bluecard", "goldcard", "whitecard")
+
+                val imageList1 = cardsInfos.mapIndexed { index, card ->
+                    val color = colors[index % colors.size]
+                    userCrr?.userName?.let { userName ->
+                        card.dateExpiration?.let { dateExpiration ->
+                            card.numeroCarte?.let { numeroCarte ->
+                                ImageItem(
+                                    UUID.randomUUID().toString(),
+                                    color,
+                                    dateExpiration,
+                                    numeroCarte,
+                                    userName
+                                )
+                            }
+                        }
+                    }
+                }.filterNotNull()
 
 
 
+                val imageList = ArrayList(imageList1)
 
-//                userCrr?.userName?.let { it1 ->
-//                    initTransactionsForCurrentUser(transactions,currentUser.uid,
-//                        it1
-//                    )
-//                }
+                println("imageList: $imageList")
+
+                val imageAdapter = ImageAdapter()
+                binding.viewPager2.adapter = imageAdapter
+                imageAdapter.submitList(imageList)
+
+                print("hhhhhh ${imageList.size}")
+
+                if (imageList.isNotEmpty()) {
+                    val dotsImage = Array(imageList.size) { ImageView(requireContext()) }
+
+                    dotsImage.forEach {
+                        it.setImageResource(R.drawable.non_active_dot)
+                        binding.slideDots.addView(it, params)
+                    }
+
+                    dotsImage[0].setImageResource(R.drawable.active_dot)
+
+                    pageChangeListener = object : ViewPager2.OnPageChangeCallback() {
+                        override fun onPageSelected(position: Int) {
+                            dotsImage.mapIndexed { index, imageView ->
+                                if (position == index) {
+                                    imageView.setImageResource(R.drawable.active_dot)
+                                } else {
+                                    imageView.setImageResource(R.drawable.non_active_dot)
+                                }
+                            }
+                            super.onPageSelected(position)
+                        }
+                    }
+
+                    binding.viewPager2.registerOnPageChangeCallback(pageChangeListener)
+                } else {
+                    println("Error: No images available to display")
+                }
 
             }
+
         }
+
     }
+
 
     private fun initTransactionsForCurrentUser(items : ArrayList<Transaction>,userId: String,user: User){
         adapterTransaction = TransationListAdapter(items,userId,user)

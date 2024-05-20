@@ -81,7 +81,7 @@ class UserRepositoryImpl @Inject constructor(): UserRepository {
 
     override suspend fun getCardsForCurrentUser(userId: String) : ArrayList<Carte>{
         val cardsCollection = FirebaseDatabase.getInstance().getReference("cartes")
-        val query= cardsCollection.orderByChild(userId).equalTo(userId)
+        val query= cardsCollection.orderByChild("userId").equalTo(userId)
 
         return try{
             val datasnapshot = query.get().await()

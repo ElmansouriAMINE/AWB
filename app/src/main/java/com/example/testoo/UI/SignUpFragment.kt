@@ -16,6 +16,7 @@ import com.example.testoo.Utils.BottomNavBarHandler
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.sql.DriverManager.println
+import kotlin.random.Random
 
 
 class SignUpFragment : Fragment() {
@@ -62,12 +63,7 @@ class SignUpFragment : Fragment() {
                                   val cartesCollection = FirebaseDatabase.getInstance().getReference("cartes")
                                   val cardsTransaction = FirebaseDatabase.getInstance().getReference("transactions")
                                   val compteInitial = Compte(userId=userId,numero = "C14452627778828", solde = 20000.0, dateOuverture = "14/04/2024")
-                                  val carteInitial = Carte(
-                                      userId=userId,
-                                      numeroCarte = "1234 5678 9012 3456",
-                                      codeSecret = "123",
-                                      dateExpiration = "12/24"
-                                  )
+                                  val initialCards = generateInitialCards(userId)
 
                                   val transactions: ArrayList<Transaction> = ArrayList<Transaction>()
                                   transactions.add(Transaction("withdrawal","$userId","Retrait","Card","","Retrait CASA SIEGE HASS","1200","16-05-2024 11:22"))
@@ -136,11 +132,14 @@ class SignUpFragment : Fragment() {
                                               comptesCollection.child(it).setValue(compteInitial)
                                           }
 
-                                          cartekey?.let {
-                                              cartesCollection.child(it).setValue(carteInitial)
-                                          }
+//                                          cartekey?.let {
+//                                              cartesCollection.child(it).setValue(carteInitial)
+//                                          }
                                           contratkey?.let {
                                               contratsCollection.child(it).setValue(contratInitial)
+                                          }
+                                          initialCards.forEach { card ->
+                                              cartesCollection.push().setValue(card)
                                           }
 
                                           for (i in contrats) {
@@ -193,6 +192,31 @@ class SignUpFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun generateInitialCards(userId: String): List<Carte> {
+        return List(3) {
+            Carte(
+                userId = userId,
+                numeroCarte = generateRandomCardNumber(),
+                codeSecret = generateRandomSecretCode(),
+                dateExpiration = generateRandomExpirationDate()
+            )
+        }
+    }
+
+    private fun generateRandomCardNumber(): String {
+        return List(4) { (1000..9999).random() }.joinToString(" ")
+    }
+
+    private fun generateRandomSecretCode(): String {
+        return (100..999).random().toString()
+    }
+
+    private fun generateRandomExpirationDate(): String {
+        val month = (1..12).random().toString().padStart(2, '0')
+        val year = (24..30).random().toString().takeLast(2)
+        return "$month/$year"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
