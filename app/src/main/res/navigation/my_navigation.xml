@@ -315,8 +315,8 @@
             android:id="@+id/action_bankingCardsFragment_to_locationFragment"
             app:destination="@id/locationFragment" />
         <action
-            android:id="@+id/action_bankingCardsFragment_to_cardConfigFragment"
-            app:destination="@id/cardConfigFragment" />
+            android:id="@+id/action_bankingCardsFragment_to_choixConfigCardFragment"
+            app:destination="@id/choixConfigCardFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -338,6 +338,9 @@
         <action
             android:id="@+id/action_choixConfigCardFragment_to_cardConfigFragment"
             app:destination="@id/cardConfigFragment" />
+        <action
+            android:id="@+id/action_choixConfigCardFragment_to_bankingCardsFragment"
+            app:destination="@id/bankingCardsFragment" />
     </fragment>
     <fragment
         android:id="@+id/cardConfigFragment"
@@ -347,8 +350,5 @@
         <action
             android:id="@+id/action_cardConfigFragment_to_choixConfigCardFragment"
             app:destination="@id/choixConfigCardFragment" />
-        <action
-            android:id="@+id/action_cardConfigFragment_to_bankingCardsFragment"
-            app:destination="@id/bankingCardsFragment" />
     </fragment>
 </navigation>

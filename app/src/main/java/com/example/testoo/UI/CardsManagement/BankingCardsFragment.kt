@@ -23,6 +23,7 @@ import com.example.testoo.Domain.models.User
 import com.example.testoo.R
 import com.example.testoo.UI.Adapters.TransationListAdapter
 import com.example.testoo.UI.BottomSheetFragment
+import com.example.testoo.ViewModels.CardsConfigViewModel
 import com.example.testoo.ViewModels.TransactionViewModel
 import com.example.testoo.ViewModels.UserViewModel
 import com.example.testoo.databinding.FragmentBankingCardsBinding
@@ -45,6 +46,8 @@ class BankingCardsFragment : Fragment() {
     private var cardsListe: ArrayList<Carte> = ArrayList()
 
     private val userViewModel by activityViewModels<UserViewModel>()
+
+    private val cardsConfigViewModel by activityViewModels<CardsConfigViewModel>()
 
     private val transationViewModel by activityViewModels<TransactionViewModel>()
 
@@ -152,13 +155,20 @@ class BankingCardsFragment : Fragment() {
 
                     pageChangeListener = object : ViewPager2.OnPageChangeCallback() {
                         override fun onPageSelected(position: Int) {
+                            print("position : $position")
                             dotsImage.mapIndexed { index, imageView ->
+
                                 if (position == index) {
                                     imageView.setImageResource(R.drawable.active_dot)
                                 } else {
                                     imageView.setImageResource(R.drawable.non_active_dot)
                                 }
                             }
+
+                            // current ImageItem
+                            val currentImageItem = imageList[position]
+                            cardsConfigViewModel.setCurrentCardItem(currentImageItem)
+                            println("Current ImageItem: $currentImageItem")
                             super.onPageSelected(position)
                         }
                     }
@@ -170,7 +180,7 @@ class BankingCardsFragment : Fragment() {
 
 
                 binding.gestionCard.setOnClickListener {
-                    Navigation.findNavController(binding.root).navigate(R.id.action_bankingCardsFragment_to_cardConfigFragment)
+                    Navigation.findNavController(binding.root).navigate(R.id.action_bankingCardsFragment_to_choixConfigCardFragment)
                 }
 
             }
