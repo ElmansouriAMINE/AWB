@@ -119,15 +119,18 @@ class BankingCardsFragment : Fragment() {
                     userCrr?.userName?.let { userName ->
                         card.dateExpiration?.let { dateExpiration ->
                             card.numeroCarte?.let { numeroCarte ->
+                                card.configuration?.let { config ->
                                 ImageItem(
                                     UUID.randomUUID().toString(),
                                     color,
                                     dateExpiration,
                                     numeroCarte,
-                                    userName
+                                    userName,
+                                    config
                                 )
                             }
                         }
+                    }
                     }
                 }.filterNotNull()
 

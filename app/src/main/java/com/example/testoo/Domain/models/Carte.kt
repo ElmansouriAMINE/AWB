@@ -5,6 +5,6 @@ data class Carte (
     val userId:String?=null,
     val numeroCarte:String? =null,
     val codeSecret:String? = null,
-    val dateExpiration:String? =null
-
+    val dateExpiration:String? =null,
+    val configuration: Configuration? = null
 )

@@ -200,7 +200,8 @@ class SignUpFragment : Fragment() {
                 userId = userId,
                 numeroCarte = generateRandomCardNumber(),
                 codeSecret = generateRandomSecretCode(),
-                dateExpiration = generateRandomExpirationDate()
+                dateExpiration = generateRandomExpirationDate(),
+                configuration = Configuration(false,false,false,false,false,false)
             )
         }
     }
