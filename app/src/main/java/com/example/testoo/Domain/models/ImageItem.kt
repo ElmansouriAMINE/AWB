@@ -6,6 +6,6 @@ data class ImageItem(
     val dateExpiration: String,
     val numeroCarte : String,
     val userName : String,
-    val configuration: Configuration?=null
+    var configuration: Configuration?=null
 
 )

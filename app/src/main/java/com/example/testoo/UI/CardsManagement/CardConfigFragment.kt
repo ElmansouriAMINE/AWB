@@ -14,75 +14,6 @@ import com.example.testoo.databinding.FragmentCardConfigBinding
 import kotlinx.coroutines.launch
 
 
-//class CardConfigFragment : Fragment() {
-//
-//    private lateinit var binding : FragmentCardConfigBinding
-//    private val cardsConfigViewModel by activityViewModels<CardsConfigViewModel>()
-//    private val currentCardItem = cardsConfigViewModel.currentCardItem.value
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//
-//        binding = FragmentCardConfigBinding.inflate(layoutInflater)
-//
-//
-//        currentCardItem?.let {
-//
-//            val imageResourceId = resources.getIdentifier(it.imageUrl, "drawable", requireContext().packageName)
-//            if (imageResourceId != 0) {
-//                binding.imageCard.setImageResource(imageResourceId)
-//            } else {
-//                Glide.with(this)
-//                    .load(it.imageUrl)
-//                    .into(binding.imageCard)
-//            }
-//
-//            binding.textNumeroCarte.text = it.numeroCarte
-//            binding.textDateExpiration.text = it.dateExpiration
-//            binding.textUserName.text = it.userName
-//        }
-//
-//
-//
-//
-//
-//
-//        return binding.root
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        data class Configuration(
-//            val contactless:Boolean? =false,
-//            val internetMaroc:Boolean?=false,
-//            val tpeMaroc:Boolean?=false,
-//            val retraitMaroc:Boolean?=false,
-//            val internetEtranger:Boolean?=false,
-//            val tpeEtranger: Boolean ?=false
-//        )
-//
-//        binding.switchGeneral.setOnCheckedChangeListener { _, isChecked ->
-//
-//            lifecycleScope.launch {
-//                try {
-//                    currentCardItem?.let {
-//                        cardsConfigViewModel.updateCardEtatForIdCard(it.numeroCarte,"contactless")
-//                    }
-//
-//                } catch (e: Exception) {
-//                    println("Error updating card etat: ${e.message}")
-//                }
-//            }
-//        }
-//    }
-//
-//
-//}
-
-
 class CardConfigFragment : Fragment() {
 
     private lateinit var binding: FragmentCardConfigBinding
@@ -115,9 +46,32 @@ class CardConfigFragment : Fragment() {
             binding.textNumeroCarte.text = it.numeroCarte
             binding.textDateExpiration.text = it.dateExpiration
             binding.textUserName.text = it.userName
+
+            lifecycleScope.launch{
+                val currentCard= cardsConfigViewModel.getCurrentCard("${it.numeroCarte}")
+                binding.switchGeneral.isChecked= currentCard?.configuration?.contactless!!
+
+                binding.switchInternetMaroc.isChecked= currentCard?.configuration?.internetMaroc!!
+                binding.switchPaiementTPE.isChecked= currentCard?.configuration?.tpeMaroc!!
+                binding.switchRetraitMaroc.isChecked= currentCard?.configuration?.retraitMaroc!!
+                binding.switchInternetEtranger.isChecked= currentCard?.configuration?.internetEtranger!!
+                binding.switchTpeEtranger.isChecked= currentCard?.configuration?.tpeEtranger!!
+
+
+            }
+//            binding.switchGeneral.isChecked= it?.configuration?.contactless == true
+//            lifecycleScope.launch{
+//                val currentCard= cardsConfigViewModel.getCurrentCard("${it.numeroCarte}")
+//                binding.switchGeneral.isChecked= currentCard?.configuration?.contactless == true
+//            }
+
         }
 
-        binding.switchGeneral.setOnCheckedChangeListener { _, isChecked ->
+
+
+
+
+        binding.switchGeneral.setOnClickListener { isChecked ->
 
             lifecycleScope.launch {
                 try {
@@ -130,5 +84,72 @@ class CardConfigFragment : Fragment() {
                 }
             }
         }
+        binding.switchInternetMaroc.setOnClickListener { isChecked ->
+
+            lifecycleScope.launch {
+                try {
+                    currentCardItem?.let {
+                        cardsConfigViewModel.updateCardEtatForIdCard(it.numeroCarte, "internetMaroc")
+                    }
+
+                } catch (e: Exception) {
+                    println("Error updating card etat: ${e.message}")
+                }
+            }
+        }
+        binding.switchPaiementTPE.setOnClickListener { isChecked ->
+
+            lifecycleScope.launch {
+                try {
+                    currentCardItem?.let {
+                        cardsConfigViewModel.updateCardEtatForIdCard(it.numeroCarte, "tpeMaroc")
+                    }
+
+                } catch (e: Exception) {
+                    println("Error updating card etat: ${e.message}")
+                }
+            }
+        }
+        binding.switchRetraitMaroc.setOnClickListener { isChecked ->
+
+            lifecycleScope.launch {
+                try {
+                    currentCardItem?.let {
+                        cardsConfigViewModel.updateCardEtatForIdCard(it.numeroCarte, "retraitMaroc")
+                    }
+
+                } catch (e: Exception) {
+                    println("Error updating card etat: ${e.message}")
+                }
+            }
+        }
+        binding.switchInternetEtranger.setOnClickListener { isChecked ->
+
+            lifecycleScope.launch {
+                try {
+                    currentCardItem?.let {
+                        cardsConfigViewModel.updateCardEtatForIdCard(it.numeroCarte, "internetEtranger")
+                    }
+
+                } catch (e: Exception) {
+                    println("Error updating card etat: ${e.message}")
+                }
+            }
+        }
+        binding.switchTpeEtranger.setOnClickListener { isChecked ->
+
+            lifecycleScope.launch {
+                try {
+                    currentCardItem?.let {
+                        cardsConfigViewModel.updateCardEtatForIdCard(it.numeroCarte, "tpeEtranger")
+                    }
+
+                } catch (e: Exception) {
+                    println("Error updating card etat: ${e.message}")
+                }
+            }
+        }
+
     }
+
 }

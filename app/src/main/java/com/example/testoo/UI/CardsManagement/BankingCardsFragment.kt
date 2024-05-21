@@ -170,9 +170,14 @@ class BankingCardsFragment : Fragment() {
 
                             // current ImageItem
                             val currentImageItem = imageList[position]
-                            cardsConfigViewModel.setCurrentCardItem(currentImageItem)
-                            println("Current ImageItem: $currentImageItem")
+                            lifecycleScope.launch{
+                                val currentCard= cardsConfigViewModel.getCurrentCard("${currentImageItem.numeroCarte}")
+                                currentImageItem.configuration=currentCard?.configuration
+                                cardsConfigViewModel.setCurrentCardItem(currentImageItem)
+                                println("Current ImageItem: $currentImageItem")
+                            }
                             super.onPageSelected(position)
+
                         }
                     }
 

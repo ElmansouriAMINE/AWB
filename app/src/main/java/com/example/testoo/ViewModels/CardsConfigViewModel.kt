@@ -3,10 +3,7 @@ package com.example.testoo.ViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.testoo.Domain.models.Carte
-import com.example.testoo.Domain.models.Configuration
-import com.example.testoo.Domain.models.Facture
-import com.example.testoo.Domain.models.ImageItem
+import com.example.testoo.Domain.models.*
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 import kotlin.reflect.KMutableProperty1
@@ -84,6 +81,24 @@ suspend fun updateCardEtatForIdCard(numCard: String, parameterName: String) {
         println("Error updating card etat: ${e.message}")
     }
 }
+
+
+    suspend fun getCurrentCard(numeroCarte: String): Carte? {
+        val cardsRef = database.getReference("cartes")
+        val queryById = cardsRef.orderByChild("numeroCarte").equalTo(numeroCarte)
+
+        return try {
+            val dataSnapshotById = queryById.get().await()
+            val currentCardItem= dataSnapshotById.children.mapNotNull { it.getValue(
+                Carte::class.java) }.firstOrNull()
+
+            currentCardItem
+        } catch (e: Exception) {
+            println("Error fetching card: ${e.message}")
+            null
+        }
+    }
+
 
 
 
