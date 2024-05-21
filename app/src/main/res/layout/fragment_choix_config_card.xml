@@ -64,7 +64,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout11"
+            android:id="@+id/opposerCarte"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
@@ -74,7 +74,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
+            app:layout_constraintTop_toBottomOf="@+id/modifierplafonds">
 
             <ImageView
                 android:id="@+id/imageView26"
@@ -112,7 +112,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout9"
+            android:id="@+id/configCard"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
@@ -160,7 +160,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout10"
+            android:id="@+id/modifierplafonds"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
@@ -169,7 +169,7 @@
             android:background="@drawable/transaction_banner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
+            app:layout_constraintTop_toBottomOf="@+id/configCard">
 
             <TextView
                 android:id="@+id/textView43"

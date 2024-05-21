@@ -314,6 +314,9 @@
         <action
             android:id="@+id/action_bankingCardsFragment_to_locationFragment"
             app:destination="@id/locationFragment" />
+        <action
+            android:id="@+id/action_bankingCardsFragment_to_cardConfigFragment"
+            app:destination="@id/cardConfigFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -326,5 +329,26 @@
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"
             />
+    </fragment>
+    <fragment
+        android:id="@+id/choixConfigCardFragment"
+        android:name="com.example.testoo.UI.CardsManagement.ChoixConfigCardFragment"
+        android:label="fragment_choix_config_card"
+        tools:layout="@layout/fragment_choix_config_card" >
+        <action
+            android:id="@+id/action_choixConfigCardFragment_to_cardConfigFragment"
+            app:destination="@id/cardConfigFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardConfigFragment"
+        android:name="com.example.testoo.UI.CardsManagement.CardConfigFragment"
+        android:label="fragment_card_config"
+        tools:layout="@layout/fragment_card_config" >
+        <action
+            android:id="@+id/action_cardConfigFragment_to_choixConfigCardFragment"
+            app:destination="@id/choixConfigCardFragment" />
+        <action
+            android:id="@+id/action_cardConfigFragment_to_bankingCardsFragment"
+            app:destination="@id/bankingCardsFragment" />
     </fragment>
 </navigation>

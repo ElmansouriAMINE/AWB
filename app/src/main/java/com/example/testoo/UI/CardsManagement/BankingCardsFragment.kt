@@ -12,6 +12,7 @@ import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -165,6 +166,11 @@ class BankingCardsFragment : Fragment() {
                     binding.viewPager2.registerOnPageChangeCallback(pageChangeListener)
                 } else {
                     println("Error: No images available to display")
+                }
+
+
+                binding.gestionCard.setOnClickListener {
+                    Navigation.findNavController(binding.root).navigate(R.id.action_bankingCardsFragment_to_cardConfigFragment)
                 }
 
             }
