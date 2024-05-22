@@ -24,7 +24,7 @@
         android:layout_marginEnd="24dp"
         android:text="Configurer ma carte"
         android:textColor="@color/black"
-        android:fontFamily="@font/OutfitExtraBold"
+        android:fontFamily="@font/outfitextrabold"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView20"
@@ -149,6 +149,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Paiement TPE à l'étranger"
+                    android:fontFamily="@font/outfitbold"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -181,6 +184,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="@font/outfitbold"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
                     android:text="Paiement Internet à l'étranger"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -215,6 +221,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Retrait au Maroc"
+                    android:fontFamily="@font/outfitbold"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -238,6 +247,7 @@
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/outfitbold"
                 app:layout_constraintStart_toStartOf="@+id/textView48"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout12" />
 
@@ -260,6 +270,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Paiement TPE au Maroc"
+                    android:fontFamily="@font/outfitbold"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -283,6 +296,7 @@
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/outfitbold"
                 app:layout_constraintStart_toStartOf="@+id/textView42"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
 
@@ -304,6 +318,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Contactless"
+                    android:fontFamily="@font/outfitbold"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -327,6 +344,7 @@
 
                 android:text="Général"
                 android:textColor="@color/black"
+                android:fontFamily="@font/outfitbold"
 
                 android:textSize="18dp"
                 android:textStyle="bold"
@@ -351,6 +369,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Paiement Internet au Maroc"
+                    android:fontFamily="@font/outfitbold"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

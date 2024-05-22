@@ -25,6 +25,7 @@
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1245" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/ic_password.xml" value="0.1" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/ic_person.xml" value="0.1745" />
+        <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/icon_contact.xml" value="0.175" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/icon_home.xml" value="0.125" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/icon_location.xml" value="0.125" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/drawable/icon_message.xml" value="0.1" />
@@ -68,7 +69,7 @@
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/custom_info_marker.xml" value="0.4" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_banking_cards.xml" value="0.2" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_card_config.xml" value="0.2" />
-        <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_choix_config_card.xml" value="0.2" />
+        <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_choix_config_card.xml" value="0.4" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_finger_print.xml" value="0.2" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_historique_transactions.xml" value="0.1763157894736842" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_home.xml" value="0.264" />
@@ -93,7 +94,7 @@
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_selection_recharge.xml" value="0.2" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_selection_recharge2.xml" value="0.264" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_sign_in.xml" value="0.2" />
-        <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
+        <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_sign_up.xml" value="0.2" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_splash.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_success_dialog.xml" value="0.264" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/fragment_upload_c_i_n_infos.xml" value="0.2" />
@@ -112,6 +113,7 @@
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/parent_item_paiement.xml" value="0.264" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/layout/success_popup.xml" value="0.264" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/menu/nav_menu.xml" value="0.264" />
+        <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/menu/nav_menu_non_conecte.xml" value="0.21125541125541125" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/mipmap-anydpi-v26/transfer.xml" value="0.194" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/mipmap-anydpi-v26/wallet.xml" value="0.194" />
         <entry key="..\:/Users/EliteBook G4/AndroidStudioProjects/testoo/app/src/main/res/xml/network_security_config.xml" value="0.1" />
