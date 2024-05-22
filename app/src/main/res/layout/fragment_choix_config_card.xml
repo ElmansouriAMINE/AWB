@@ -24,6 +24,7 @@
         android:layout_marginEnd="24dp"
         android:text="Configurer ma carte"
         android:textColor="@color/black"
+        android:fontFamily="@font/OutfitExtraBold"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView20"

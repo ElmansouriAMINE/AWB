@@ -341,6 +341,9 @@
         <action
             android:id="@+id/action_choixConfigCardFragment_to_bankingCardsFragment"
             app:destination="@id/bankingCardsFragment" />
+        <action
+            android:id="@+id/action_choixConfigCardFragment_to_modifierPlafondsFragment"
+            app:destination="@id/modifierPlafondsFragment" />
     </fragment>
     <fragment
         android:id="@+id/cardConfigFragment"
@@ -349,6 +352,15 @@
         tools:layout="@layout/fragment_card_config" >
         <action
             android:id="@+id/action_cardConfigFragment_to_choixConfigCardFragment"
+            app:destination="@id/choixConfigCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/modifierPlafondsFragment"
+        android:name="com.example.testoo.UI.CardsManagement.ModifierPlafondsFragment"
+        android:label="fragment_modifier_plafonds"
+        tools:layout="@layout/fragment_modifier_plafonds" >
+        <action
+            android:id="@+id/action_modifierPlafondsFragment_to_choixConfigCardFragment"
             app:destination="@id/choixConfigCardFragment" />
     </fragment>
 </navigation>

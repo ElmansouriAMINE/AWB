@@ -53,6 +53,10 @@ class ChoixConfigCardFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_choixConfigCardFragment_to_cardConfigFragment)
         }
 
+        binding.modifierplafonds.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_choixConfigCardFragment_to_modifierPlafondsFragment)
+        }
+
 
 
 
