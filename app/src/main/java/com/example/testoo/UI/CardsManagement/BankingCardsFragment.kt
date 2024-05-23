@@ -185,6 +185,17 @@ class BankingCardsFragment : Fragment() {
 
                             // current ImageItem
                             val currentImageItem = imageList[position]
+                            if(currentImageItem.opposition?.perte ==true || currentImageItem.opposition?.vol == true){
+                                binding.isCardOpposed.visibility = View.VISIBLE
+                                binding.transparentBackground.visibility = View.VISIBLE
+
+
+                            }
+                            else{
+                                binding.isCardOpposed.visibility = View.GONE
+                                binding.transparentBackground.visibility = View.GONE
+
+                            }
                             lifecycleScope.launch{
                                 val currentCard= cardsConfigViewModel.getCurrentCard("${currentImageItem.numeroCarte}")
                                 currentImageItem.configuration=currentCard?.configuration

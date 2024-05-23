@@ -20,6 +20,30 @@
 
     </androidx.viewpager2.widget.ViewPager2>
 
+    <ImageView
+        android:id="@+id/isCardOpposed"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/forbidden"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewPager2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/transparentBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#80FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+        app:layout_constraintEnd_toEndOf="@+id/viewPager2"
+        app:layout_constraintStart_toStartOf="@+id/viewPager2"
+        app:layout_constraintTop_toTopOf="@+id/viewPager2">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         android:id="@+id/slideDots"
         android:layout_width="match_parent"
@@ -78,6 +102,7 @@
                     android:orientation="vertical">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/details"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_format_new">
@@ -115,6 +140,7 @@
                     android:orientation="vertical">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/verrouillage"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_format_new">
@@ -152,7 +178,7 @@
                     android:orientation="vertical">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/requestView"
+                        android:id="@+id/gestion"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_format_new">
@@ -189,7 +215,7 @@
                     android:orientation="vertical">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/transferView"
+                        android:id="@+id/plus"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_format_new">
