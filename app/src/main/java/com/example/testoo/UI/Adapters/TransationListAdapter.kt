@@ -60,47 +60,6 @@ class TransationListAdapter(items: ArrayList<Transaction>,userId: String, user :
 //        holder.textMontant.text = "- ${items[position].montant} DH"
         holder.typeTransaction.setText(items[position].type)
 
-//        val userName = currentUser?.let { getCurrentUser(it.uid) }
-
-//        currentUser?.let { user ->
-//
-//            val current_user= FirebaseDatabase.getInstance().reference
-//                .child("users")
-//                .child(currentUser.uid)
-//
-//            current_user.addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    if (snapshot.exists()) {
-//                        val user = snapshot.getValue(User::class.java)
-//                        val userName = user?.userName
-//                        if (holder.typeTransaction.text == "Virement") {
-//                                Glide.with(holder.itemView.context)
-//                                    .load(user?.photoUrl)
-//                                    .into(holder.imageProfile)}
-//                            holder.textMontant.text = "+ ${items[position].montant} DH"
-//                            holder.typeTransaction.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
-//                            holder.textMontant.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
-//                        }
-//                        else if (holder.typeTransaction.text == "Paiement") {
-//                            holder.textMontant.text = "- ${items[position].montant} DH"
-//                            holder.typeTransaction.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
-//                            holder.textMontant.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
-//
-//                        }
-//                        else {
-//                            // Handle the case where snapshot does not exist
-//                        }
-//
-//
-//
-//
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    // Gérer l'erreur ici
-//                }
-//            })
-//        }
 
                 if (holder.typeTransaction.text == "Virement" && items[position].receiverName == user?.userName) {
                     Glide.with(holder.itemView.context)
@@ -126,27 +85,56 @@ class TransationListAdapter(items: ArrayList<Transaction>,userId: String, user :
                 }
 
 
-
-
-//        if(holder.typeTransaction.text == "Paiement"){
-//            holder.typeTransaction.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
-//        }
-//        else {
-//            holder.typeTransaction.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
-//        }
-
         holder.textDateHeure.text = "" + items[position].dateHeure
-//        val drawableResourceId = holder.itemView.resources.getIdentifier(
-//            items[position].imgProfile,
-//            "drawable", holder.itemView.context.packageName
-//        )
-//        Glide.with(holder.itemView.context)
-//            .load(drawableResourceId)
-//            .transform(GranularRoundedCorners(30F, 30F, 0f, 0F))
-//            .into(holder.imageProfile)
+
         holder.itemView.setOnClickListener { v: View? ->
            println("testing....")
+            showTransactionDialog(holder.itemView.context, items[position])
         }
+    }
+
+    private fun showTransactionDialog(context: Context, transaction: Transaction) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_transaction_details, null)
+
+
+        val imageProfile = dialogView.findViewById<ImageView>(R.id.dialog_imageProfile)
+        val textName = dialogView.findViewById<TextView>(R.id.dialog_textName)
+        val textMontant = dialogView.findViewById<TextView>(R.id.dialog_textMontant)
+        val textTypeTransaction = dialogView.findViewById<TextView>(R.id.dialog_textTypeTransaction)
+        val textDateHeure = dialogView.findViewById<TextView>(R.id.dialog_textDateHeure)
+        val dialogClose = dialogView.findViewById<ImageView>(R.id.dialog_close)
+
+        textName.text = transaction.receiverName
+
+        if(transaction.type == "Paiement" || transaction.type == "Retrait"){
+            textMontant.text = "- ${transaction.montant} DH"
+        }
+        else{
+            textMontant.text = "+ ${transaction.montant} DH"
+        }
+
+        textTypeTransaction.text = transaction.type
+        textDateHeure.text = transaction.dateHeure
+
+        val drawableResourceId = context.resources.getIdentifier(
+            transaction.imgProfile,
+            "drawable", context.packageName
+        )
+        Glide.with(context)
+            .load(drawableResourceId)
+            .transform(GranularRoundedCorners(30F, 30F, 30f, 30F))
+            .into(imageProfile)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setNegativeButton("Cancel",null)
+            .create()
+
+        dialogClose.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     override fun getItemCount(): Int {
