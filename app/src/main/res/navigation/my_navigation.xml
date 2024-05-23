@@ -344,6 +344,9 @@
         <action
             android:id="@+id/action_choixConfigCardFragment_to_modifierPlafondsFragment"
             app:destination="@id/modifierPlafondsFragment" />
+        <action
+            android:id="@+id/action_choixConfigCardFragment_to_oppositionCarteFragment"
+            app:destination="@id/oppositionCarteFragment" />
     </fragment>
     <fragment
         android:id="@+id/cardConfigFragment"
@@ -362,5 +365,26 @@
         <action
             android:id="@+id/action_modifierPlafondsFragment_to_choixConfigCardFragment"
             app:destination="@id/choixConfigCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/oppositionCarteFragment"
+        android:name="com.example.testoo.UI.CardsManagement.OppositionCarteFragment"
+        android:label="fragment_opposition_carte"
+        tools:layout="@layout/fragment_opposition_carte" >
+        <action
+            android:id="@+id/action_oppositionCarteFragment_to_choixConfigCardFragment"
+            app:destination="@id/choixConfigCardFragment" />
+        <action
+            android:id="@+id/action_oppositionCarteFragment_to_oppositionCarteFragment2"
+            app:destination="@id/oppositionCarteFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/oppositionCarteFragment2"
+        android:name="com.example.testoo.UI.CardsManagement.OppositionCarteFragment2"
+        android:label="fragment_opposition_carte2"
+        tools:layout="@layout/fragment_opposition_carte2" >
+        <action
+            android:id="@+id/action_oppositionCarteFragment2_to_oppositionCarteFragment"
+            app:destination="@id/oppositionCarteFragment" />
     </fragment>
 </navigation>
