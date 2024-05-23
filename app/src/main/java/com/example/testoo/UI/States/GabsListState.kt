@@ -8,3 +8,4 @@ data class GabsListState(
     val gabsList: List<GabDto> = emptyList(),
     val error: String = ""
 )
+

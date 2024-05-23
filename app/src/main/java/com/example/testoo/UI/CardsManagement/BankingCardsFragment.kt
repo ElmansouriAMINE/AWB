@@ -1,7 +1,10 @@
 package com.example.testoo.UI.CardsManagement
 
 import ImageAdapter
+import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,18 +20,17 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.testoo.Domain.models.Carte
-import com.example.testoo.Domain.models.ImageItem
-import com.example.testoo.Domain.models.Transaction
-import com.example.testoo.Domain.models.User
+import com.example.testoo.Domain.models.*
 import com.example.testoo.R
 import com.example.testoo.UI.Adapters.TransationListAdapter
+import com.example.testoo.UI.Animation.ALodingDialog
 import com.example.testoo.UI.BottomSheetFragment
 import com.example.testoo.ViewModels.CardsConfigViewModel
 import com.example.testoo.ViewModels.TransactionViewModel
 import com.example.testoo.ViewModels.UserViewModel
 import com.example.testoo.databinding.FragmentBankingCardsBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -55,6 +58,8 @@ class BankingCardsFragment : Fragment() {
 
 
     private val viewModel: UserViewModel by viewModels()
+
+    private lateinit var aLodingDialog: ALodingDialog
 
 
     private lateinit var binding: FragmentBankingCardsBinding
@@ -88,6 +93,9 @@ class BankingCardsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+//        aLodingDialog.show()
         currentUser?.let {
             viewLifecycleOwner.lifecycleScope.launch {
 
@@ -200,6 +208,7 @@ class BankingCardsFragment : Fragment() {
         }
 
     }
+
 
 
     private fun initTransactionsForCurrentUser(items : ArrayList<Transaction>,userId: String,user: User){
