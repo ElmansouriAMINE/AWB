@@ -83,6 +83,7 @@ class BankingCardsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding.viewPager2.unregisterOnPageChangeCallback(pageChangeListener)
+        cardsConfigViewModel.resetValues()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -120,17 +121,20 @@ class BankingCardsFragment : Fragment() {
                         card.dateExpiration?.let { dateExpiration ->
                             card.numeroCarte?.let { numeroCarte ->
                                 card.configuration?.let { config ->
+                                    card.plafond?.let{ plafond ->
                                 ImageItem(
                                     UUID.randomUUID().toString(),
                                     color,
                                     dateExpiration,
                                     numeroCarte,
                                     userName,
-                                    config
+                                    config,
+                                    plafond
                                 )
                             }
                         }
                     }
+                        }
                     }
                 }.filterNotNull()
 
@@ -206,6 +210,10 @@ class BankingCardsFragment : Fragment() {
         recyclerViewTransaction?.adapter = adapterTransaction
 
     }
+
+
+
+
 
 
 

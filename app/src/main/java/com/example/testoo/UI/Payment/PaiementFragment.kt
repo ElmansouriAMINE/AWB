@@ -44,6 +44,7 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
         binding.closeButton.setOnClickListener {
             binding.logOut.visibility = View.GONE
             binding.optionsLayout.visibility = View.GONE
+            binding.logOutConstraint.visibility = View.GONE
         }
 
 //        parentRecyclerView = binding.parentRecyclerView
@@ -194,6 +195,7 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
         // Add optionsRecyclerView to the layout
         binding.optionsLayout.addView(optionsRecyclerView)
         binding.logOut.visibility = View.VISIBLE
+        binding.logOutConstraint.visibility= View.VISIBLE
         binding.optionsLayout.visibility = View.VISIBLE
     }
 

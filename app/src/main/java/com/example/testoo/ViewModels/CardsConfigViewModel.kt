@@ -12,12 +12,44 @@ class CardsConfigViewModel : ViewModel() {
 
     private val database = FirebaseDatabase.getInstance()
 
-    private val _currentCardItem = MutableLiveData<ImageItem>()
-    val currentCardItem : LiveData<ImageItem> get() = _currentCardItem
+    private val _currentCardItem = MutableLiveData<ImageItem?>()
+    val currentCardItem : LiveData<ImageItem?> get() = _currentCardItem
 
 
     fun setCurrentCardItem(currentCardItem : ImageItem){
         _currentCardItem.value = currentCardItem
+    }
+
+
+    private val _retraitMaroc = MutableLiveData<Int?>()
+    val retraitMaroc : LiveData<Int?> get() = _retraitMaroc
+
+
+    fun setRetraitMaroc(retraitMaroc : Int?){
+        _retraitMaroc.value = retraitMaroc
+    }
+
+    private val _tpeMaroc = MutableLiveData<Int?>()
+    val tpeMaroc : LiveData<Int?> get() = _tpeMaroc
+
+
+    fun setTpeMaroc(tpeMaroc : Int){
+        _tpeMaroc.value = tpeMaroc
+    }
+
+    private val _internetMaroc = MutableLiveData<Int?>()
+    val internetMaroc : LiveData<Int?> get() = _internetMaroc
+
+
+    fun setInternetMaroc(internetMaroc : Int){
+        _internetMaroc.value = internetMaroc
+    }
+
+    fun resetValues() {
+        _currentCardItem.value = null
+        _retraitMaroc.value = null
+        _internetMaroc.value = null
+        _tpeMaroc.value = null
     }
 
 
@@ -99,6 +131,64 @@ suspend fun updateCardEtatForIdCard(numCard: String, parameterName: String) {
         }
     }
 
+//    suspend fun updatePlafondValueForIdCard(numCard: String, parameterName: String, montant: Int) {
+//        val currentUserCard = FirebaseDatabase.getInstance().getReference("cartes")
+//        val query = currentUserCard.orderByChild("numeroCarte").equalTo(numCard)
+//        try {
+//            val dataSnapshot = query.get().await()
+//            if (dataSnapshot.exists()) {
+//                val cardSnapshot = dataSnapshot.children.first()
+//                val card = cardSnapshot.getValue(Carte::class.java)
+//                card?.plafond?.let { config ->
+//                    when (parameterName) {
+//                        "retraitMaroc" -> config.retraitMaroc = montant.toString()
+//                        "internetMaroc" -> config.internetMaroc = montant.toString()
+//                        "tpeMaroc" -> config.tpeMaroc = montant.toString()
+//
+//                    }
+//
+//                    val cardKey = cardSnapshot.key
+//                    cardKey?.let {
+//                        currentUserCard.child(it).setValue(card).await()
+//                    }
+//                }
+//            }
+//        } catch (e: Exception) {
+//            println("Error updating card plafond: ${e.message}")
+//        }
+//    }
+
+    suspend fun updatePlafondValueForIdCard(numCard: String, parameterName: String, montant: Int) {
+        val currentUserCard = FirebaseDatabase.getInstance().getReference("cartes")
+        val query = currentUserCard.orderByChild("numeroCarte").equalTo(numCard)
+        try {
+            val dataSnapshot = query.get().await()
+            if (dataSnapshot.exists()) {
+                val cardSnapshot = dataSnapshot.children.first()
+                val card = cardSnapshot.getValue(Carte::class.java)
+                card?.plafond?.let { config ->
+                    when (parameterName) {
+                        "retraitMaroc" -> config.retraitMaroc = montant
+                        "internetMaroc" -> config.internetMaroc = montant
+                        "tpeMaroc" -> config.tpeMaroc = montant
+                        else -> throw IllegalArgumentException("Invalid parameter name")
+                    }
+
+                    val cardKey = cardSnapshot.key
+                    if (cardKey != null) {
+                        currentUserCard.child(cardKey).setValue(card).await()
+                        println("Successfully updated card plafond for $numCard")
+                    } else {
+                        println("Card key is null")
+                    }
+                } ?: println("Plafond configuration not found")
+            } else {
+                println("Card with number $numCard not found")
+            }
+        } catch (e: Exception) {
+            println("Error updating card plafond: ${e.message}")
+        }
+    }
 
 
 
