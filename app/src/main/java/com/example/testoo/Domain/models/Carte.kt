@@ -7,5 +7,6 @@ data class Carte (
     val codeSecret:String? = null,
     val dateExpiration:String? =null,
     val configuration: Configuration? = null,
-    val plafond: Plafond?=null
+    val plafond: Plafond?=null,
+    val opposition: Opposition?=null
 )

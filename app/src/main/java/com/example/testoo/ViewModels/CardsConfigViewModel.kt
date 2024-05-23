@@ -192,5 +192,46 @@ suspend fun updateCardEtatForIdCard(numCard: String, parameterName: String) {
 
 
 
+    suspend fun updateOppositionForIdCard(numCard: String, parameterName: String,commentaire: String) {
+        val currentUserCard = FirebaseDatabase.getInstance().getReference("cartes")
+        val query = currentUserCard.orderByChild("numeroCarte").equalTo(numCard)
+        try {
+            val dataSnapshot = query.get().await()
+            if (dataSnapshot.exists()) {
+                val cardSnapshot = dataSnapshot.children.first()
+                val card = cardSnapshot.getValue(Carte::class.java)
+                card?.opposition?.let { config ->
+                    when (parameterName) {
+                        "Vol" -> {
+                            config.vol = true
+                            config.perte = false
+                            config.commentaire=commentaire}
+                        "Perte" -> {
+                            config.perte = true
+                            config.vol = false
+                            config.commentaire=commentaire
+                        }
+
+                        else -> throw IllegalArgumentException("Invalid parameter name")
+                    }
+
+                    val cardKey = cardSnapshot.key
+                    if (cardKey != null) {
+                        currentUserCard.child(cardKey).setValue(card).await()
+                        println("Successfully updated card opposition for $numCard")
+                    } else {
+                        println("Card key is null")
+                    }
+                } ?: println("Opposition configuration not found")
+            } else {
+                println("Card with number $numCard not found")
+            }
+        } catch (e: Exception) {
+            println("Error updating card opposition: ${e.message}")
+        }
+    }
+
+
+
 
 }

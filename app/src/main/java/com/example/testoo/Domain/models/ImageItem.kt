@@ -7,6 +7,7 @@ data class ImageItem(
     val numeroCarte : String,
     val userName : String,
     var configuration: Configuration?=null,
-    var plafond: Plafond?=null
+    var plafond: Plafond?=null,
+    var opposition: Opposition?=null
 
 )

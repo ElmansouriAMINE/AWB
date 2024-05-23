@@ -130,6 +130,7 @@ class BankingCardsFragment : Fragment() {
                             card.numeroCarte?.let { numeroCarte ->
                                 card.configuration?.let { config ->
                                     card.plafond?.let{ plafond ->
+                                        card.opposition?.let { opposition ->
                                 ImageItem(
                                     UUID.randomUUID().toString(),
                                     color,
@@ -137,10 +138,12 @@ class BankingCardsFragment : Fragment() {
                                     numeroCarte,
                                     userName,
                                     config,
-                                    plafond
+                                    plafond,
+                                    opposition
                                 )
                             }
                         }
+                                }
                     }
                         }
                     }

@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -20,6 +22,7 @@ class OppositionCarteFragment2 : Fragment() {
     private lateinit var binding: FragmentOppositionCarte2Binding
 
     private val cardsConfigViewModel by activityViewModels<CardsConfigViewModel>()
+    private var checkedText: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,8 +59,35 @@ class OppositionCarteFragment2 : Fragment() {
 
         }
 
+        binding.button.isEnabled = checkedText != null
 
+        binding.radioGroup.setOnCheckedChangeListener{ group, checkedId ->
+            val radioButtoncheked = view.findViewById<RadioButton>(checkedId)
+            checkedText = radioButtoncheked.text.toString()
+            Toast.makeText(requireContext(), "Checked: $checkedText", Toast.LENGTH_SHORT).show()
+            binding.button.isEnabled = checkedText != null
+
+        }
+
+
+
+        binding.button.setOnClickListener {
+            val commentaire = binding.commentaire.text.toString()
+
+            if (checkedText != null) {
+                lifecycleScope.launch {
+                    currentCardItem?.let {
+                        cardsConfigViewModel.updateOppositionForIdCard(it.numeroCarte, checkedText!!, commentaire)
+                    }
+                }
+            } else {
+                Toast.makeText(requireContext(), "Please select an option", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
+
+
 
 
 }

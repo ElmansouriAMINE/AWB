@@ -202,7 +202,8 @@ class SignUpFragment : Fragment() {
                 codeSecret = generateRandomSecretCode(),
                 dateExpiration = generateRandomExpirationDate(),
                 configuration = Configuration(false,false,false,false,false,false),
-                plafond = Plafond(0,0,0)
+                plafond = Plafond(0,0,0),
+                opposition = Opposition(false,false,null)
             )
         }
     }
