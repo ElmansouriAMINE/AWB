@@ -96,7 +96,7 @@
         android:id="@+id/radioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Vol"
         app:layout_constraintStart_toStartOf="@+id/imageView20"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -117,11 +117,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
 
         android:layout_marginEnd="16dp"
-        app:boxStrokeColor="@color/yellow"
-        app:hintTextColor="@color/yellow"
+        app:boxStrokeColor="@color/light_red"
+        app:hintTextColor="@color/light_red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioButton2">
@@ -141,7 +141,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="74dp"
         android:background="@drawable/tab_indicator"
         android:fontFamily="@font/outfitextrabold"
         android:text="Continuer"

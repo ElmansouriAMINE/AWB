@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/screen_background"
     tools:context=".UI.CardsManagement.OppositionCarteFragment">
 
     <ImageView
@@ -78,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="164dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="74dp"
         android:background="@drawable/tab_indicator"
         android:fontFamily="@font/outfitextrabold"
         android:text="Continuer"

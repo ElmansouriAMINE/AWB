@@ -57,6 +57,10 @@ class ChoixConfigCardFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_choixConfigCardFragment_to_modifierPlafondsFragment)
         }
 
+        binding.opposerCarte.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_choixConfigCardFragment_to_oppositionCarteFragment)
+        }
+
 
 
 
