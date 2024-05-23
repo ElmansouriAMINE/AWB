@@ -127,7 +127,6 @@ class TransationListAdapter(items: ArrayList<Transaction>,userId: String, user :
 
         val dialog = androidx.appcompat.app.AlertDialog.Builder(context)
             .setView(dialogView)
-            .setNegativeButton("Cancel",null)
             .create()
 
         dialogClose.setOnClickListener {
