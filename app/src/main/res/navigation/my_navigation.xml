@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_locationFragment_to_bankingCardsFragment"
             app:destination="@id/bankingCardsFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
 
     </fragment>
     <fragment
@@ -236,6 +239,9 @@
         <action
             android:id="@+id/action_profileFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
     </fragment>
     <fragment
         android:id="@+id/recapilatifPaiementFragment"

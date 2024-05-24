@@ -29,19 +29,44 @@
 <!--                app:layout_constraintStart_toStartOf="parent"-->
 <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/textView40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/outfitmedium"
-            android:text="User Profile"
-            android:textColor="@color/yellow"
-            android:textSize="46dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+<!--        <TextView-->
+<!--            android:id="@+id/textView40"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:fontFamily="@font/outfitmedium"-->
+<!--            android:text="User Profile"-->
+<!--            android:textColor="@color/yellow"-->
+<!--            android:textSize="46dp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/outfitextrabold"
+            android:text="My profile"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView20" />
+
 
         <ProgressBar
             android:id="@+id/progressbar_pic"
@@ -60,18 +85,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="100dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="80dp"
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView40">
+            app:layout_constraintTop_toBottomOf="@+id/textView41">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="590dp"
+                android:layout_height="650dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
@@ -87,7 +113,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="82dp"
                     android:layout_marginBottom="32dp"
-                    android:background="@drawable/white_banner"
+                    android:background="@drawable/success_dialogue_background"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -160,12 +186,29 @@
                     android:drawableStart="@drawable/ic_password"
                     android:drawablePadding="16dp"
                     android:enabled="true"
-                    android:hint="Change Password"
+                    android:hint="Current Password"
                     android:inputType="textPassword"
                     android:maxLines="2"
                     android:padding="10dp"
                     app:layout_constraintStart_toStartOf="@+id/text_phone"
                     app:layout_constraintTop_toBottomOf="@+id/text_phone" />
+
+                <EditText
+                    android:id="@+id/text_password_new"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/ic_password"
+                    android:drawablePadding="16dp"
+                    android:enabled="true"
+                    android:hint="New Password"
+                    android:inputType="textPassword"
+                    android:maxLines="2"
+                    android:padding="10dp"
+                    app:layout_constraintStart_toStartOf="@+id/text_phone"
+                    app:layout_constraintTop_toBottomOf="@+id/text_password" />
 
                 <ProgressBar
                     android:id="@+id/progressbar"
@@ -203,10 +246,11 @@
                     android:text="save"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.494"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_password" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_password_new" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_view"

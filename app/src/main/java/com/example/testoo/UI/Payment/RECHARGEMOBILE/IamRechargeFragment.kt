@@ -55,11 +55,26 @@ class IamRechargeFragment : Fragment() {
 //                ?.replace(R.id.fragment_container, SelectionRechargeFragment())
 //                ?.addToBackStack(null)
 //                ?.commit()
-            paiementViewModel.apply {
-                setNumero("+212${binding.numeroEt.text.toString()}")
-                setMontant("${binding.montantET.text.toString()}")
+            val numero = binding.numeroEt.text.toString()
+            val montant = binding.montantET.text.toString()
+            if(numero.isNotEmpty() && montant.isNotEmpty()){
+                paiementViewModel.apply {
+                    setNumero("+212${numero}")
+                    setMontant("${montant}")
+                }
+                Navigation.findNavController(binding.root).navigate(R.id.action_iamRechargeFragment_to_selectionRechargeFragment)
             }
-            Navigation.findNavController(binding.root).navigate(R.id.action_iamRechargeFragment_to_selectionRechargeFragment)
+            else if(numero.isEmpty() && montant.isEmpty()) {
+                Toast.makeText(requireContext(),"Please fill in the fields",Toast.LENGTH_SHORT).show()
+            }
+            else if (numero.isEmpty()){
+                Toast.makeText(requireContext(),"Phone number is empty, Fill it up",Toast.LENGTH_SHORT).show()
+            }
+            else if (montant.isEmpty()){
+                Toast.makeText(requireContext(),"montant is empty, Fill it up",Toast.LENGTH_SHORT).show()
+            }
+
+
 
         }
 

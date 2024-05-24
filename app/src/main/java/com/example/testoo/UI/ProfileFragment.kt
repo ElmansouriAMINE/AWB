@@ -16,10 +16,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.testoo.databinding.FragmentProfileBinding
 import com.example.testoo.Domain.models.User
+import com.example.testoo.R
 import com.example.testoo.Utils.BottomNavBarHandler
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
@@ -112,6 +115,7 @@ class ProfileFragment : Fragment() {
             val name = binding.editTextName.text.toString().trim()
             val phone = binding.textPhone.text.toString().trim()
             val password = binding.textPassword.text.toString().trim()
+            val newPassword = binding.textPasswordNew.text.toString().trim()
 
             if (name.isEmpty()) {
                 binding.editTextName.error = "name required"
@@ -132,8 +136,11 @@ class ProfileFragment : Fragment() {
                     if (task.isSuccessful) {
                         // Update the photoUrl in the 'users' collection
                         val user = User(id=currentUser.uid,userName = name, email =currentUser.email, phoneNumber = phone, photoUrl = photo.toString())
-                        if(password.isNotEmpty()){
-                            currentUser.updatePassword(password)
+                        if (password.isNotEmpty() && newPassword.isNotEmpty() && password != newPassword) {
+                            updatePassword(password)
+                        }
+                        else{
+                            Toast.makeText(requireContext(),"Please verify your old and new Password",Toast.LENGTH_SHORT).show()
                         }
                         FirebaseDatabase.getInstance().reference
                             .child("users")
@@ -146,6 +153,7 @@ class ProfileFragment : Fragment() {
                                         "Profile Updated",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    Navigation.findNavController(binding.root).navigate(R.id.action_profileFragment_to_locationFragment)
                                 } else {
                                     Toast.makeText(
                                         requireContext(),
@@ -235,6 +243,26 @@ class ProfileFragment : Fragment() {
 
 
 
+    }
+
+    private fun updatePassword(newPassword: String) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val currentPassword = binding.textPassword.text.toString().trim()
+        val authCredential = EmailAuthProvider.getCredential(user?.email!!,currentPassword)
+
+        user.reauthenticate(authCredential).addOnCompleteListener {
+            if (it.isSuccessful) {
+                user.updatePassword(newPassword).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(requireContext(), "Password updated successfully", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(requireContext(), task.exception?.message ?: "Failed to update password", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                Toast.makeText(requireContext(), it.exception?.message ?: "Reauthentication failed", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 //    private fun takePictureIntent() {
