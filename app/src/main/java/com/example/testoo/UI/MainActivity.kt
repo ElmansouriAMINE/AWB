@@ -52,6 +52,21 @@ class MainActivity : AppCompatActivity(), BottomNavBarHandler {
         Log.d(TAG, "Current User: $currentUser")
 
         setUpBottomNavBar()
+
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.splashFragment -> {
+                    binding.bottomNavBar.visibility = View.GONE
+                    binding.bottomNavBarUserNonConnecte.visibility = View.GONE
+                }
+                R.id.mapsFragment ->{
+                    binding.bottomNavBar.visibility = View.GONE
+                    binding.bottomNavBarUserNonConnecte.visibility = View.GONE
+                }
+                else -> setUpBottomNavBar()
+            }
+        }
     }
 
     private fun setUpTabBar() {
