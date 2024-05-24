@@ -71,6 +71,8 @@ class ProfileFragment : Fragment() {
             val usr_cr=FirebaseDatabase.getInstance().reference
                 .child("users")
                 .child(currentUser.uid)
+//            Glide.with(this)
+//                .load()
             usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
@@ -92,11 +94,6 @@ class ProfileFragment : Fragment() {
 
 //            binding.textPhone.setText(if (user.phoneNumber.isNullOrEmpty())  "$usr_cr" else user.phoneNumber)
 
-            if (user.isEmailVerified) {
-                binding.textNotVerified.visibility = View.INVISIBLE
-            } else {
-                binding.textNotVerified.visibility = View.VISIBLE
-            }
         }
 
         binding.imageView.setOnClickListener {
@@ -114,6 +111,7 @@ class ProfileFragment : Fragment() {
 
             val name = binding.editTextName.text.toString().trim()
             val phone = binding.textPhone.text.toString().trim()
+            val password = binding.textPassword.text.toString().trim()
 
             if (name.isEmpty()) {
                 binding.editTextName.error = "name required"
@@ -134,6 +132,9 @@ class ProfileFragment : Fragment() {
                     if (task.isSuccessful) {
                         // Update the photoUrl in the 'users' collection
                         val user = User(id=currentUser.uid,userName = name, email =currentUser.email, phoneNumber = phone, photoUrl = photo.toString())
+                        if(password.isNotEmpty()){
+                            currentUser.updatePassword(password)
+                        }
                         FirebaseDatabase.getInstance().reference
                             .child("users")
                             .child(currentUser.uid)
@@ -233,28 +234,7 @@ class ProfileFragment : Fragment() {
 //        }
 
 
-        binding.textNotVerified.setOnClickListener {
 
-            currentUser?.sendEmailVerification()
-                ?.addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Verification Email Sent",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            it.exception?.message!!,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-        }
     }
 
 //    private fun takePictureIntent() {
@@ -311,21 +291,36 @@ class ProfileFragment : Fragment() {
 //            uploadImageAndSaveUri(imageBitmap)
 //        }
 //    }
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    if (resultCode == RESULT_OK) {
-        Log.d(TAG, "Pic ok ok .....")
-        val extras = data?.extras
-        if (extras != null && extras.containsKey("data")) {
-            val imageBitmap = extras.get("data") as Bitmap
-            uploadImageAndSaveUri(imageBitmap)
+//override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//    super.onActivityResult(requestCode, resultCode, data)
+//    if (resultCode == RESULT_OK) {
+//        Log.d(TAG, "Pic ok ok .....")
+//        val extras = data?.extras
+//        if (extras != null && extras.containsKey("data")) {
+//            val imageBitmap = extras.get("data") as Bitmap
+//            uploadImageAndSaveUri(imageBitmap)
+//        } else {
+//            Log.e(TAG, "No image data found in extras")
+//        }
+//    } else {
+//        Log.e(TAG, "Failed to capture image. requestCode: $requestCode, resultCode: $resultCode")
+//    }
+//}
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            Log.d(TAG, "Pic ok ok .....")
+            val extras = data?.extras
+            if (extras != null && extras.containsKey("data")) {
+                val imageBitmap = extras.get("data") as Bitmap
+                uploadUserImageFromBucket(imageBitmap) // Use this function
+            } else {
+                Log.e(TAG, "No image data found in extras")
+            }
         } else {
-            Log.e(TAG, "No image data found in extras")
+            Log.e(TAG, "Failed to capture image. requestCode: $requestCode, resultCode: $resultCode")
         }
-    } else {
-        Log.e(TAG, "Failed to capture image. requestCode: $requestCode, resultCode: $resultCode")
     }
-}
 
 
     private fun uploadImageAndSaveUri(bitmap: Bitmap) {
@@ -336,6 +331,7 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
             .child("pics/${FirebaseAuth.getInstance().currentUser?.uid}")
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val image = baos.toByteArray()
+
 
         val upload = storageRef.putBytes(image)
 
@@ -360,5 +356,81 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
         }
 
     }
+
+
+    private fun uploadUserImageFromBucket(bitmap: Bitmap) {
+        val baos = ByteArrayOutputStream()
+        println("upload picc")
+        val storageRef = FirebaseStorage.getInstance("gs://awb-test-2eaa2.appspot.com")
+            .reference
+            .child("pics/${FirebaseAuth.getInstance().currentUser?.uid}")
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val image = baos.toByteArray()
+
+        val upload = storageRef.putBytes(image)
+        val name = binding.editTextName.text.toString().trim()
+        val phone = binding.textPhone.text.toString().trim()
+
+        binding.progressbarPic.visibility = View.VISIBLE
+        upload.addOnCompleteListener { uploadTask ->
+            binding.progressbarPic.visibility = View.INVISIBLE
+
+
+            if (uploadTask.isSuccessful) {
+                storageRef.downloadUrl.addOnCompleteListener { urlTask ->
+                    urlTask.result?.let {
+                        imageUri = it
+                        // Update the image view
+                        binding.imageView.setImageBitmap(bitmap)
+
+                        // Update the user's profile with the new image URL
+                        val updates = UserProfileChangeRequest.Builder()
+                            .setPhotoUri(imageUri)
+                            .build()
+
+                        currentUser?.updateProfile(updates)
+                            ?.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val user = User(id=currentUser.uid,userName = name, email =currentUser.email, phoneNumber = phone, photoUrl =imageUri.toString())
+
+
+
+                                    FirebaseDatabase.getInstance().reference
+                                        .child("users")
+                                        .child(currentUser.uid)
+                                        .setValue(user)
+                                        .addOnCompleteListener { dbTask ->
+                                            if (dbTask.isSuccessful) {
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    "Profile Updated",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            } else {
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    dbTask.exception?.message ?: "Failed to update profile",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                } else {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        task.exception?.message!!,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                    }
+                }
+            } else {
+                uploadTask.exception?.let {
+                    Toast.makeText(activity,it.message!!,Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 
 }

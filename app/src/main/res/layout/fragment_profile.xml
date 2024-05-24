@@ -34,10 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:fontFamily="@font/gvtime"
+            android:fontFamily="@font/outfitmedium"
             android:text="User Profile"
             android:textColor="@color/yellow"
-            android:textSize="56dp"
+            android:textSize="46dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,18 +54,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/camerablack2"
-            app:layout_constraintEnd_toEndOf="@+id/textView40"
-            app:layout_constraintStart_toStartOf="@+id/textView40"
-            app:layout_constraintTop_toBottomOf="@+id/textView40"
-            app:shapeAppearanceOverlay="@style/roundedImageView" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout8"
@@ -144,25 +132,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_text_name" />
 
-                <TextView
-                    android:id="@+id/text_not_verified"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="4dp"
-                    android:text="Not Verified (Click to Verify)"
-                    android:textColor="@color/red"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="@+id/text_email"
-                    app:layout_constraintTop_toBottomOf="@+id/text_email" />
-
 
                 <EditText
                     android:id="@+id/text_phone"
                     android:layout_width="300dp"
                     android:layout_height="60dp"
                     android:layout_gravity="top"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/custom_input"
                     android:drawableStart="@drawable/ic_phone"
                     android:drawablePadding="16dp"
@@ -172,14 +148,14 @@
                     android:maxLines="2"
                     android:padding="10dp"
                     app:layout_constraintStart_toStartOf="@+id/text_email"
-                    app:layout_constraintTop_toBottomOf="@+id/text_not_verified" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_email" />
 
                 <EditText
                     android:id="@+id/text_password"
                     android:layout_width="300dp"
                     android:layout_height="60dp"
                     android:layout_gravity="top"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/custom_input"
                     android:drawableStart="@drawable/ic_password"
                     android:drawablePadding="16dp"
@@ -231,6 +207,18 @@
                     app:layout_constraintHorizontal_bias="0.494"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_password" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="42dp"
+                    android:src="@drawable/camerablack2"
+                    app:layout_constraintBottom_toTopOf="@+id/view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/roundedImageView" />
 
                 <!--                <Button-->
                 <!--                    android:id="@+id/button_save"-->
