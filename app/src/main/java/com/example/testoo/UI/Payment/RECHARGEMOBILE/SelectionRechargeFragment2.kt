@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -88,9 +89,9 @@ class SelectionRechargeFragment2 : Fragment() , CompteListAdapterForPaiement.OnC
             }
         }
 
-        binding.buttonContinue.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_selectionRechargeFragment2_to_recapilatifPaiementFragment)
-        }
+//        binding.buttonContinue.setOnClickListener {
+//            Navigation.findNavController(binding.root).navigate(R.id.action_selectionRechargeFragment2_to_recapilatifPaiementFragment)
+//        }
 
 
 
@@ -108,9 +109,17 @@ class SelectionRechargeFragment2 : Fragment() , CompteListAdapterForPaiement.OnC
     override fun onCompteClicked(compte: Compte) {
         println("this is the compte: $compte")
 
-        paiementViewModel.apply {
-            setCompteBancaire(compte)
+        if(compte != null){
+            paiementViewModel.apply {
+                setCompteBancaire(compte)
+            }
+            binding.buttonContinue.setOnClickListener {
+                Navigation.findNavController(binding.root).navigate(R.id.action_selectionRechargeFragment2_to_recapilatifPaiementFragment)
+            }
+        }else{
+            Toast.makeText(requireContext(),"Please choose an account",Toast.LENGTH_SHORT).show()
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

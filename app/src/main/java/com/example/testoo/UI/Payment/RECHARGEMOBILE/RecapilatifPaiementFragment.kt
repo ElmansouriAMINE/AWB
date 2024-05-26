@@ -85,7 +85,7 @@ class RecapilatifPaiementFragment : Fragment() {
         })
 
         paiementViewModel.recharge.observe(viewLifecycleOwner, Observer { data ->
-            binding.textReferenceRecharge.setText("${data.ref}")
+            binding.textReferenceRecharge.setText("REF : ${data.ref}")
             binding.textRechargeType.setText("${data.rechargeType}")
             Toast.makeText(requireContext(),"${data.ref}", Toast.LENGTH_LONG).show()
         })

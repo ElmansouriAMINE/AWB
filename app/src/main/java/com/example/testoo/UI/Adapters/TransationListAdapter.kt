@@ -56,20 +56,34 @@ class TransationListAdapter(items: ArrayList<Transaction>,userId: String, user :
     }
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
-        holder.textName.setText(items[position].receiverName)
+//        holder.textName.setText(items[position].receiverName)
 //        holder.textMontant.text = "- ${items[position].montant} DH"
         holder.typeTransaction.setText(items[position].type)
 
 
                 if (holder.typeTransaction.text == "Virement" && items[position].receiverName == user?.userName) {
+                    holder.textName.setText(items[position].senderName)
                     Glide.with(holder.itemView.context)
-                        .load(user?.photoUrl)
+                        .load(items[position].imgProfile)
                         .transform(GranularRoundedCorners(30F, 30F, 30f, 30F))
                         .into(holder.imageProfile)
                     holder.textMontant.text = "+ ${items[position].montant} DH"
                     holder.typeTransaction.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
                     holder.textMontant.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
-                } else {
+                }
+                else if (holder.typeTransaction.text == "Virement" && items[position].receiverName != user?.userName){
+                    holder.textName.setText(items[position].senderName)
+                    Glide.with(holder.itemView.context)
+                        .load(items[position].imgProfile)
+                        .transform(GranularRoundedCorners(30F, 30F, 30f, 30F))
+                        .into(holder.imageProfile)
+                    holder.textMontant.text = "- ${items[position].montant} DH"
+                    holder.typeTransaction.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+                    holder.textMontant.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+                }
+
+                else {
+                    holder.textName.setText(items[position].receiverName)
                     val drawableResourceId = holder.itemView.resources.getIdentifier(
                         items[position].imgProfile,
                         "drawable", holder.itemView.context.packageName
@@ -104,14 +118,15 @@ class TransationListAdapter(items: ArrayList<Transaction>,userId: String, user :
         val textDateHeure = dialogView.findViewById<TextView>(R.id.dialog_textDateHeure)
         val dialogClose = dialogView.findViewById<ImageView>(R.id.dialog_close)
 
-        textName.text = transaction.receiverName
+//        textName.text = transaction.receiverName
 
         if(transaction.type == "Paiement" || transaction.type == "Retrait"){
             textMontant.text = "- ${transaction.montant} DH"
+            textName.text = transaction.receiverName
         }
         else{
             textMontant.text = "+ ${transaction.montant} DH"
-        }
+            textName.text = "Virement vers ${transaction.receiverName}"}
 
         textTypeTransaction.text = transaction.type
         textDateHeure.text = transaction.dateHeure
@@ -120,10 +135,20 @@ class TransationListAdapter(items: ArrayList<Transaction>,userId: String, user :
             transaction.imgProfile,
             "drawable", context.packageName
         )
-        Glide.with(context)
-            .load(drawableResourceId)
-            .transform(GranularRoundedCorners(30F, 30F, 30f, 30F))
-            .into(imageProfile)
+        if(drawableResourceId !=0){
+            Glide.with(context)
+                .load(drawableResourceId)
+                .transform(GranularRoundedCorners(30F, 30F, 30f, 30F))
+                .into(imageProfile)
+        }
+        else{
+            Glide.with(context)
+                .load(transaction.imgProfile)
+                .transform(GranularRoundedCorners(30F, 30F, 30f, 30F))
+                .into(imageProfile)
+
+        }
+
 
         val dialog = androidx.appcompat.app.AlertDialog.Builder(context)
             .setView(dialogView)

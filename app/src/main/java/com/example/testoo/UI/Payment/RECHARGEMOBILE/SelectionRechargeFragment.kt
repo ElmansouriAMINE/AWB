@@ -68,15 +68,15 @@ class SelectionRechargeFragment : Fragment() , RechargeListAdapter.OnRechargeCli
         }
 
 
-        binding.buttonContinue.setOnClickListener {
-
-//            activity?.supportFragmentManager?.beginTransaction()
-//                ?.replace(R.id.fragment_container, SelectionRechargeFragment2())
-//                ?.addToBackStack(null)
-//                ?.commit()
-            Navigation.findNavController(binding.root).navigate(R.id.action_selectionRechargeFragment_to_selectionRechargeFragment2)
-
-        }
+//        binding.buttonContinue.setOnClickListener {
+//
+////            activity?.supportFragmentManager?.beginTransaction()
+////                ?.replace(R.id.fragment_container, SelectionRechargeFragment2())
+////                ?.addToBackStack(null)
+////                ?.commit()
+//            Navigation.findNavController(binding.root).navigate(R.id.action_selectionRechargeFragment_to_selectionRechargeFragment2)
+//
+//        }
 
 
 
@@ -132,6 +132,20 @@ class SelectionRechargeFragment : Fragment() , RechargeListAdapter.OnRechargeCli
 
     override fun onRechargeClicked(recharge: Recharge) {
         println("this is the recharge: $recharge")
+        paiementViewModel.apply {
+            setRecharge(recharge)
+        }
+
+        binding.buttonContinue.setOnClickListener {
+            if(recharge != null){
+                Navigation.findNavController(binding.root).navigate(R.id.action_selectionRechargeFragment_to_selectionRechargeFragment2)
+            }
+            else{
+                Toast.makeText(requireContext(),"Please choose an Item", Toast.LENGTH_SHORT).show()
+            }
+
+
+        }
 
     }
 

@@ -206,7 +206,7 @@ class ValidationFragment : Fragment() {
                                                                                 val currentDateTime = virementViewModel.getCurrentDateTimeFormatted()
                                                                                 val currTransaction =
                                                                                     Transaction(
-                                                                                        "",
+                                                                                        user.photoUrl,
                                                                                         userId = currentUser.uid,
                                                                                         type="Virement",
                                                                                         senderName= userName,

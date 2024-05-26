@@ -116,7 +116,30 @@ class VirementFragment : Fragment() {
                     val email = userSnapshot.child("email").getValue(String::class.java).orEmpty()
                     val phoneNumber = userSnapshot.child("phoneNumber").getValue(String::class.java).orEmpty()
                     val user = User(id=id,userName = name, email=email, phoneNumber = phoneNumber)
-                    userList.add(user)
+                    currentUser?.let { user1 ->
+                        val current_user = FirebaseDatabase.getInstance().reference
+                            .child("users")
+                            .child(currentUser.uid)
+                        current_user.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.exists()) {
+                                    val user2 = snapshot.getValue(User::class.java)
+                                    val userName = user2?.userName
+                                    if(userName != user.userName){
+                                        userList.add(user)
+                                    }
+
+
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                println(error.message)
+                            }
+                        })
+
+
+                    }
                 }
 
             }
