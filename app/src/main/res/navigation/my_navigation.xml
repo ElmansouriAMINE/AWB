@@ -323,6 +323,9 @@
         <action
             android:id="@+id/action_bankingCardsFragment_to_choixConfigCardFragment"
             app:destination="@id/choixConfigCardFragment" />
+        <action
+            android:id="@+id/action_bankingCardsFragment_to_oppositionCarteFragment2"
+            app:destination="@id/oppositionCarteFragment2" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -392,5 +395,8 @@
         <action
             android:id="@+id/action_oppositionCarteFragment2_to_oppositionCarteFragment"
             app:destination="@id/oppositionCarteFragment" />
+        <action
+            android:id="@+id/action_oppositionCarteFragment2_to_bankingCardsFragment"
+            app:destination="@id/bankingCardsFragment" />
     </fragment>
 </navigation>

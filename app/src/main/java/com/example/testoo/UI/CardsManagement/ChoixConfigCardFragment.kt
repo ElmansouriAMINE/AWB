@@ -44,6 +44,10 @@ class ChoixConfigCardFragment : Fragment() {
             binding.textUserName.text = it.userName
         }
 
+        binding.backArrow.setOnClickListener {
+              Navigation.findNavController(binding.root).navigateUp()
+        }
+
 
 
 

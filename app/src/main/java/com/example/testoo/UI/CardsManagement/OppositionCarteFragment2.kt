@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.testoo.R
 import com.example.testoo.ViewModels.CardsConfigViewModel
@@ -41,6 +42,10 @@ class OppositionCarteFragment2 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val currentCardItem = cardsConfigViewModel.currentCardItem.value
+
+        binding.backArrow.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
 
         currentCardItem?.let {
             val imageResourceId =
@@ -80,6 +85,7 @@ class OppositionCarteFragment2 : Fragment() {
                         cardsConfigViewModel.updateOppositionForIdCard(it.numeroCarte, checkedText!!, commentaire)
                     }
                 }
+                Navigation.findNavController(binding.root).navigate(R.id.action_oppositionCarteFragment2_to_bankingCardsFragment)
             } else {
                 Toast.makeText(requireContext(), "Please select an option", Toast.LENGTH_SHORT).show()
             }

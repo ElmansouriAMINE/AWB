@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.testoo.R
@@ -158,6 +159,10 @@ class ModifierPlafondsFragment : Fragment() {
 
         binding.button.setOnClickListener {
             updatePlafonds()
+        }
+
+        binding.backArrow.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
         }
 
         return binding.root

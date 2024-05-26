@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.testoo.R
 import com.example.testoo.ViewModels.CardsConfigViewModel
@@ -31,6 +32,10 @@ class CardConfigFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val currentCardItem = cardsConfigViewModel.currentCardItem.value
+
+        binding.backArrow.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
 
         currentCardItem?.let {
             val imageResourceId =

@@ -136,8 +136,11 @@ class ProfileFragment : Fragment() {
                     if (task.isSuccessful) {
                         // Update the photoUrl in the 'users' collection
                         val user = User(id=currentUser.uid,userName = name, email =currentUser.email, phoneNumber = phone, photoUrl = photo.toString())
-                        if (password.isNotEmpty() && newPassword.isNotEmpty() && password != newPassword) {
-                            updatePassword(password)
+//                        if (password.isNotEmpty() && newPassword.isNotEmpty() && password != newPassword) {
+//                            updatePassword(password)
+//                        }
+                        if (password.isNotEmpty() && newPassword.isNotEmpty()) {
+                            updatePassword(password, newPassword)
                         }
                         else{
                             Toast.makeText(requireContext(),"Please verify your old and new Password",Toast.LENGTH_SHORT).show()
@@ -245,25 +248,56 @@ class ProfileFragment : Fragment() {
 
     }
 
-    private fun updatePassword(newPassword: String) {
-        val user = FirebaseAuth.getInstance().currentUser
-        val currentPassword = binding.textPassword.text.toString().trim()
-        val authCredential = EmailAuthProvider.getCredential(user?.email!!,currentPassword)
+//    private fun updatePassword(newPassword: String) {
+//        val user = FirebaseAuth.getInstance().currentUser
+//        val currentPassword = binding.textPassword.text.toString().trim()
+//        val authCredential = EmailAuthProvider.getCredential(user?.email!!,currentPassword)
+//
+//        user.reauthenticate(authCredential).addOnCompleteListener {
+//            if (it.isSuccessful) {
+//                user.updatePassword(newPassword).addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        Toast.makeText(requireContext(), "Password updated successfully", Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        Toast.makeText(requireContext(), task.exception?.message ?: "Failed to update password", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            } else {
+//                Toast.makeText(requireContext(), it.exception?.message ?: "Reauthentication failed", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
+private fun updatePassword(currentPassword: String, newPassword: String) {
+    val user = FirebaseAuth.getInstance().currentUser
+    val authCredential = EmailAuthProvider.getCredential(user?.email!!, currentPassword)
 
-        user.reauthenticate(authCredential).addOnCompleteListener {
-            if (it.isSuccessful) {
-                user.updatePassword(newPassword).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(requireContext(), "Password updated successfully", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), task.exception?.message ?: "Failed to update password", Toast.LENGTH_SHORT).show()
-                    }
+    user.reauthenticate(authCredential).addOnCompleteListener { reauthTask ->
+        if (reauthTask.isSuccessful) {
+            user.updatePassword(newPassword).addOnCompleteListener { updateTask ->
+                if (updateTask.isSuccessful) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Password updated successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        updateTask.exception?.message ?: "Failed to update password",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            } else {
-                Toast.makeText(requireContext(), it.exception?.message ?: "Reauthentication failed", Toast.LENGTH_SHORT).show()
             }
+        } else {
+            Toast.makeText(
+                requireContext(),
+                reauthTask.exception?.message ?: "Reauthentication failed",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
+}
+
 
 //    private fun takePictureIntent() {
 //        println("Testiiiing.....")

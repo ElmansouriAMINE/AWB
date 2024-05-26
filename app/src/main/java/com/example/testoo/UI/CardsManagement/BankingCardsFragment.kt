@@ -153,6 +153,8 @@ class BankingCardsFragment : Fragment() {
 
                 val imageList = ArrayList(imageList1)
 
+
+
                 println("imageList: $imageList")
 
                 val imageAdapter = ImageAdapter()
@@ -162,6 +164,16 @@ class BankingCardsFragment : Fragment() {
                 print("hhhhhh ${imageList.size}")
 
                 if (imageList.isNotEmpty()) {
+
+                    imageList.mapIndexed{index, imageItem ->
+                        var currentImageItem = imageItem
+                        if(currentImageItem.opposition?.perte ==true || currentImageItem.opposition?.vol == true){
+                            binding.isCardOpposed.visibility = View.VISIBLE
+                            binding.transparentBackground.visibility = View.VISIBLE
+
+                        }
+                    }
+
                     val dotsImage = Array(imageList.size) { ImageView(requireContext()) }
 
                     dotsImage.forEach {
@@ -189,7 +201,6 @@ class BankingCardsFragment : Fragment() {
                                 binding.isCardOpposed.visibility = View.VISIBLE
                                 binding.transparentBackground.visibility = View.VISIBLE
 
-
                             }
                             else{
                                 binding.isCardOpposed.visibility = View.GONE
@@ -201,6 +212,13 @@ class BankingCardsFragment : Fragment() {
                                 currentImageItem.configuration=currentCard?.configuration
                                 cardsConfigViewModel.setCurrentCardItem(currentImageItem)
                                 println("Current ImageItem: $currentImageItem")
+                                binding.gestionCard.setOnClickListener {
+                                    if(currentImageItem.opposition?.perte ==true || currentImageItem.opposition?.vol == true ){
+                                        Toast.makeText(requireContext(),"Your card is opposed",Toast.LENGTH_SHORT).show()
+                                    }else{
+                                        Navigation.findNavController(binding.root).navigate(R.id.action_bankingCardsFragment_to_choixConfigCardFragment)
+                                    }
+                                }
                             }
                             super.onPageSelected(position)
 
@@ -213,9 +231,9 @@ class BankingCardsFragment : Fragment() {
                 }
 
 
-                binding.gestionCard.setOnClickListener {
-                    Navigation.findNavController(binding.root).navigate(R.id.action_bankingCardsFragment_to_choixConfigCardFragment)
-                }
+//                binding.gestionCard.setOnClickListener {
+//                    Navigation.findNavController(binding.root).navigate(R.id.action_bankingCardsFragment_to_choixConfigCardFragment)
+//                }
 
             }
 

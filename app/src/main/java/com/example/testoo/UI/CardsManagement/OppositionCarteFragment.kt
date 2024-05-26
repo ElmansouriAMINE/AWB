@@ -24,6 +24,10 @@ class OppositionCarteFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_oppositionCarteFragment_to_oppositionCarteFragment2)
         }
 
+        binding.backArrow.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
+
 
         return binding.root
 
