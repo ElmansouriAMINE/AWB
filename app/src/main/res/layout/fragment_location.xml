@@ -370,6 +370,7 @@
                                 android:orientation="vertical">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/history"
                                     android:layout_width="45dp"
                                     android:layout_height="45dp"
                                     android:background="@drawable/oval_back">
@@ -784,7 +785,7 @@
                         android:text="Recent Activity" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/seeAll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="see all"
@@ -792,7 +793,7 @@
                         android:textColor="@color/red"
                         android:textSize="16sp" />
                     <ImageView
-                        android:id="@+id/imageviwwy"
+                        android:id="@+id/iconSeeAll"
                         android:layout_width="12dp"
                         android:layout_height="12dp"
                         android:src="@drawable/rightarrow"

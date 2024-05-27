@@ -11,6 +11,9 @@
         app:popUpToInclusive="true"
         />
     <action
+        android:id="@+id/toVirementFragment"
+        app:destination="@id/virementFragment" />
+    <action
         android:id="@+id/toBankingCardsFragment"
         app:destination="@+id/bankingCardsFragment" />
     <action

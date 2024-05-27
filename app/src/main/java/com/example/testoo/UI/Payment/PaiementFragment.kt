@@ -225,14 +225,14 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
         childItems1.add(PaiementChildItem("Orange", "orange"))
         childItems1.add(PaiementChildItem("Inwi", "inwi"))
 //        childItems1.add(PaiementChildItem("Inwi Recharge", "inwi"))
-        items.add(PaiementParentItem("TELEPHONIE ET INTERNET", "telephonie", childItems1))
+        items.add(PaiementParentItem("TELEPHONIE ET INTERNET", "phone", childItems1))
 
         val childItem2 = ArrayList<PaiementChildItem>()
         childItem2.add(PaiementChildItem("Vignette", "vignette"))
         items.add(
             PaiementParentItem(
                 "ADMINISTRATION",
-                "ic_home",
+                "administration",
                 childItem2
             )
         )

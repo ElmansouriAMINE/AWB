@@ -32,7 +32,7 @@ class BottomSheetFragment:BottomSheetDialogFragment() {
             val navController = requireParentFragment().findNavController()
 
             // Navigate using the parent fragment's NavController
-            navController.navigate(R.id.action_locationFragment_to_virementFragment)
+            navController.navigate(R.id.toVirementFragment)
 //            val virementFragment = VirementFragment()
 //            activity?.supportFragmentManager?.beginTransaction()
 //                ?.replace(R.id.fragment_container, virementFragment)

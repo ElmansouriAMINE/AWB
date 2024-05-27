@@ -1,5 +1,10 @@
 package com.example.testoo.UI
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +23,8 @@ import com.example.testoo.Domain.models.User
 import com.example.testoo.R
 import com.example.testoo.UI.AgencesFragments.MapsFragment
 import com.example.testoo.Utils.BottomNavBarHandler
+import com.example.testoo.Utils.NetworkUtil
+import com.example.testoo.Utils.showNoInternetDialog
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -29,6 +36,7 @@ class MainActivity : AppCompatActivity(), BottomNavBarHandler {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private lateinit var networkReceiver: BroadcastReceiver
     private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +73,13 @@ class MainActivity : AppCompatActivity(), BottomNavBarHandler {
                     binding.bottomNavBarUserNonConnecte.visibility = View.GONE
                 }
                 else -> setUpBottomNavBar()
+            }
+        }
+        networkReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (!NetworkUtil.isConnected(this@MainActivity)) {
+                    showNoInternetDialog(this@MainActivity)
+                }
             }
         }
     }
@@ -122,6 +137,16 @@ class MainActivity : AppCompatActivity(), BottomNavBarHandler {
             binding.bottomNavBar.visibility = View.GONE
             binding.bottomNavBarUserNonConnecte.visibility = View.VISIBLE
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(networkReceiver, filter)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(networkReceiver)
     }
 
 

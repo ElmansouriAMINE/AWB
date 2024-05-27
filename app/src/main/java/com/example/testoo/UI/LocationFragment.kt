@@ -128,22 +128,29 @@ class LocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
-        currentUser?.let {
-            viewLifecycleOwner.lifecycleScope.launch {
-                val userCrr = withContext(Dispatchers.IO) {
-                    userViewModel.getCurrentUser(currentUser.uid)
-                }
-                userCrr?.let { it1 -> initRecyclerView(it1) }
-            }
-        }
+//        currentUser?.let {
+//            viewLifecycleOwner.lifecycleScope.launch {
+//                val userCrr = withContext(Dispatchers.IO) {
+//                    userViewModel.getCurrentUser(currentUser.uid)
+//                }
+//                userCrr?.let { it1 -> initRecyclerView(it1) }
+//            }
+//        }
 
         binding.transferView.setOnClickListener {
             bottomSheetFragment.show(childFragmentManager,"BottomSheetDialog")
         }
 
-        binding.requestView.setOnClickListener {
+        binding.history.setOnClickListener {
            Navigation.findNavController(binding.root).navigate(R.id.toHistoriqueTransactionsFragment)
         }
+        binding.seeAll.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.toHistoriqueTransactionsFragment)
+        }
+        binding.iconSeeAll.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.toHistoriqueTransactionsFragment)
+        }
+
 
         binding.paiement.setOnClickListener {
 
@@ -190,18 +197,18 @@ class LocationFragment : Fragment() {
 
     }
 
-    private fun initRecyclerView(user: User) {
-        val items: ArrayList<Transaction> = ArrayList<Transaction>()
-        items.add(Transaction("orange",  "Ali","","","Ali","Ali" ,"2000","22-06-2022 16:30"))
-        items.add(Transaction("attijariwafa",  "Amine","","","Amine", "Amine","30","24-06-2022 16:30"))
-        items.add(Transaction("attijariwafa", "ziad", "","","ziad","ziad", "560","25-06-2022 16:30"))
-
-        adapterTransaction = TransationListAdapter(items,"${currentUser?.uid}",user)
-        recyclerViewTransaction = binding.view1
-        recyclerViewTransaction?.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recyclerViewTransaction?.adapter = adapterTransaction
-    }
+//    private fun initRecyclerView(user: User) {
+//        val items: ArrayList<Transaction> = ArrayList<Transaction>()
+//        items.add(Transaction("orange",  "Ali","","","Ali","Ali" ,"2000","22-06-2022 16:30"))
+//        items.add(Transaction("attijariwafa",  "Amine","","","Amine", "Amine","30","24-06-2022 16:30"))
+//        items.add(Transaction("attijariwafa", "ziad", "","","ziad","ziad", "560","25-06-2022 16:30"))
+//
+//        adapterTransaction = TransationListAdapter(items,"${currentUser?.uid}",user)
+//        recyclerViewTransaction = binding.view1
+//        recyclerViewTransaction?.layoutManager =
+//            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+//        recyclerViewTransaction?.adapter = adapterTransaction
+//    }
 
 
 
