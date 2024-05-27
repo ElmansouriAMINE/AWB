@@ -15,7 +15,7 @@
         app:cnb_iconColor="#F44336"/>
 
     <item
-        android:id="@+id/icon_message"
+        android:id="@+id/icon_assistance"
         android:icon="@drawable/icon_contact"
         android:title="Assistance"
         app:cnb_iconColor="#4CAF50"/>

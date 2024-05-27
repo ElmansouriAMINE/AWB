@@ -10,6 +10,10 @@
         app:popUpTo="@id/signInFragment"
         app:popUpToInclusive="true"
         />
+
+    <action
+        android:id="@+id/toAssistanceFragment"
+        app:destination="@id/assistanceFragment" />
     <action
         android:id="@+id/toVirementFragment"
         app:destination="@id/virementFragment" />
@@ -58,6 +62,9 @@
         <action
             android:id="@+id/action_signInFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_assistanceFragment"
+            app:destination="@id/assistanceFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -401,5 +408,14 @@
         <action
             android:id="@+id/action_oppositionCarteFragment2_to_bankingCardsFragment"
             app:destination="@id/bankingCardsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/assistanceFragment"
+        android:name="com.example.testoo.UI.Assistance.AssistanceFragment"
+        android:label="fragment_assistance"
+        tools:layout="@layout/fragment_assistance" >
+        <action
+            android:id="@+id/action_assistanceFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
 </navigation>

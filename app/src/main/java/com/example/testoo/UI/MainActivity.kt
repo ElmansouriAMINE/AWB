@@ -119,6 +119,9 @@ class MainActivity : AppCompatActivity(), BottomNavBarHandler {
                     Log.d(TAG, "Navigating to MapsFragment")
                     navController.navigate(R.id.toMapsFragment)
                 }
+                R.id.icon_assistance ->{
+                    navController.navigate(R.id.toAssistanceFragment)
+                }
             }
             true
         }
