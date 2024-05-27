@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -21,6 +22,7 @@ import com.example.testoo.Domain.models.User
 import com.example.testoo.R
 import com.example.testoo.UI.Payment.PaiementFragment
 import com.example.testoo.Utils.BottomNavBarHandler
+import com.example.testoo.ViewModels.TransactionViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -40,6 +42,7 @@ class LocationFragment : Fragment() {
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private val bottomSheetFragment = BottomSheetFragment()
     private val userViewModel by activityViewModels<UserViewModel>()
+    private val transationViewModel by activityViewModels<TransactionViewModel>()
 
     private lateinit var auth: FirebaseAuth
 
@@ -150,6 +153,40 @@ class LocationFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.toBankingCardsFragment)
         }
 
+
+        currentUser?.let {
+            viewLifecycleOwner.lifecycleScope.launch{
+
+                val userCrr = withContext(Dispatchers.IO){
+                    userViewModel.getCurrentUser(currentUser.uid)
+
+                }
+                val transactions = withContext(Dispatchers.IO){
+                    transationViewModel.getRecentThreeTransactions(currentUser.uid,userCrr!!)
+                }
+
+                initTransactionsForCurrentUser(
+                    transactions as ArrayList<Transaction>,currentUser.uid,
+                    userCrr!!
+                )
+
+
+
+            }
+        }
+
+
+
+
+}
+
+
+    private fun initTransactionsForCurrentUser(items : ArrayList<Transaction>,userId: String,user: User){
+        adapterTransaction = TransationListAdapter(items,userId,user)
+        recyclerViewTransaction = binding.view1
+        recyclerViewTransaction?.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerViewTransaction?.adapter = adapterTransaction
 
     }
 
