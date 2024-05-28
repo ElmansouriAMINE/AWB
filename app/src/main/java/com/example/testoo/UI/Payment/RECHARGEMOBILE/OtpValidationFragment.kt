@@ -34,6 +34,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.tapadoo.alerter.Alerter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -477,7 +478,7 @@ class OtpValidationFragment : Fragment() {
                                 if (otpp == storedOTP && solde!! > 0 && montantTransaction <= solde!!) {
                                     print("ttttttttestinggggggg")
 //                                    otpp == firstotpCodeGenereted)
-                                    viewLifecycleOwner.lifecycleScope.launch {
+                                    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                                         usr_cr.addListenerForSingleValueEvent(object : ValueEventListener {
                                             override fun onDataChange(snapshot: DataSnapshot) {
                                                 if (snapshot.exists()) {
@@ -488,14 +489,9 @@ class OtpValidationFragment : Fragment() {
                                                         if (userName.isNotEmpty()) {
 
                                                             paiementViewModel.montant.observe(viewLifecycleOwner, Observer { montant ->
-//                                                                paiementViewModel.reference.observe(viewLifecycleOwner, Observer { reference ->
-//                                                                    paiementViewModel.domaine.observe(viewLifecycleOwner, Observer { domaine ->
-//                                                                        paiementViewModel.facturesClicked.observe(viewLifecycleOwner, Observer { facturesClicked ->
-
-//                                                                            paiementViewModel.operatorTelecom.observe(viewLifecycleOwner, Observer { operatorTelecom ->
-//                                                                paiementViewModel.beneficiaire.observe(viewLifecycleOwner, Observer { beneficiaire ->
+//
                                                                     viewLifecycleOwner.lifecycleScope.launch {
-                                                                        val transaction =
+                                                                        val montant = montant.toDoubleOrNull()
                                                                             withContext(Dispatchers.IO) {
                                                                                 val currentDateTime = paiementViewModel.getCurrentDateTimeFormatted()
                                                                                 val currTransaction =
@@ -506,26 +502,28 @@ class OtpValidationFragment : Fragment() {
                                                                                         domaine=domaine,
                                                                                         senderName= userName,
                                                                                         receiverName =operatorTelecom,
-                                                                                        montant=montant,
+                                                                                        montant="$montant",
                                                                                         dateHeure=currentDateTime
                                                                                     )
+                                                                                paiementViewModel.createTransaction(currTransaction)
                                                                                 if(facturesClicked !=null){
                                                                                     paiementViewModel.updateFactureEtatForIdContrat(reference,
                                                                                         facturesClicked as List<Facture>
                                                                                     )
                                                                                 }
-
-                                                                                var montant = montant.toIntOrNull()
+                                                                                paiementViewModel.updateCompteSoldeForUserId(currentUser.uid,
+                                                                                    (solde- montant!!.toInt()).toInt()
+                                                                                )
 //                                                                                receiverName =beneficiaire,
 //                                                                                paiementViewModel.createTransaction(currTransaction)
                                                                                 try {
                                                                                     montant?.toInt()
                                                                                         ?.let { it1 ->
                                                                                             print((solde-it1).toInt())
-                                                                                            paiementViewModel.createTransaction(currTransaction)
-                                                                                            paiementViewModel.updateCompteSoldeForUserId(currentUser.uid,
-                                                                                                (solde-it1).toInt()
-                                                                                            )
+//                                                                                            paiementViewModel.createTransaction(currTransaction)
+//                                                                                            paiementViewModel.updateCompteSoldeForUserId(currentUser.uid,
+//                                                                                                (solde-it1).toInt()
+//                                                                                            )
 //                                                                                            paiementViewModel.updateFactureEtatForIdContrat(reference,
 //                                                                                                facturesClicked as List<Facture>
 //                                                                                            )
@@ -586,6 +584,18 @@ class OtpValidationFragment : Fragment() {
                                             }
                                         })
 //
+                                    }
+                                }else{
+                                    activity?.let{
+                                        Alerter.Companion.create(it)
+                                            .setTitle("Alert")
+                                            .setText("Solde Insuffisant!!!")
+                                            .setIcon(R.drawable.contractreference)
+                                            .setBackgroundColorRes(R.color.light_red)
+                                            .setTextAppearance(R.style.CustomAlerterTextAppearance)
+                                            .enableSwipeToDismiss()
+                                            .setDuration(4000).show()
+
                                     }
                                 }
 

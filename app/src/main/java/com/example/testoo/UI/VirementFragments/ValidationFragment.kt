@@ -32,6 +32,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.tapadoo.alerter.Alerter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -276,6 +277,18 @@ class ValidationFragment : Fragment() {
                                             }
                                         })
 //
+                                    }
+                                }else{
+                                    activity?.let{
+                                        Alerter.Companion.create(it)
+                                            .setTitle("Alert")
+                                            .setText("Solde Insuffisant!!!")
+                                            .setIcon(R.drawable.contractreference)
+                                            .setBackgroundColorRes(R.color.light_red)
+                                            .setTextAppearance(R.style.CustomAlerterTextAppearance)
+                                            .enableSwipeToDismiss()
+                                            .setDuration(4000).show()
+
                                     }
                                 }
 
