@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.telephony.SmsManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,6 +100,19 @@ class ValidationFragment : Fragment() {
 //            }
 //        }, delayDuration)
 
+        binding.etotp.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString()
+                binding.buttonValider.isEnabled = text.length >= 6
+            }
+        })
+
+
+        binding.buttonValider.isEnabled = binding.etotp.text.toString().length >= 6
+
+
         binding.sms.setOnClickListener {
             val otp = binding.etotp.text.toString()
 
@@ -176,6 +191,8 @@ class ValidationFragment : Fragment() {
                                 println("$error")
                             }
                         })
+
+
 
 
                         binding.buttonValider.setOnClickListener{
@@ -279,15 +296,31 @@ class ValidationFragment : Fragment() {
 //
                                     }
                                 }else{
-                                    activity?.let{
-                                        Alerter.Companion.create(it)
-                                            .setTitle("Alert")
-                                            .setText("Solde Insuffisant!!!")
-                                            .setIcon(R.drawable.contractreference)
-                                            .setBackgroundColorRes(R.color.light_red)
-                                            .setTextAppearance(R.style.CustomAlerterTextAppearance)
-                                            .enableSwipeToDismiss()
-                                            .setDuration(4000).show()
+                                    if(otpp != storedOTP) {
+                                            activity?.let {
+                                                Alerter.Companion.create(it)
+                                                    .setTitle("Alert")
+                                                    .setText("Otp Incorrect!!!")
+                                                    .setIcon(R.drawable.contractreference)
+                                                    .setBackgroundColorRes(R.color.light_red)
+                                                    .setTextAppearance(R.style.CustomAlerterTextAppearance)
+                                                    .enableSwipeToDismiss()
+                                                    .setDuration(4000).show()
+
+                                            }
+                                        }
+                                    else{
+                                        activity?.let {
+                                            Alerter.Companion.create(it)
+                                                .setTitle("Alert")
+                                                .setText("Solde Insuffisant!!!")
+                                                .setIcon(R.drawable.dollar)
+                                                .setBackgroundColorRes(R.color.light_red)
+                                                .setTextAppearance(R.style.CustomAlerterTextAppearance)
+                                                .enableSwipeToDismiss()
+                                                .setDuration(4000).show()
+
+                                        }
 
                                     }
                                 }
