@@ -4,4 +4,16 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+    <style name="CustomAlerterTextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/outfitextrabold</item>
+    </style>
+    <style name="CustomAlerterTextAppearanceBody">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/outfitextrabold</item>
+    </style>
 </resources>
+
+

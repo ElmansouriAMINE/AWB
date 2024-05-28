@@ -1,6 +1,8 @@
 package com.example.testoo.UI.Payment.Factures
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +30,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.tapadoo.alerter.Alerter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -221,6 +224,7 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
         super.onViewCreated(view, savedInstanceState)
 //        initFactureRecyclerView()
 
+
         currentUser?.let { user ->
             val current_user=FirebaseDatabase.getInstance().reference
                 .child("users")
@@ -241,6 +245,19 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
             })
         }
 
+        // Add TextWatcher to textSommeFactures to update button state
+        binding.textSommeFactures.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString()
+                binding.button.isEnabled = !(text == "0" || text == "5.50")
+            }
+        })
+
+        // Initialize button state based on the initial text value
+        binding.button.isEnabled = !(binding.textSommeFactures.text.toString() == "0" || binding.textSommeFactures.text.toString() == "5.50")
+
 
         currentUser?.let { user ->
             paiementViewModel.reference.observe(viewLifecycleOwner, Observer{ reference ->
@@ -250,7 +267,31 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
                         val factures = withContext(Dispatchers.IO) {
                             userViewModel.getFactureNonPayeForUserId(userId = user.uid, idContrat = "$reference",domaine=domaine)
                         }
-                        initFactureRecyclerView(factures as ArrayList<Facture>)
+                        if(factures.isEmpty()){
+
+                            binding.nodatafound.visibility= View.VISIBLE
+                            binding.checkBoxToutSelectionner.visibility =View.GONE
+                            binding.button.isEnabled=false
+                            activity?.let{
+                                Alerter.Companion.create(it)
+                                    .setTitle("Alert")
+                                    .setText("No data found please verify your reference")
+                                    .setIcon(R.drawable.contractreference)
+                                    .setBackgroundColorRes(R.color.light_red)
+                                    .setTextAppearance(R.style.CustomAlerterTextAppearance)
+                                    .enableSwipeToDismiss()
+                                    .setDuration(4000).show()
+
+                            }
+                        }
+                        else{
+
+                            binding.nodatafound.visibility= View.GONE
+                            binding.checkBoxToutSelectionner.visibility =View.VISIBLE
+
+                            initFactureRecyclerView(factures as ArrayList<Facture>)
+                        }
+
                     }
 
                 })
@@ -302,6 +343,11 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
             Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT)
                 .show()
         }
+
+    override fun onResume() {
+        super.onResume()
+        binding.checkBoxToutSelectionner.isChecked = false
+    }
 
 
 

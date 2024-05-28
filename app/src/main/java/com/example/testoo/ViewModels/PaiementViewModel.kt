@@ -44,6 +44,10 @@ class PaiementViewModel : ViewModel() {
     val facturesClicked : LiveData<ArrayList<Facture>> get() = _facturesClicked
 
 
+    private val _currentRef = MutableLiveData<String>()
+    val currentRef : LiveData<String> get() = _currentRef
+
+
 
 
 
@@ -171,6 +175,10 @@ class PaiementViewModel : ViewModel() {
 
     fun setFactureClicked(data: ArrayList<Facture>){
         _facturesClicked.value = data
+    }
+
+    fun setCurrentRef(data: String){
+        _currentRef.value = data
     }
 
 

@@ -66,7 +66,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
 
     private lateinit var binding: FragmentMapsBinding
 
-//    private lateinit var viewModel: WafaCashViewModel
+    //    private lateinit var viewModel: WafaCashViewModel
     private lateinit var googleMap: GoogleMap
     val viewModel: WafaCashViewModel by viewModels()
     private val markerToAgenceMap: MutableMap<Marker?, AgenceWafaCashDto> = mutableMapOf()
@@ -155,14 +155,14 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
 
             CoroutineScope(Dispatchers.IO).launch{
                 viewModel.agencesWafaCashState.collectLatest{
-                   if (it.isLoading){
-                       println("IS LOADDDDDDDDDDING")
-                   }else if (it.error.isNotBlank()){
-                       println("An error has occured")
-                   }else{
-                       println("Data Loaded successfully")
-                       println("qqq" + it.agencesWafaCashList)
-                   }
+                    if (it.isLoading){
+                        println("IS LOADDDDDDDDDDING")
+                    }else if (it.error.isNotBlank()){
+                        println("An error has occured")
+                    }else{
+                        println("Data Loaded successfully")
+                        println("qqq" + it.agencesWafaCashList)
+                    }
                 }
 
             }
@@ -697,4 +697,3 @@ private fun animateTextView(textView: TextView) {
         }
         .start()
 }
-

@@ -83,6 +83,12 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
 
     }
 
+    fun putCurrentRefFacture(ref : String){
+        paiementViewModel.apply {
+            setCurrentRef(ref)
+        }
+    }
+
 
     override fun onOptionClicked(option: String) {
         when (option) {
@@ -101,12 +107,14 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
             "IAM Factures: Mobile" -> {
                 operatorTelecomChoisie("IAM")
                 domaineChoisi("IAM Factures: Mobile")
+                putCurrentRefFacture("1234A")
                 println("Performing action for IAM Factures: Mobile")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "IAM Factures: INTERNET" -> {
                 operatorTelecomChoisie("IAM")
                 domaineChoisi("IAM Factures: INTERNET")
+                putCurrentRefFacture("1234B")
                 println("Performing action for IAM Factures: INTERNET")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
@@ -120,12 +128,14 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
                 operatorTelecomChoisie("Orange")
                 domaineChoisi("Orange Factures: Mobile")
                 println("Performing action for Orange Factures: Mobile")
+                putCurrentRefFacture("1234C")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Orange Factures: INTERNET" -> {
                 operatorTelecomChoisie("Orange")
                 domaineChoisi("Orange Factures: INTERNET")
                 println("Performing action for Orange Factures: INTERNET")
+                putCurrentRefFacture("1234D")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Inwi Recharges" -> {
@@ -138,32 +148,37 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
                 operatorTelecomChoisie("Inwi")
                 domaineChoisi("Inwi Factures: Mobile")
                 println("Performing action for Inwi Factures: Mobile")
+                putCurrentRefFacture("1234E")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Inwi Factures: INTERNET" -> {
                 operatorTelecomChoisie("Inwi")
                 domaineChoisi("Inwi Factures: INTERNET")
                 println("Performing action for Inwi Factures: INTERNET")
+                putCurrentRefFacture("1234F")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Vignette Factures" ->{
                 domaineChoisi("Vignette Factures")
+                putCurrentRefFacture("1234G")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Redal Factures" ->{
                 domaineChoisi("Redal Factures")
+                putCurrentRefFacture("1234H")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Ramsa Factures" ->{
                 domaineChoisi("Ramsa Factures")
+                putCurrentRefFacture("1234I")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Amendis Factures" ->{
                 domaineChoisi("Amendis Factures")
+                putCurrentRefFacture("1234J")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             else -> {
-                // Handle other cases
                 println("No action defined for $option")
             }
         }

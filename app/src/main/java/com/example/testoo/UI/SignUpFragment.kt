@@ -94,7 +94,7 @@ class SignUpFragment : Fragment() {
                                   val contratInitial7 = Contrat(reference = "1234G",userId=userId, domaine = "Vignette Factures", factures = null)
                                   val contratInitial8 = Contrat(reference = "1234H",userId=userId, domaine = "Redal Factures", factures = null)
                                   val contratInitial9 = Contrat(reference = "1234I",userId=userId, domaine = "Ramsa Factures", factures = null)
-                                  val contratInitial10 = Contrat(reference = "1234G",userId=userId, domaine = "Amendis Factures", factures = null)
+                                  val contratInitial10 = Contrat(reference = "1234J",userId=userId, domaine = "Amendis Factures", factures = null)
 
                                   val contrats = listOf(
                                       contratInitial, contratInitial2, contratInitial3, contratInitial4,
