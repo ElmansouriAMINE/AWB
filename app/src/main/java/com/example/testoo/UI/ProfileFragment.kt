@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.testoo.databinding.FragmentProfileBinding
 import com.example.testoo.Domain.models.User
 import com.example.testoo.R
@@ -59,6 +60,14 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
+        binding.imageView.setImageURI(Uri.parse(DEFAULT_IMAGE_URL))
+
+//        if (binding.imageView == null){
+//            loadDefaultImage()
+//        }
+
+
+
 
         println("this is the currentUser : ${currentUser?.displayName}")
 
@@ -491,6 +500,19 @@ private fun updatePassword(currentPassword: String, newPassword: String) {
                     Toast.makeText(activity,it.message!!,Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun loadDefaultImage() {
+        val storageReference = FirebaseStorage.getInstance().reference.child("pics/camerablack.png")
+
+        storageReference.downloadUrl.addOnSuccessListener { uri ->
+            Glide.with(this)
+                .load(uri)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(binding.imageView)
+        }.addOnFailureListener { exception ->
+            println("Error getting download URL: ${exception.message}")
         }
     }
 

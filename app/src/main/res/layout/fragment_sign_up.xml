@@ -126,7 +126,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Type your phoneNumber"
                             android:fontFamily="@font/outfitregular"
-                            android:inputType="textPersonName" />
+                            android:inputType="phone" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
