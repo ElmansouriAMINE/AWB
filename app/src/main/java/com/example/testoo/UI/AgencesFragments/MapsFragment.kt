@@ -129,7 +129,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
                     // GPS is enabled, proceed with your logic
                 } else {
                     // GPS is not enabled, prompt the user to enable it
-//                    showEnableGPSDialog()
+                    showEnableGPSDialog()
                     print("enabling gps...")
                 }
             } else {

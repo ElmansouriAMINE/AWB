@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_signInFragment_to_assistanceFragment"
             app:destination="@id/assistanceFragment" />
+        <action
+            android:id="@+id/action_signInFragment_self"
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"

@@ -177,10 +177,11 @@ class SignInFragment : Fragment() {
                                 auth.signInWithEmailAndPassword(userData.email, userData.password).addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         Toast.makeText(requireContext(), "Connected", Toast.LENGTH_SHORT).show()
-                                        activity?.supportFragmentManager?.beginTransaction()
-                                            ?.replace(R.id.fragment_container, LocationFragment())
-                                            ?.addToBackStack(null)
-                                            ?.commit()
+//                                        activity?.supportFragmentManager?.beginTransaction()
+//                                            ?.replace(R.id.fragment_container, LocationFragment())
+//                                            ?.addToBackStack(null)
+//                                            ?.commit()
+                                        Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment_to_locationFragment)
                                     } else {
                                         Toast.makeText(requireContext(), "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                                     }

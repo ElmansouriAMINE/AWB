@@ -479,7 +479,7 @@ class OtpValidationFragment : Fragment() {
                         binding.buttonValider.setOnClickListener{
                             var solde = compte?.solde
 //                            var soldeCompteBeneficiare = compteBeneficiaire?.solde
-                            val montantTransaction = paiementViewModel.montant.value.toString().toIntOrNull() ?: 0
+                            val montantTransaction = paiementViewModel.montant.value.toString().replace(",", ".").toDoubleOrNull() ?: 0.0
                             val reference = paiementViewModel.reference.value.toString()
                             val domaine= paiementViewModel.domaine.value.toString()
                             val facturesClicked = paiementViewModel.facturesClicked.value
@@ -505,7 +505,7 @@ class OtpValidationFragment : Fragment() {
                                                             paiementViewModel.montant.observe(viewLifecycleOwner, Observer { montant ->
 //
                                                                     viewLifecycleOwner.lifecycleScope.launch {
-                                                                        val montant = montant.toDoubleOrNull()
+//                                                                        val montant = montant.toDoubleOrNull()
                                                                             withContext(Dispatchers.IO) {
                                                                                 val currentDateTime = paiementViewModel.getCurrentDateTimeFormatted()
                                                                                 val currTransaction =
@@ -525,15 +525,19 @@ class OtpValidationFragment : Fragment() {
                                                                                         facturesClicked as List<Facture>
                                                                                     )
                                                                                 }
-                                                                                paiementViewModel.updateCompteSoldeForUserId(currentUser.uid,
-                                                                                    (solde- montant!!.toInt()).toInt()
+//                                                                                paiementViewModel.updateCompteSoldeForUserId(currentUser.uid,
+//                                                                                    (solde - montant.toDouble()!!).toInt()
+//                                                                                )
+                                                                                paiementViewModel.updateCompteSoldeForUserId(
+                                                                                    currentUser.uid,
+                                                                                    (solde - montantTransaction).toInt()
                                                                                 )
 //                                                                                receiverName =beneficiaire,
 //                                                                                paiementViewModel.createTransaction(currTransaction)
                                                                                 try {
-                                                                                    montant?.toInt()
-                                                                                        ?.let { it1 ->
-                                                                                            print((solde-it1).toInt())
+//                                                                                    montant?.toInt()
+//                                                                                        ?.let { it1 ->
+//                                                                                            print((solde-it1).toInt())
 //                                                                                            paiementViewModel.createTransaction(currTransaction)
 //                                                                                            paiementViewModel.updateCompteSoldeForUserId(currentUser.uid,
 //                                                                                                (solde-it1).toInt()
@@ -548,8 +552,8 @@ class OtpValidationFragment : Fragment() {
 //                                                                                            paiementViewModel.updateCompteSoldeForUserId(beneficiaireIdd!!,
 //                                                                                                (soldeCompteBeneficiare!!+it1).toInt()
 //                                                                                            )
-                                                                                            println("Money added succefully to beneficiaire account")
-                                                                                        }
+//                                                                                            println("Money added succefully to beneficiaire account")
+//                                                                                        }
 
                                                                                     println("Solde updated successfully")
 

@@ -36,6 +36,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListener{
@@ -92,29 +94,55 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         factureRecyclerView?.adapter = factureRecyclerViewAdapter
 
+//        binding.checkBoxToutSelectionner.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(true)
+//                (factureRecyclerViewAdapter as FactureListAdapter)?.isAllItemsSelected = true
+//                var somme: Double = 0.00
+//                if (factures.isNotEmpty()) {
+//                    for (i in factures) {
+//                        i.montant?.let {
+//                            somme += it.toDouble()
+//                        }
+//                    }
+//                }
+//                somme += 5.50
+//                val formattedSomme = String.format("%.2f", somme)
+//                binding.textSommeFactures.text = "$formattedSomme"
+//                paiementViewModel.setFactureClicked(factures)
+//                Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT).show()
+//            } else if (!isChecked) {
+//                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(false)
+//                (factureRecyclerViewAdapter as FactureListAdapter)?.isAllItemsSelected = false
+//                binding.textSommeFactures.text = "0"
+//            }
+//        }
         binding.checkBoxToutSelectionner.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(true)
-                (factureRecyclerViewAdapter as FactureListAdapter)?.isAllItemsSelected = true
+                (factureRecyclerViewAdapter as? FactureListAdapter)?.checkAllItems(true)
+                (factureRecyclerViewAdapter as? FactureListAdapter)?.isAllItemsSelected = true
+
                 var somme: Double = 0.00
                 if (factures.isNotEmpty()) {
                     for (i in factures) {
                         i.montant?.let {
-                            somme += it.toDouble()
+                            somme += it.toDoubleOrNull() ?: 0.0
                         }
                     }
                 }
                 somme += 5.50
-                val formattedSomme = String.format("%.2f", somme)
-                binding.textSommeFactures.text = "$formattedSomme"
+
+                val formattedSomme = String.format(Locale.getDefault(), "%.2f", somme)
+                binding.textSommeFactures.text = formattedSomme
                 paiementViewModel.setFactureClicked(factures)
                 Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT).show()
-            } else if (!isChecked) {
-                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(false)
-                (factureRecyclerViewAdapter as FactureListAdapter)?.isAllItemsSelected = false
+            } else {
+                (factureRecyclerViewAdapter as? FactureListAdapter)?.checkAllItems(false)
+                (factureRecyclerViewAdapter as? FactureListAdapter)?.isAllItemsSelected = false
                 binding.textSommeFactures.text = "0"
             }
         }
+
     }
 
 
@@ -165,32 +193,59 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
 //            }
 //        }
 
+//        binding.checkBoxToutSelectionner.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(true)
+//                (factureRecyclerViewAdapter as FactureListAdapter)?. isAllItemsSelected=true
+//                var somme: Double = 0.00
+//                if (factures.isNotEmpty()) {
+//                    for (i in factures) {
+//                        i.montant?.let {
+//                            somme += it.toDouble()
+//                        }
+//                    }
+//                }
+//                somme += 5.50
+//                val formattedSomme = String.format("%.2f", somme)
+//                binding.textSommeFactures.text = "$formattedSomme"
+//
+////                paiementViewModel.setFactureClicked(factures)
+//                Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT).show()
+//            }
+//            else if (!isChecked){
+//                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(false)
+//                (factureRecyclerViewAdapter as FactureListAdapter)?. isAllItemsSelected=false
+//                binding.textSommeFactures.text ="0"
+//            }
+//
+//        }
         binding.checkBoxToutSelectionner.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(true)
-                (factureRecyclerViewAdapter as FactureListAdapter)?. isAllItemsSelected=true
+                (factureRecyclerViewAdapter as? FactureListAdapter)?.checkAllItems(true)
+                (factureRecyclerViewAdapter as? FactureListAdapter)?.isAllItemsSelected = true
+
                 var somme: Double = 0.00
                 if (factures.isNotEmpty()) {
                     for (i in factures) {
-                        i.montant?.let {
-                            somme += it.toDouble()
+                        i.montant?.let { montant ->
+                            somme += montant.toDoubleOrNull() ?: 0.0
                         }
                     }
                 }
                 somme += 5.50
-                val formattedSomme = String.format("%.2f", somme)
-                binding.textSommeFactures.text = "$formattedSomme"
 
-//                paiementViewModel.setFactureClicked(factures)
+                val formattedSomme = String.format(Locale.getDefault(), "%.2f", somme)
+                binding.textSommeFactures.text = formattedSomme
+
+                // paiementViewModel.setFactureClicked(factures)
                 Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT).show()
+            } else {
+                (factureRecyclerViewAdapter as? FactureListAdapter)?.checkAllItems(false)
+                (factureRecyclerViewAdapter as? FactureListAdapter)?.isAllItemsSelected = false
+                binding.textSommeFactures.text = "0"
             }
-            else if (!isChecked){
-                (factureRecyclerViewAdapter as FactureListAdapter)?.checkAllItems(false)
-                (factureRecyclerViewAdapter as FactureListAdapter)?. isAllItemsSelected=false
-                binding.textSommeFactures.text ="0"
-            }
-
         }
+
 
 
 
@@ -325,24 +380,27 @@ class ListFacturesFragment : Fragment() ,FactureListAdapter.OnFactureeClickListe
 //                }
 //            }
 //        }
-            var somme: Double = 0.00
-//        factures.add(facture)
-            if (itemsFactureChecked.isNotEmpty()) {
-                for (i in itemsFactureChecked) {
-                    i.montant?.let {
-                        somme += it.toDouble()
-                    }
+//
+        var somme: Double = 0.00
+// factures.add(facture)
+        if (itemsFactureChecked.isNotEmpty()) {
+            for (i in itemsFactureChecked) {
+                i.montant?.let { montant ->
+                    somme += montant.toDoubleOrNull() ?: 0.0
                 }
             }
-            somme += 5.50
-            val formattedSomme = String.format("%.2f", somme)
-            binding.textSommeFactures.setText("$formattedSomme")
-            facturesClicked.add(facture)
-            paiementViewModel.setFactureClicked(facturesClicked)
-//        Toast.makeText(requireContext(), "${facture.nomFacture}", Toast.LENGTH_SHORT).show()
-            Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT)
-                .show()
         }
+        somme += 5.50
+
+        val formattedSomme = String.format(Locale.getDefault(), "%.2f", somme)
+        binding.textSommeFactures.text = formattedSomme
+
+        facturesClicked.add(facture)
+        paiementViewModel.setFactureClicked(facturesClicked)
+// Toast.makeText(requireContext(), "${facture.nomFacture}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Total sum: $formattedSomme", Toast.LENGTH_SHORT).show()
+
+    }
 
     override fun onResume() {
         super.onResume()
