@@ -2,9 +2,12 @@ package com.example.testoo.UI.AgencesFragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -16,6 +19,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -37,14 +41,19 @@ import com.example.testoo.ViewModels.AttijariwafaViewModel
 import com.example.testoo.ViewModels.GabViewModel
 import com.example.testoo.ViewModels.WafaCashViewModel
 import com.example.testoo.databinding.FragmentMapsBinding
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+
+import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.gms.tasks.Task
+import com.tapadoo.alerter.Alerter.Companion.create
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,6 +71,9 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     lateinit var wafaCashRepository: WafaCashRepository
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1000
+    private val REQUEST_CHECK_SETTINGS = 2000
+
 
 
     private lateinit var binding: FragmentMapsBinding
@@ -123,17 +135,18 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         ) { permissions ->
             if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
                 permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
-                // Location permissions granted, check if GPS is enabled
+
+
                 val locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    // GPS is enabled, proceed with your logic
+
                 } else {
-                    // GPS is not enabled, prompt the user to enable it
-                    showEnableGPSDialog()
+
+//                    showEnableGPSDialog()
                     print("enabling gps...")
                 }
             } else {
-                // Location permissions not granted, handle this case if needed
+                //
             }
         }
 
@@ -393,9 +406,8 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     private fun showEnableGPSDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle("Enable GPS")
-            .setMessage("GPS is required for this feature. Do you want to enable it now?")
+            .setMessage("GPS is required for requireContext() feature. Do you want to enable it now?")
             .setPositiveButton("Yes") { _, _ ->
-                // Open device's location settings
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
             }
@@ -614,8 +626,21 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
     }
 
 
+//    private fun requestLocationPermissions() {
+//        ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+//    }
     private fun requestLocationPermissions() {
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ), LOCATION_PERMISSION_REQUEST_CODE)
+        } else {
+            // Permissions are already granted
+            enableGPS()
+        }
     }
 
     @RequiresApi(34)
@@ -624,36 +649,199 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
         val fineLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
         val coarseLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
         if (fineLocationPermissionGranted && coarseLocationPermissionGranted) {
-            googleMap.isMyLocationEnabled= true
-            googleMap.uiSettings.isMyLocationButtonEnabled = true
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location ->
-                    if (location != null) {
-                        var currentLatLng = LatLng(location.latitude, location.longitude)
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
+            val locationRequest = LocationRequest.create().apply {
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
+            val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
 
+            val client: SettingsClient = LocationServices.getSettingsClient(requireContext())
+            val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+
+            task.addOnSuccessListener { locationSettingsResponse ->
+                // All location settings are satisfied. The client can initialize location requests here.
+                enableLocationUpdates()
+            }
+
+            task.addOnFailureListener { exception ->
+                if (exception is ApiException) {
+                    when (exception.statusCode) {
+                        LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
+                            // Here we send the request to enable the GPS
+                            val status = exception.status
+                            if (status.hasResolution()) {
+                                status.resolution?.intentSender?.let { intentSender ->
+                                    val intentSenderRequest = IntentSenderRequest.Builder(intentSender).build()
+                                    resolutionGpsLauncher.launch(intentSenderRequest)
+                                }
+                            } else {
+                                showFailurePopup()
+                            }
+                        } catch (sendIntentException: IntentSender.SendIntentException) {
+//                            ABLogger.e(TAG, "SendIntentException")
+                            showFailurePopup()
+                        }
+
+                        LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
+//                            ABLogger.e(TAG, "SETTINGS_CHANGE_UNAVAILABLE")
+                            showFailurePopup()
+                        }
+
+                        else -> showFailurePopup()
                     }
                 }
-
+            }
         } else {
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
         }
     }
 
+    @SuppressLint("MissingPermission")
+    private fun enableLocationUpdates() {
+        googleMap.isMyLocationEnabled = true
+        googleMap.uiSettings.isMyLocationButtonEnabled = false
+        googleMap.uiSettings.isCompassEnabled = false
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location ->
+                if (location != null) {
+                    val currentLatLng = LatLng(location.latitude, location.longitude)
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
+                }
+            }
+    }
 
+//    private fun showFailurePopup() {
+//        // Replace with your actual failure handling logic
+//        abPopupFactory.showFailurePopup(
+//            tag = this.javaClass.name,
+//            activity = requireActivity(),
+//            response = response
+//        )
+//    }
+    private fun showFailurePopup() {
+        Toast.makeText(requireContext(), "Failed to enable location settings", Toast.LENGTH_SHORT).show()
+    }
 
-    @RequiresApi(34)
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//            setupMap()
+    private val resolutionGpsLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            enableLocationUpdates()
+        } else {
+            // Handle the case where the user did not enable GPS
+            showFailurePopup()
         }
     }
+
+
+
+//    @RequiresApi(34)
+//    @SuppressLint("MissingPermission")
+//    private fun getUserCurrentLocation() {
+//        val fineLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+//        val coarseLocationPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+//        if (fineLocationPermissionGranted && coarseLocationPermissionGranted) {
+//            googleMap.isMyLocationEnabled= true
+//            googleMap.uiSettings.isMyLocationButtonEnabled = false
+//            googleMap.uiSettings.isCompassEnabled=false
+//            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+//            fusedLocationClient.lastLocation
+//                .addOnSuccessListener { location ->
+//                    if (location != null) {
+//                        var currentLatLng = LatLng(location.latitude, location.longitude)
+//                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
+//
+//                    }
+//                }
+//
+//        } else {
+//            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+//        }
+//    }
+
+
+
+//    @RequiresApi(34)
+//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+////            setupMap()
+//        }
+//    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // Permission granted
+                enableGPS()
+            } else {
+                // Permission denied
+                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                // Use the location object
+                val latitude = location.latitude
+                val longitude = location.longitude
+                // Do something with the location
+            } else {
+                // Handle location not found
+                Toast.makeText(requireContext(), "Location not found", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    private fun enableGPS() {
+        val locationRequest = LocationRequest.create().apply {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+
+        val client: SettingsClient = LocationServices.getSettingsClient(requireContext())
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+
+        task.addOnSuccessListener { locationSettingsResponse ->
+            // All location settings are satisfied. The client can initialize location requests here.
+            getCurrentLocation()
+        }
+
+        task.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException) {
+                // Location settings are not satisfied, but requireContext() can be fixed by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(), and check the result in onActivityResult().
+                    exception.startResolutionForResult(requireActivity(), REQUEST_CHECK_SETTINGS)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+        }
+    }
+
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CHECK_SETTINGS) {
+            if (resultCode == Activity.RESULT_OK) {
+                // GPS is enabled
+                getCurrentLocation()
+            } else {
+                // The user did not enable GPS
+                Toast.makeText(requireContext(), "GPS not enabled", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     override fun onMarkerClick(marker: Marker): Boolean {
         val agenceAttijariWafa= markerToAttijariWafaMap[marker]
