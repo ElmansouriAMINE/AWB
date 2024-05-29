@@ -253,6 +253,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_password_new" />
 
                 <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="42dp"
+                    android:src="@drawable/camerablack2"
+                    app:layout_constraintBottom_toTopOf="@+id/view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/roundedImageView" />
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_view"
                     android:layout_width="120dp"
                     android:layout_height="120dp"

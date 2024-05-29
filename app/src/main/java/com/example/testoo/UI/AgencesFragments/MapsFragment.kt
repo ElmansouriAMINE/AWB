@@ -165,6 +165,7 @@ class MapsFragment : Fragment(),GoogleMap.OnMarkerClickListener {
             this.googleMap = googleMap
             googleMap.setOnMarkerClickListener(this@MapsFragment)
             getUserCurrentLocation()
+            binding.itemAgences.performClick()
 
             CoroutineScope(Dispatchers.IO).launch{
                 viewModel.agencesWafaCashState.collectLatest{

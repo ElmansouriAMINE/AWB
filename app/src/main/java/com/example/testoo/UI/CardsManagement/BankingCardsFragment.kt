@@ -219,6 +219,13 @@ class BankingCardsFragment : Fragment() {
                                         Navigation.findNavController(binding.root).navigate(R.id.action_bankingCardsFragment_to_choixConfigCardFragment)
                                     }
                                 }
+                                binding.details.setOnClickListener {
+                                    if(currentImageItem.opposition?.perte ==true || currentImageItem.opposition?.vol == true ){
+                                        Toast.makeText(requireContext(),"Your card is opposed",Toast.LENGTH_SHORT).show()
+                                    }else{
+                                        Navigation.findNavController(binding.root).navigate(R.id.action_bankingCardsFragment_to_detailsPlafondsFragment)
+                                    }
+                                }
                             }
                             super.onPageSelected(position)
 

@@ -69,9 +69,9 @@ class SelectionCompteBancaireFragment : Fragment() , CompteListAdapterForPaiemen
             }
         }
 
-        binding.buttonContinue.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_selectionCompteBancaireFragment_to_otpValidationFragment)
-        }
+//        binding.buttonContinue.setOnClickListener {
+//            Navigation.findNavController(binding.root).navigate(R.id.action_selectionCompteBancaireFragment_to_otpValidationFragment)
+//        }
 
 
         return binding.root
@@ -82,6 +82,10 @@ class SelectionCompteBancaireFragment : Fragment() , CompteListAdapterForPaiemen
 
         paiementViewModel.apply {
             setCompteBancaire(compte)
+        }
+
+        binding.buttonContinue.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_selectionCompteBancaireFragment_to_otpValidationFragment)
         }
     }
 

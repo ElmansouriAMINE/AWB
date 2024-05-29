@@ -62,6 +62,11 @@ class ProfileFragment : Fragment() {
         (requireActivity() as? BottomNavBarHandler)?.setUpBottomNavBar()
         binding.imageView.setImageURI(Uri.parse(DEFAULT_IMAGE_URL))
 
+        binding.backArrow.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
+
+
 //        if (binding.imageView == null){
 //            loadDefaultImage()
 //        }

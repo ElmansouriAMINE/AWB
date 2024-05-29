@@ -339,6 +339,9 @@
         <action
             android:id="@+id/action_bankingCardsFragment_to_oppositionCarteFragment2"
             app:destination="@id/oppositionCarteFragment2" />
+        <action
+            android:id="@+id/action_bankingCardsFragment_to_detailsPlafondsFragment"
+            app:destination="@id/detailsPlafondsFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -420,5 +423,14 @@
         <action
             android:id="@+id/action_assistanceFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsPlafondsFragment"
+        android:name="com.example.testoo.UI.CardsManagement.PlafondsDetails.DetailsPlafondsFragment"
+        android:label="fragment_details_plafonds"
+        tools:layout="@layout/fragment_details_plafonds" >
+        <action
+            android:id="@+id/action_detailsPlafondsFragment_to_bankingCardsFragment"
+            app:destination="@id/bankingCardsFragment" />
     </fragment>
 </navigation>
