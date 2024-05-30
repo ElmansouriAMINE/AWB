@@ -162,7 +162,7 @@
                 android:indeterminate="false"
                 android:max="5000"
                 android:min="10"
-                android:enabled="false"
+
 
                 android:progress="0"
                 android:progressDrawable="@drawable/carte_custom_seekbar"

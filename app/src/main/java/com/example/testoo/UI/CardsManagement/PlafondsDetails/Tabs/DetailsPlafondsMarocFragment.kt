@@ -50,12 +50,14 @@ class DetailsPlafondsMarocFragment : Fragment() {
     }
 
     private fun disableSeekBars() {
-        binding.seekBarMontantRetraitMaroc.isEnabled = false
-        binding.seekBarMontantInternetMaroc.isEnabled = false
-        binding.seekBarMontantTPEMaroc.isEnabled = false
-
-
+        binding.seekBarMontantRetraitMaroc.setOnTouchListener { _, _ -> true }
+        binding.seekBarMontantInternetMaroc.setOnTouchListener { _, _ -> true }
+        binding.seekBarMontantTPEMaroc.setOnTouchListener { _, _ -> true }
+        binding.seekBarMontantRetraitMaroc.isFocusable = false
+        binding.seekBarMontantInternetMaroc.isFocusable = false
+        binding.seekBarMontantTPEMaroc.isFocusable = false
     }
+
 
     private fun setupSeekBarListeners() {
         binding.seekBarMontantRetraitMaroc.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {

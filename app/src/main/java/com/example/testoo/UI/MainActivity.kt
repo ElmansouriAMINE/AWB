@@ -96,8 +96,8 @@ class MainActivity : AppCompatActivity(), BottomNavBarHandler {
                     navController.navigate(R.id.toMapsFragment)
                 }
                 R.id.icon_message -> {
-                    Log.d(TAG, "Navigating to ProfileFragment")
-                    navController.navigate(R.id.toProfileFragment)
+                    Log.d(TAG, "Navigating to AssistanceFragment")
+                    navController.navigate(R.id.toAssistanceFragment)
                 }
                 R.id.icon_person -> {
                     Log.d(TAG, "Navigating to ProfileFragment")
