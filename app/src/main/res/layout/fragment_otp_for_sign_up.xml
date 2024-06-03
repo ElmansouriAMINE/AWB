@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_margin="0dp"
+android:background="@color/screen_background"
+tools:context=".UI.SmsBroadCast.OtpForSignUpFragment">
+
+<LinearLayout
+    android:id="@+id/linearLayout5"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:background="@drawable/main_banner"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:src="@drawable/attijariwafa" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="Verification"
+        android:fontFamily="@font/outfitextrabold"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:src="@drawable/cash_express" />
+
+</LinearLayout>
+
+<!--    <EditText-->
+<!--        android:id="@+id/etotp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:gravity="center"-->
+<!--        android:hint="Enter OTP Code"-->
+<!--        android:inputType="number"-->
+<!--        android:maxLength="6"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView25" />-->
+
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/otpLayout"
+    style="@style/LoginTextInputOuterFieldStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    app:boxStrokeColor="@color/yellow"
+    app:hintTextColor="@color/yellow"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView25">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etotp"
+        style="@style/LoginTextInputInnerFieldStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter OTP Code"
+        android:fontFamily="@font/outfitextrabold"
+        android:maxLength="6"
+        android:inputType="number" />
+</com.google.android.material.textfield.TextInputLayout>
+
+<!--    <Button-->
+<!--        android:id="@+id/sms"-->
+<!--        android:layout_width="240dp"-->
+<!--        android:layout_height="41dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="64dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:text="send otp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/otpLayout" />-->
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/sms"-->
+<!--        android:layout_width="180dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:background="@drawable/button_background"-->
+<!--        android:elevation="4dp"-->
+<!--        android:text="send otp"-->
+<!--        android:fontFamily="@font/outfitblack"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/otpLayout" />-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/sms"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    app:layout_constraintEnd_toEndOf="@+id/otpLayout"
+    app:layout_constraintTop_toBottomOf="@+id/otpLayout">
+
+    <TextView
+
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/outfitsemibold"
+        android:text="Resend otp"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView33"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="2dp"
+        android:src="@drawable/return_arrow"
+        app:layout_constraintBottom_toBottomOf="@+id/textView40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView40"
+        app:layout_constraintTop_toTopOf="@+id/textView40" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <TextView-->
+<!--        android:id="@+id/sms"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="resend otp"-->
+<!--        android:fontFamily="@font/outfitsemibold"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="14dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/otpLayout" />-->
+
+
+
+
+
+<ImageView
+    android:id="@+id/imageView12"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="64dp"
+    android:layout_marginEnd="16dp"
+    app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
+    app:layout_constraintStart_toStartOf="@+id/linearLayout5"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+    app:srcCompat="@drawable/otpverifie" />
+
+<TextView
+    android:id="@+id/textView23"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:text="Code de confirmation"
+    android:fontFamily="@font/outfitextrabold"
+    android:textColor="@color/black"
+    android:textSize="24dp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="@+id/imageView12"
+    app:layout_constraintStart_toStartOf="@+id/imageView12"
+    app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+<TextView
+    android:id="@+id/textView24"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:text="Un code de vérification a été envoyé "
+    android:fontFamily="@font/outfitsemibold"
+    android:textColor="@color/black"
+    android:textSize="14dp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="@+id/textView23"
+    app:layout_constraintHorizontal_bias="0.497"
+    app:layout_constraintStart_toStartOf="@+id/textView23"
+    app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+<TextView
+    android:id="@+id/textView25"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:text="à votre numero"
+    android:fontFamily="@font/outfitsemibold"
+    android:textColor="@color/black"
+    android:textSize="14dp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="@+id/textView24"
+    app:layout_constraintStart_toStartOf="@+id/textView24"
+    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+
+<androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/buttonValider"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="32dp"
+    android:background="@drawable/button_background"
+    android:elevation="4dp"
+    android:fontFamily="@font/outfitblack"
+    android:text="Continuer"
+    app:layout_constraintEnd_toEndOf="@+id/otpLayout"
+    app:layout_constraintStart_toStartOf="@+id/otpLayout"
+    app:layout_constraintTop_toBottomOf="@+id/sms" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

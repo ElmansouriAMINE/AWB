@@ -92,6 +92,12 @@ dependencies {
     // gson converter
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    // Google Play services Auth
+    implementation 'com.google.android.gms:play-services-auth:20.6.0'
+
+    // Google Play services Auth API Phone
+    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
+
 
     //FOR MAP
 //    implementation 'com.google.android.gms:play-services-maps:18.1.0'
@@ -119,6 +125,8 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.11.2'
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
     testImplementation "io.mockk:mockk:1.12.0"
+
+
 
 
 

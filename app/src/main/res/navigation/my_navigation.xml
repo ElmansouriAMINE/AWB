@@ -77,8 +77,8 @@
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
         <action
-            android:id="@+id/action_signUpFragment_to_fingerPrintFragment"
-            app:destination="@id/fingerPrintFragment" />
+            android:id="@+id/action_signUpFragment_to_otpForSignUpFragment"
+            app:destination="@id/otpForSignUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
@@ -217,11 +217,11 @@
         android:label="fragment_finger_print"
         tools:layout="@layout/fragment_finger_print" >
         <action
-            android:id="@+id/action_fingerPrintFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-        <action
             android:id="@+id/action_fingerPrintFragment_to_uploadCINInfosFragment"
             app:destination="@id/uploadCINInfosFragment" />
+        <action
+            android:id="@+id/action_fingerPrintFragment_to_otpForSignUpFragment"
+            app:destination="@id/otpForSignUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/uploadCINInfosFragment"
@@ -432,5 +432,17 @@
         <action
             android:id="@+id/action_detailsPlafondsFragment_to_bankingCardsFragment"
             app:destination="@id/bankingCardsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpForSignUpFragment"
+        android:name="com.example.testoo.UI.SmsBroadCast.OtpForSignUpFragment"
+        android:label="fragment_otp_for_sign_up"
+        tools:layout="@layout/fragment_otp_for_sign_up" >
+        <action
+            android:id="@+id/action_otpForSignUpFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_otpForSignUpFragment_to_fingerPrintFragment"
+            app:destination="@id/fingerPrintFragment" />
     </fragment>
 </navigation>

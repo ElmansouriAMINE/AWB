@@ -10,6 +10,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
+
 class UserRepositoryImplTest {
 
     private lateinit var userRepository: UserRepositoryImpl
@@ -26,8 +27,7 @@ class UserRepositoryImplTest {
         every { FirebaseDatabase.getInstance() } returns mockDatabase
     }
 
-
-    @Test
+    @Test(timeout = 5000) // Set a timeout of 5 seconds
     fun testGetCurrentUser() = runBlocking {
         val userId = "testUserId"
         val mockUser = User(id = userId, userName = "AMINE ELMANSOURI", email = "amine@gmail.com")
@@ -36,13 +36,15 @@ class UserRepositoryImplTest {
         every { mockReference.orderByChild("id").equalTo(userId) } returns mockReference
         coEvery { mockReference.get().await() } returns mockDataSnapshot(listOf(mockUser))
 
-        val result = userRepository.getCurrentUser(userId)
+        try {
+            val result = userRepository.getCurrentUser(userId)
 
-        assertNotNull(result)
-        assertEquals(mockUser, result)
+            assertNotNull(result)
+            assertEquals(mockUser, result)
+        } catch (e: Exception) {
+            fail("Test failed with exception: ${e.message}")
+        }
     }
-
-
 
     // Helper function to create a mock DataSnapshot
     private fun <T> mockDataSnapshot(value: List<T>): DataSnapshot {

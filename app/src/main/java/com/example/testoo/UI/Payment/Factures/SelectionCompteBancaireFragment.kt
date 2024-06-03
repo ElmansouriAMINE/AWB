@@ -39,13 +39,13 @@ class SelectionCompteBancaireFragment : Fragment() , CompteListAdapterForPaiemen
 
         binding = FragmentSelectionCompteBancaireBinding.inflate(layoutInflater)
 
-        paiementViewModel.montant.observe(viewLifecycleOwner, Observer{ montant ->
-            Toast.makeText(requireContext(),montant, Toast.LENGTH_LONG).show()
-        })
+//        paiementViewModel.montant.observe(viewLifecycleOwner, Observer{ montant ->
+//            Toast.makeText(requireContext(),montant, Toast.LENGTH_LONG).show()
+//        })
 
-        paiementViewModel.facturesClicked.observe(viewLifecycleOwner, Observer{ factures ->
-            Toast.makeText(requireContext(),factures.toString(), Toast.LENGTH_LONG).show()
-        })
+//        paiementViewModel.facturesClicked.observe(viewLifecycleOwner, Observer{ factures ->
+//            Toast.makeText(requireContext(),factures.toString(), Toast.LENGTH_LONG).show()
+//        })
 
         viewLifecycleOwner.lifecycleScope.launch {
             val comptes = withContext(Dispatchers.IO) {

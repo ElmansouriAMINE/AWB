@@ -116,6 +116,7 @@ class HistoriqueTransactionsFragment : Fragment() {
         } else {
             originalTransactions.filter { transaction ->
                 transaction.receiverName?.contains(query, ignoreCase = true) == true ||
+                    transaction.senderName?.contains(query, ignoreCase = true) == true ||
                     transaction.type?.contains(query,ignoreCase = true) == true ||
                     transaction.montant?.contains(query,ignoreCase = true) == true
             } as ArrayList<Transaction>

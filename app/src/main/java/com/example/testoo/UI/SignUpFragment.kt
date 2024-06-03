@@ -15,6 +15,7 @@ import com.example.testoo.R
 import com.example.testoo.Utils.BottomNavBarHandler
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.gson.Gson
 import java.sql.DriverManager.println
 import kotlin.random.Random
 
@@ -157,13 +158,20 @@ class SignUpFragment : Fragment() {
                                           }
 
                                           // Save user information in SharedPreferences
+//                                          val editor = sharedPreferences.edit()
+//                                          editor.putString("userId", userId)
+//                                          editor.apply()
+                                          val userData = UserData(email, pass)
+                                          val gson = Gson()
+                                          val userDataJson = gson.toJson(userData)
+                                          val sharedPreferences = requireContext().getSharedPreferences("SharedUser", Context.MODE_PRIVATE)
                                           val editor = sharedPreferences.edit()
-                                          editor.putString("userId", userId)
+                                          editor.putString("userData", userDataJson)
                                           editor.apply()
 
                                           // Navigate to FingerPrintFragment
 //
-                                          Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_fingerPrintFragment)
+                                          Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_otpForSignUpFragment)
                                       } else {
                                           Toast.makeText(requireContext(), userTask.exception.toString(), Toast.LENGTH_SHORT).show()
                                       }

@@ -93,3 +93,5 @@ class FingerPrintFragment : Fragment() {
         biometricPrompt.authenticate(promptInfo)
     }
 }
+
+
