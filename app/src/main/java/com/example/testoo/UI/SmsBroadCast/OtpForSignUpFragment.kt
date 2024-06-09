@@ -435,6 +435,7 @@ class OtpForSignUpFragment : Fragment() {
 
         storedOTP = otpCodeGenereted
         val message = "$otpCodeGenereted is your verification code!"
+        println(message)
 //        val message = "<#> $otpCodeGenereted Android is always a sweet treat!"
 
 

@@ -159,21 +159,25 @@ class PaiementFragment : Fragment(), PaiementChildRecyclerViewAdapter.OnChildIte
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Vignette Factures" ->{
+                operatorTelecomChoisie("Vignette")
                 domaineChoisi("Vignette Factures")
                 putCurrentRefFacture("1234G")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Redal Factures" ->{
+                operatorTelecomChoisie("Redal")
                 domaineChoisi("Redal Factures")
                 putCurrentRefFacture("1234H")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Ramsa Factures" ->{
+                operatorTelecomChoisie("Ramsa")
                 domaineChoisi("Ramsa Factures")
                 putCurrentRefFacture("1234I")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
             }
             "Amendis Factures" ->{
+                operatorTelecomChoisie("Amendis")
                 domaineChoisi("Amendis Factures")
                 putCurrentRefFacture("1234J")
                 Navigation.findNavController(binding.root).navigate(R.id.action_paiementFragment_to_referenceFactureFragment)
