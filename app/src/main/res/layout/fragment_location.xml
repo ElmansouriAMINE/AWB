@@ -305,7 +305,7 @@
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/request" />
+                                        app:srcCompat="@drawable/statistics" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <TextView
@@ -313,11 +313,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:text="Request"
                                     android:fontFamily="@font/outfitregular"
-                                    android:textStyle="bold"
+                                    android:text="Statistcs"
                                     android:textAlignment="center"
-                                    android:textColor="@color/black" />
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <LinearLayout

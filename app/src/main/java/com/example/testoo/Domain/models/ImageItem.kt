@@ -8,6 +8,7 @@ data class ImageItem(
     val userName : String,
     var configuration: Configuration?=null,
     var plafond: Plafond?=null,
-    var opposition: Opposition?=null
+    var opposition: Opposition?=null,
+    var isChecked: Boolean = false
 
 )

@@ -37,3 +37,29 @@ class SmsBroadCastReceiver : BroadcastReceiver() {
 
     }
 }
+
+//class SmsBroadCastReceiver : BroadcastReceiver() {
+//    var otpReceiver: OtpReceiver? = null
+//
+//    override fun onReceive(context: Context, intent: Intent) {
+//        if (intent.action == SmsRetriever.SMS_RETRIEVED_ACTION) {
+//            val extras = intent.extras
+//            val smsRetrieverStatus = extras?.get(SmsRetriever.EXTRA_STATUS) as Status
+//            when (smsRetrieverStatus.statusCode) {
+//                CommonStatusCodes.SUCCESS -> {
+//                    val message = extras.get(SmsRetriever.EXTRA_SMS_MESSAGE) as String
+//                    otpReceiver?.onOtpReceived(message)
+//                }
+//                CommonStatusCodes.TIMEOUT -> {
+//                    otpReceiver?.onOtpTimeout()
+//                }
+//            }
+//        }
+//    }
+//
+//    interface OtpReceiver {
+//        fun onOtpReceived(otp: String)
+//        fun onOtpTimeout()
+//    }
+//}
+//

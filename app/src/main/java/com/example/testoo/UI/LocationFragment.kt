@@ -159,6 +159,9 @@ class LocationFragment : Fragment() {
         binding.bankingCardsManagement.setOnClickListener{
             Navigation.findNavController(binding.root).navigate(R.id.toBankingCardsFragment)
         }
+        binding.requestView.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.toExampleChartFragment)
+        }
 
 
         currentUser?.let {

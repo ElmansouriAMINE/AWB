@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="74dp"
         android:background="@color/yellow"
         tools:context=".UI.SignUpFragment">
 
@@ -45,14 +45,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="180dp"
                 android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="@color/white"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/userNameLayout"
@@ -61,9 +61,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="12dp"
                         android:layout_marginEnd="16dp"
                         app:boxStrokeColor="@color/yellow"
+                        app:helperText="@string/required"
+                        app:helperTextTextColor="@color/red"
                         app:hintTextColor="@color/yellow"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -74,8 +76,8 @@
                             style="@style/LoginTextInputInnerFieldStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Type your Name"
                             android:fontFamily="@font/outfitregular"
+                            android:hint="Type your Name"
                             android:inputType="textPersonName" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,6 +91,8 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         app:boxStrokeColor="@color/yellow"
+                        app:helperText="@string/required"
+                        app:helperTextTextColor="@color/red"
                         app:hintTextColor="@color/yellow"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -99,8 +103,8 @@
                             style="@style/LoginTextInputInnerFieldStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Type your Email"
                             android:fontFamily="@font/outfitregular"
+                            android:hint="Type your Email"
                             android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,6 +118,8 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         app:boxStrokeColor="@color/yellow"
+                        app:helperText="@string/required"
+                        app:helperTextTextColor="@color/red"
                         app:hintTextColor="@color/yellow"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -124,8 +130,8 @@
                             style="@style/LoginTextInputInnerFieldStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Type your phoneNumber"
                             android:fontFamily="@font/outfitregular"
+                            android:hint="Type your phoneNumber"
                             android:inputType="phone" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,6 +145,8 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         app:boxStrokeColor="@color/yellow"
+                        app:helperText="@string/required"
+                        app:helperTextTextColor="@color/red"
                         app:hintTextColor="@color/yellow"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -150,8 +158,8 @@
                             style="@style/LoginTextInputInnerFieldStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Type Your Password"
                             android:fontFamily="@font/outfitregular"
+                            android:hint="Type Your Password"
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,6 +173,8 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         app:boxStrokeColor="@color/yellow"
+                        app:helperText="@string/required"
+                        app:helperTextTextColor="@color/red"
                         app:hintTextColor="@color/yellow"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -176,8 +186,8 @@
                             style="@style/LoginTextInputInnerFieldStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Retype Your Password"
                             android:fontFamily="@font/outfitregular"
+                            android:hint="Retype Your Password"
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -188,10 +198,10 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:background="@color/yellow"
+                        android:fontFamily="@font/outfitextrabold"
                         android:text="Continue"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:fontFamily="@font/outfitextrabold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/confirmPasswordLayout" />
@@ -200,7 +210,7 @@
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/outfitbold"
                         android:text="Already Registered , Sign In !"
                         android:textColor="@color/black"

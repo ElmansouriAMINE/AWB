@@ -12,6 +12,10 @@
         />
 
     <action
+        android:id="@+id/toExampleChartFragment"
+        app:destination="@+id/exampleChartFragment" />
+
+    <action
         android:id="@+id/toAssistanceFragment"
         app:destination="@id/assistanceFragment" />
     <action
@@ -106,6 +110,9 @@
         <action
             android:id="@+id/action_locationFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_exampleChartFragment"
+            app:destination="@id/exampleChartFragment" />
 
     </fragment>
     <fragment
@@ -234,6 +241,9 @@
         <action
             android:id="@+id/action_uploadCINInfosFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_uploadCINInfosFragment_to_renseignementBancaireFragment1"
+            app:destination="@id/renseignementBancaireFragment1" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
@@ -444,5 +454,49 @@
         <action
             android:id="@+id/action_otpForSignUpFragment_to_fingerPrintFragment"
             app:destination="@id/fingerPrintFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/renseignementBancaireFragment1"
+        android:name="com.example.testoo.UI.NewEntreeRelation.RenseignementBancaireFragment1"
+        android:label="RenseignementBancaireFragment1" >
+        <action
+            android:id="@+id/action_renseignementBancaireFragment1_to_uploadCINInfosFragment2"
+            app:destination="@id/uploadCINInfosFragment" />
+        <action
+            android:id="@+id/action_renseignementBancaireFragment1_to_renseignementBancaireFragment2"
+            app:destination="@id/renseignementBancaireFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/renseignementBancaireFragment2"
+        android:name="com.example.testoo.UI.NewEntreeRelation.RenseignementBancaireFragment2"
+        android:label="fragment_renseignement_bancaire2"
+        tools:layout="@layout/fragment_renseignement_bancaire2" >
+        <action
+            android:id="@+id/action_renseignementBancaireFragment2_to_renseigmentBankingCardsFragment"
+            app:destination="@id/renseigmentBankingCardsFragment" />
+        <action
+            android:id="@+id/action_renseignementBancaireFragment2_to_renseignementBancaireFragment12"
+            app:destination="@id/renseignementBancaireFragment1" />
+    </fragment>
+    <fragment
+        android:id="@+id/renseigmentBankingCardsFragment"
+        android:name="com.example.testoo.UI.NewEntreeRelation.RenseigmentBankingCardsFragment"
+        android:label="fragment_renseigment_banking_cards"
+        tools:layout="@layout/fragment_renseigment_banking_cards" >
+        <action
+            android:id="@+id/action_renseigmentBankingCardsFragment_to_renseignementBancaireFragment22"
+            app:destination="@id/renseignementBancaireFragment2" />
+        <action
+            android:id="@+id/action_renseigmentBankingCardsFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exampleChartFragment"
+        android:name="com.example.testoo.UI.charts.ExampleChartFragment"
+        android:label="fragment_example_chart"
+        tools:layout="@layout/fragment_example_chart" >
+        <action
+            android:id="@+id/action_exampleChartFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
     </fragment>
 </navigation>

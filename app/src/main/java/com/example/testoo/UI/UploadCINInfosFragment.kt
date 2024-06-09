@@ -43,7 +43,7 @@ class UploadCINInfosFragment : Fragment() {
 
         binding = FragmentUploadCINInfosBinding.inflate(inflater, container, false)
         binding.buttonContinue.setOnClickListener{
-            Navigation.findNavController(binding.root).navigate(R.id.action_uploadCINInfosFragment_to_signInFragment)
+            Navigation.findNavController(binding.root).navigate(R.id.action_uploadCINInfosFragment_to_renseignementBancaireFragment1)
         }
 
         setupCameraCapture()
