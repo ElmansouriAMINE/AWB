@@ -65,6 +65,13 @@ class PaiementViewModel : ViewModel() {
             emptyList()
         }
     }
+    fun getCurrentDateTimeFormatted(): String {
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.HOUR_OF_DAY, 1)
+        val date = calendar.time
+        return dateFormat.format(date)
+    }
 
     fun createTransaction(currentTransaction: Transaction){
         val transactionCollection= database.getReference("transactions")
@@ -76,11 +83,11 @@ class PaiementViewModel : ViewModel() {
 
     }
 
-    fun getCurrentDateTimeFormatted(): String {
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
-        val date = Date()
-        return dateFormat.format(date)
-    }
+//    fun getCurrentDateTimeFormatted(): String {
+//        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+//        val date = Date()
+//        return dateFormat.format(date)
+//    }
 
     suspend fun updateCompteSoldeForUserId(userId: String, newSolde: Int) {
         val currentUserCompte = database.getReference("comptes")
