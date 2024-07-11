@@ -17,4 +17,6 @@ interface UserRepository {
 
     suspend fun getCardsForCurrentUser(userId: String) : ArrayList<Carte>
 
+    suspend fun getComptesForCurrentUser(userId: String) : ArrayList<Compte>
+
 }

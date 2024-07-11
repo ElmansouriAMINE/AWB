@@ -40,9 +40,9 @@ class ImageAdapterAccount : ListAdapter<AccountItem, ImageAdapterAccount.ViewHol
                 .load(item.imageResId)
                 .transform(GranularRoundedCorners(30F, 30F, 0f, 0F))
                 .into(imageView)
-            textNumeroCarte.text = item.numeroCarte
-            textDateExipration.text = item.dateExpiration
-            userName.text = item.userName
+            textNumeroCarte.text = item.numero
+            textDateExipration.text = item.dateOuverture
+            userName.text = item.userId
         }
     }
 
@@ -56,8 +56,8 @@ class ImageAdapterAccount : ListAdapter<AccountItem, ImageAdapterAccount.ViewHol
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageItem = getItem(position)
         holder.bindData(imageItem)
-        holder.textNumeroCarte.setText(imageItem.numeroCarte)
-        holder.textDateExipration.setText(imageItem.dateExpiration)
-        holder.userName.setText(imageItem.userName)
+        holder.textNumeroCarte.setText(imageItem.numero)
+        holder.textDateExipration.setText(imageItem.dateOuverture)
+        holder.userName.setText(imageItem.solde.toString() +" DH")
     }
 }

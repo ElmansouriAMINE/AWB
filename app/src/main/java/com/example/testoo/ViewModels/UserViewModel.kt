@@ -60,6 +60,9 @@ class UserViewModel  @Inject constructor(
     suspend fun getCardsForCurrentUser(userId: String) : ArrayList<Carte>{
         return userRepository.getCardsForCurrentUser(userId)
     }
+    suspend fun getComptesForCurrentUser(userId: String) : ArrayList<Compte>{
+        return userRepository.getComptesForCurrentUser(userId)
+    }
 
 
 }

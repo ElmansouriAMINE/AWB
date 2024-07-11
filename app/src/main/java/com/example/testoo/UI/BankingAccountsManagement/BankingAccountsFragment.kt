@@ -109,34 +109,30 @@ class BankingAccountsFragment : Fragment() {
                 )
 
                 val cardsInfos = withContext(Dispatchers.IO) {
-                    userViewModel.getCardsForCurrentUser(currentUser.uid)
+                    userViewModel.getComptesForCurrentUser(currentUser.uid)
                 }
 
                 println("cardsInfos: $cardsInfos")
 
                 val colors = listOf(R.drawable.account_banner, R.drawable.account_banner, R.drawable.account_banner)
 
-                val imageList1 = cardsInfos.mapIndexed { index, card ->
+                val imageList1 = cardsInfos.mapIndexed { index, compte ->
                     val color = colors[index % colors.size]
                     userCrr?.userName?.let { userName ->
-                        card.dateExpiration?.let { dateExpiration ->
-                            card.numeroCarte?.let { numeroCarte ->
-                                card.configuration?.let { config ->
-                                    card.plafond?.let{ plafond ->
-                                        card.opposition?.let { opposition ->
+                        compte.dateOuverture?.let { dateOuverture ->
+                            compte.numero?.let { numero ->
+                                compte.solde?.let { solde ->
                                             AccountItem(
                                                 UUID.randomUUID().toString(),
-                                                color,
-                                                dateExpiration,
-                                                numeroCarte,
+                                                solde,
+                                                numero,
                                                 userName,
-                                                config,
-                                                plafond,
-                                                opposition
+                                                imageResId = color,
+                                                dateOuverture = dateOuverture,
                                             )
                                         }
-                                    }
-                                }
+
+
                             }
                         }
                     }
@@ -201,8 +197,8 @@ class BankingAccountsFragment : Fragment() {
 //
 //                            }
                             lifecycleScope.launch{
-                                val currentCard= cardsConfigViewModel.getCurrentCard("${currentImageItem.numeroCarte}")
-                                currentImageItem.configuration=currentCard?.configuration
+//                                val currentCard= cardsConfigViewModel.getCurrentCard("${currentImageItem.numeroCarte}")
+//                                currentImageItem.configuration=currentCard?.configuration
 //                                cardsConfigViewModel.setCurrentAccountItem(currentImageItem)
                                 println("Current ImageItem: $currentImageItem")
 //                                binding.gestionCard.setOnClickListener {
@@ -242,6 +238,7 @@ class BankingAccountsFragment : Fragment() {
         }
 
     }
+
 
 
 

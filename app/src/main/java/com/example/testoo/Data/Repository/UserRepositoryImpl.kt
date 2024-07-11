@@ -94,4 +94,19 @@ class UserRepositoryImpl @Inject constructor(): UserRepository {
         }
     }
 
+    override suspend fun getComptesForCurrentUser(userId: String) : ArrayList<Compte>{
+        val cardsCollection = FirebaseDatabase.getInstance().getReference("comptes")
+        val query= cardsCollection.orderByChild("userId").equalTo(userId)
+
+        return try{
+            val datasnapshot = query.get().await()
+            val carte = datasnapshot.children.mapNotNull { it.getValue(Compte::class.java) }
+            ArrayList(carte)
+
+        }catch (e:Exception){
+            println("Error fetching banking accounts : ${e.message}")
+            ArrayList()
+        }
+    }
+
 }
