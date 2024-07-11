@@ -163,6 +163,11 @@ class LocationFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.toExampleChartFragment)
         }
 
+        binding.accountsManagements.setOnClickListener{
+            Navigation.findNavController(binding.root).navigate(R.id.action_locationFragment_to_bankingAccountsFragment)
+        }
+
+
 
         currentUser?.let {
             viewLifecycleOwner.lifecycleScope.launch{

@@ -113,6 +113,9 @@
         <action
             android:id="@+id/action_locationFragment_to_exampleChartFragment"
             app:destination="@id/exampleChartFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_bankingAccountsFragment"
+            app:destination="@id/bankingAccountsFragment" />
 
     </fragment>
     <fragment
@@ -497,6 +500,15 @@
         tools:layout="@layout/fragment_example_chart" >
         <action
             android:id="@+id/action_exampleChartFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bankingAccountsFragment"
+        android:name="com.example.testoo.UI.BankingAccountsManagement.BankingAccountsFragment"
+        android:label="fragment_banking_accounts"
+        tools:layout="@layout/fragment_banking_accounts" >
+        <action
+            android:id="@+id/action_bankingAccountsFragment_to_locationFragment"
             app:destination="@id/locationFragment" />
     </fragment>
 </navigation>
