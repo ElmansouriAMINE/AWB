@@ -9,17 +9,17 @@
 
 
     <ImageView
-        android:id="@+id/backArrow"
+        android:id="@+id/addIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
         android:src="@drawable/icon_add"
-        app:layout_constraintEnd_toStartOf="@+id/textView41"
+        app:layout_constraintEnd_toStartOf="@+id/addText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/addText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -28,9 +28,9 @@
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/backArrow"
+        app:layout_constraintBottom_toBottomOf="@+id/addIcon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backArrow" />
+        app:layout_constraintTop_toTopOf="@+id/addIcon" />
 
     <TextView
         android:id="@+id/textView43"
@@ -42,9 +42,9 @@
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/backArrow"
+        app:layout_constraintBottom_toBottomOf="@+id/addIcon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backArrow" />
+        app:layout_constraintTop_toTopOf="@+id/addIcon" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"
@@ -56,7 +56,7 @@
         android:padding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView41">
+        app:layout_constraintTop_toTopOf="@+id/addText">
 
 
     </androidx.viewpager2.widget.ViewPager2>

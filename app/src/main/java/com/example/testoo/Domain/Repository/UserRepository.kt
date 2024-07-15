@@ -19,4 +19,10 @@ interface UserRepository {
 
     suspend fun getComptesForCurrentUser(userId: String) : ArrayList<Compte>
 
+    suspend fun createBankingAccount(userId: String,compteNum: String)
+
+
+
+
+
 }

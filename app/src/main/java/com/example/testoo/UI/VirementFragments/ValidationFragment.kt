@@ -200,6 +200,7 @@ class ValidationFragment : Fragment() {
                             var soldeCompteBeneficiare = compteBeneficiaire?.solde
                             val montantTransaction = virementViewModel.montant.value.toString().toIntOrNull() ?: 0
                             val beneficiaire = virementViewModel.beneficiaire.value.toString()
+                            val compteBancaireNum = virementViewModel.data.value.toString()
                             if (compte != null) {
                                 val otpp = binding.etotp.text.toString()
                                 println("yyyyy:$otpp")
@@ -238,9 +239,13 @@ class ValidationFragment : Fragment() {
                                                                                     montant?.toInt()
                                                                                         ?.let { it1 ->
                                                                                             virementViewModel.createTransaction(currTransaction)
-                                                                                            virementViewModel.updateCompteSoldeForUserId(currentUser.uid,
-                                                                                                (solde-it1).toInt()
-                                                                                            )
+//                                                                                            virementViewModel.updateCompteSoldeForUserId(currentUser.uid,
+//                                                                                                (solde-it1).toInt()
+//                                                                                            )
+                                                                                            virementViewModel.updateCompteSoldeForUserIdAndNumero(currentUser.uid,
+                                                                                                (solde-it1).toInt(),
+                                                                                                compteBancaireNum
+                                                                                                )
 
                                                                                             println("BeneficiaireIDID: ${virementViewModel.beneficiaireId.toString()}")
                                                                                             println("BeneficiaireSolde: ${soldeCompteBeneficiare!!}")

@@ -7,7 +7,9 @@ import com.example.testoo.Domain.models.Compte
 import com.example.testoo.Domain.models.Facture
 import com.example.testoo.Domain.models.Recharge
 import com.example.testoo.Domain.models.Transaction
+import com.google.firebase.Firebase
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.database
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
@@ -106,7 +108,38 @@ class PaiementViewModel : ViewModel() {
         }
     }
 
-//    suspend fun updateFactureEtatForIdContrat(idContrat: String) {
+    suspend fun updateCompteSoldeForUserIdAndNumero(userId: String, newSolde: Int, numeroCompte: String) {
+        val currentUserComptes = Firebase.database.getReference("comptes")
+        val query = currentUserComptes.orderByChild("userId").equalTo(userId)
+
+        try {
+            val dataSnapshot = query.get().await()
+
+            dataSnapshot.children.forEach { snapshot ->
+                val compte = snapshot.getValue(Compte::class.java)
+
+                // Check if the compte matches the given numero
+                if (compte?.numero == numeroCompte) {
+                    // Update solde with new value
+                    compte.solde = newSolde.toDouble()
+
+                    // Save the updated compte back to the database
+                    snapshot.ref.setValue(compte)
+                        .addOnSuccessListener {
+                            println("Compte solde updated successfully")
+                        }
+                        .addOnFailureListener { e ->
+                            println("Error updating compte solde: ${e.message}")
+                        }
+                }
+            }
+        } catch (e: Exception) {
+            println("Error querying compte by userId: ${e.message}")
+        }
+    }
+
+
+    //    suspend fun updateFactureEtatForIdContrat(idContrat: String) {
 //        val currentUserFactures = database.getReference("factures")
 //        val query = currentUserFactures.orderByChild("idContrat").equalTo(idContrat)
 //        try {

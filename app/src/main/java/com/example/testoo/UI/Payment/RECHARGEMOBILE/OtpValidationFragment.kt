@@ -485,6 +485,8 @@ class OtpValidationFragment : Fragment() {
                             val facturesClicked = paiementViewModel.facturesClicked.value
                             val operatorTelecom = paiementViewModel.operatorTelecom.value.toString()
 
+                            val compteNumero = paiementViewModel.compteBancaire.value?.numero.toString()
+
                             if (compte != null) {
                                 val otpp = binding.etotp.text.toString()
                                 println("yyyyy:$otpp")
@@ -528,9 +530,14 @@ class OtpValidationFragment : Fragment() {
 //                                                                                paiementViewModel.updateCompteSoldeForUserId(currentUser.uid,
 //                                                                                    (solde - montant.toDouble()!!).toInt()
 //                                                                                )
-                                                                                paiementViewModel.updateCompteSoldeForUserId(
-                                                                                    currentUser.uid,
-                                                                                    (solde - montantTransaction).toInt()
+//                                                                                paiementViewModel.updateCompteSoldeForUserId(
+//                                                                                    currentUser.uid,
+//                                                                                    (solde - montantTransaction).toInt()
+//                                                                                )
+
+                                                                                paiementViewModel.updateCompteSoldeForUserIdAndNumero(currentUser.uid
+                                                                                    ,(solde - montantTransaction).toInt(),
+                                                                                    numeroCompte = compteNumero
                                                                                 )
 //                                                                                receiverName =beneficiaire,
 //                                                                                paiementViewModel.createTransaction(currTransaction)

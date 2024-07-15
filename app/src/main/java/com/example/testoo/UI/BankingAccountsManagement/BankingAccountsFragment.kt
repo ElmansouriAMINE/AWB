@@ -88,6 +88,15 @@ class BankingAccountsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        binding.addText.setOnClickListener{
+            Navigation.findNavController(binding.root).navigate(R.id.action_bankingAccountsFragment_to_addBankingAccountFragment)
+        }
+
+        binding.addIcon.setOnClickListener{
+            Navigation.findNavController(binding.root).navigate(R.id.action_bankingAccountsFragment_to_addBankingAccountFragment)
+        }
+
+
 //        aLodingDialog.show()
         currentUser?.let {
             viewLifecycleOwner.lifecycleScope.launch {
@@ -97,7 +106,7 @@ class BankingAccountsFragment : Fragment() {
 
                 }
                 val transactions = withContext(Dispatchers.IO) {
-                    transationViewModel.getAllCardTransactions(currentUser.uid)
+                    transationViewModel.getAllTransactions(currentUser.uid,userCrr!!)
                 }
 
                 originalTransactions = transactions
@@ -146,7 +155,7 @@ class BankingAccountsFragment : Fragment() {
 
                 println("imageList: $imageList")
 
-                val imageAdapter = ImageAdapterAccount()
+                val imageAdapter = ImageAdapterAccount(this@BankingAccountsFragment)
                 binding.viewPager2.adapter = imageAdapter
                 imageAdapter.submitList(imageList)
 

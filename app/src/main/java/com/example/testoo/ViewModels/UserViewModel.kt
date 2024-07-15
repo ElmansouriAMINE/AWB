@@ -64,6 +64,11 @@ class UserViewModel  @Inject constructor(
         return userRepository.getComptesForCurrentUser(userId)
     }
 
+    suspend fun createBankingAccount(userId: String,compteNum: String){
+        return userRepository.createBankingAccount(userId,compteNum
+        )
+    }
+
 
 }
 

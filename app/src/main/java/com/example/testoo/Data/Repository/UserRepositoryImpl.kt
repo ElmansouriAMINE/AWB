@@ -4,7 +4,10 @@ import com.example.testoo.Domain.Repository.UserRepository
 import com.example.testoo.Domain.models.*
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class UserRepositoryImpl @Inject constructor(): UserRepository {
     override suspend fun getCompteForUserId(userId: String): Compte? {
@@ -19,6 +22,17 @@ class UserRepositoryImpl @Inject constructor(): UserRepository {
         } catch (e: Exception) {
             println("Error fetching compte: ${e.message}")
             null
+        }
+    }
+
+    override suspend fun createBankingAccount(userId: String,compteNum: String){
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val currentDate = dateFormat.format(Date())
+        val compteInitial = Compte(userId=userId,numero = "$compteNum", solde = 0.0, dateOuverture = currentDate)
+        val comptesCollection = FirebaseDatabase.getInstance().getReference("comptes")
+        val comptekey = comptesCollection.push().key
+        comptekey?.let{
+            comptesCollection.child(it).setValue(compteInitial)
         }
     }
 //    override suspend fun getFactureNonPayeForUserId(userId: String,idContrat: String,domaine:String): List<Facture> {
