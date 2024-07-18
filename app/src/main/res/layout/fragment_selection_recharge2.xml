@@ -10,7 +10,7 @@ tools:context=".UI.Payment.RECHARGEMOBILE.SelectionRechargeFragment2">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_background">
+    style="@style/background_screen">
 
     <LinearLayout
         android:id="@+id/linearLayout5"
@@ -78,7 +78,7 @@ tools:context=".UI.Payment.RECHARGEMOBILE.SelectionRechargeFragment2">
         android:layout_marginTop="16dp"
         android:text="CHOIX DU COMPTE"
         android:fontFamily="@font/outfitextrabold"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/circularProgressBar"
@@ -91,7 +91,7 @@ tools:context=".UI.Payment.RECHARGEMOBILE.SelectionRechargeFragment2">
         android:layout_marginTop="4dp"
         android:layout_marginBottom="16dp"
         android:text="Selectionnez le compte à débiter pour le paiement"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:fontFamily="@font/outfitsemibold"
         android:textSize="14dp"
         android:textStyle="bold"
@@ -105,7 +105,7 @@ tools:context=".UI.Payment.RECHARGEMOBILE.SelectionRechargeFragment2">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2/3"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:textSize="22dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
@@ -156,7 +156,7 @@ tools:context=".UI.Payment.RECHARGEMOBILE.SelectionRechargeFragment2">
             android:layout_weight="1"
             android:text="CHOIX COMPTE"
             android:fontFamily="@font/outfitextrabold"
-            android:textColor="@color/black"
+            style="@style/text_color"
             android:textSize="20dp"
             android:textStyle="bold" />
     </LinearLayout>

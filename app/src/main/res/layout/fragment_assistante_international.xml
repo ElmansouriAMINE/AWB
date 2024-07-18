@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/background_screen"
     tools:context=".UI.Assistance.TabLayouts.AssistanteInternationalFragment">
 
 
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Pour les MRE à partir de l'étranger"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:fontFamily="@font/outfitblack"
         android:textSize="18dp"
         android:textStyle="bold"

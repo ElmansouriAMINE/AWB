@@ -14,4 +14,8 @@
     <color name="screen_background">#F6F1F1</color>
     <color name="green">#35EF06</color>
     <color name="dark_grey">#A9A9A9</color>
+    <color name="edit_text_color_light">#A9A9A9</color> <!-- Black for light mode -->
+    <color name="edit_text_color_dark">#FF000000</color> <!-- White for dark mode -->
 </resources>
+
+

@@ -169,7 +169,7 @@ class LocationFragment : Fragment() {
         }
 
         binding.parametreDarkLightMode.setOnClickListener{
-            findNavController().navigate(R.id.toDarkLightModeFragment)
+            Navigation.findNavController(binding.root).navigate(R.id.toDarkLightModeFragment)
         }
 
 

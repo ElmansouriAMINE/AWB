@@ -7,10 +7,10 @@
     tools:context=".UI.Parametres.DarkLightModeFragment">
 
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchMode"
-        android:layout_width="90dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

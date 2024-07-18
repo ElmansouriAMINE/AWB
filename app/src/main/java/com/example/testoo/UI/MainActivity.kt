@@ -1,9 +1,6 @@
 package com.example.testoo.UI
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.net.ConnectivityManager
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
@@ -37,19 +34,27 @@ class MainActivity : AppCompatActivity(), BottomNavBarHandler {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var networkReceiver: BroadcastReceiver
+    private lateinit var sharedPreferences: SharedPreferences
     private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+
+
         setContentView(binding.root)
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this)
 
         // Disable night mode
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        // Load the theme preference
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
+        val nightMode = sharedPreferences.getBoolean("night", false)
+        setNightMode(nightMode)
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Set up the navigation controller
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView3) as NavHostFragment
@@ -82,6 +87,12 @@ class MainActivity : AppCompatActivity(), BottomNavBarHandler {
                 }
             }
         }
+    }
+
+    private fun setNightMode(nightMode: Boolean) {
+        AppCompatDelegate.setDefaultNightMode(
+            if (nightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        )
     }
 
     private fun setUpTabBar() {

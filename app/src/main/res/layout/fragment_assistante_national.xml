@@ -4,7 +4,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 xmlns:app="http://schemas.android.com/apk/res-auto"
-android:background="@color/screen_background"
+style="@style/background_screen"
 tools:context=".UI.Assistance.TabLayouts.AssistanteNationalFragment">
 
 
@@ -18,7 +18,7 @@ tools:context=".UI.Assistance.TabLayouts.AssistanteNationalFragment">
         android:fontFamily="@font/outfitmedium"
         android:gravity="center"
         android:text="Pour toute demande d'assistance ou d'information , veuillez contacter notre Centre de Relation Client ou"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@ tools:context=".UI.Assistance.TabLayouts.AssistanteNationalFragment">
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="0522588855"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:fontFamily="@font/outfitextrabold"
         android:textSize="28dp"
         android:textStyle="bold"

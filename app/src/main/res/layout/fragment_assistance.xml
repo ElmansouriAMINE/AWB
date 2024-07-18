@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="64dp"
-    android:background="@color/screen_background"
+    style="@style/background_screen"
     tools:context=".UI.Assistance.AssistanceFragment">
 
     <ImageView
@@ -25,7 +25,8 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/outfitextrabold"
         android:text="Assistance et réclamation"
-        android:textColor="@color/black"
+        style="@style/text_color"
+
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/backArrow"
@@ -58,7 +59,6 @@
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="40dp"
-
         android:layout_marginTop="70dp"
         android:background="@drawable/tablayout_bg"
         app:layout_constraintEnd_toEndOf="@+id/textView41"
@@ -69,6 +69,7 @@
         app:tabIndicatorColor="@null"
         app:tabIndicatorGravity="stretch"
         app:tabMode="fixed"
+        app:tabTextColor="@color/black"
         app:tabSelectedTextColor="@color/white" />
 
     <androidx.viewpager2.widget.ViewPager2

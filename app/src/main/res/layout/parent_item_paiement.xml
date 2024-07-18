@@ -55,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:text="TELEPHONIE ET INTERNET"
-                android:textColor="@color/black"
+                style="@style/text_color_paiement"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/parentLogoIv"

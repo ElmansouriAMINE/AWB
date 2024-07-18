@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/screen_background"
+        style="@style/background_screen"
         android:layout_height="match_parent">
 
         <ScrollView
@@ -138,6 +138,7 @@
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="8dp"
                             android:text="Your wallet balance"
+                            style="@style/text_color"
                             android:fontFamily="@font/outfitregular"
                             app:layout_constraintStart_toEndOf="@+id/imageView2"
                             app:layout_constraintTop_toTopOf="@+id/imageView2" />
