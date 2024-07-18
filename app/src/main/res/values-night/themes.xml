@@ -24,6 +24,9 @@
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
     </style>
+    <style name="background_bottomNav">
+        <item name="android:background">@color/black</item>
+    </style>
 
     <style name="background_screen">
         <item name="android:background">@color/black</item>
@@ -44,6 +47,7 @@
     <style name="bottom_sheet_bg">
         <item name="android:background">@color/black</item>
     </style>
+
 
 <!--   (END) MODE DARK -->
 </resources>

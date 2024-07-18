@@ -38,6 +38,9 @@
     </style>
 
     <!--   (START) MODE LIGHT -->
+    <style name="background_bottomNav">
+        <item name="android:background">@color/white</item>
+    </style>
 
     <style name="background_screen">
         <item name="android:background">@color/screen_background</item>
