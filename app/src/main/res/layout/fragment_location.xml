@@ -471,6 +471,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/parametreDarkLightMode"
                                 android:layout_width="70dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="4dp"

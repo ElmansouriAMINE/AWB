@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testoo.UI.Adapters.TransationListAdapter
@@ -165,6 +166,10 @@ class LocationFragment : Fragment() {
 
         binding.accountsManagements.setOnClickListener{
             Navigation.findNavController(binding.root).navigate(R.id.action_locationFragment_to_bankingAccountsFragment)
+        }
+
+        binding.parametreDarkLightMode.setOnClickListener{
+            findNavController().navigate(R.id.toDarkLightModeFragment)
         }
 
 

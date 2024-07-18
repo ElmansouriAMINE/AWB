@@ -12,6 +12,10 @@
         />
 
     <action
+        android:id="@+id/toDarkLightModeFragment"
+        app:destination="@+id/darkLightModeFragment" />
+
+    <action
         android:id="@+id/toExampleChartFragment"
         app:destination="@+id/exampleChartFragment" />
 
@@ -117,6 +121,9 @@
         <action
             android:id="@+id/action_locationFragment_to_bankingAccountsFragment"
             app:destination="@id/bankingAccountsFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_darkLightModeFragment"
+            app:destination="@id/darkLightModeFragment" />
 
     </fragment>
     <fragment
@@ -523,5 +530,14 @@
         <action
             android:id="@+id/action_addBankingAccountFragment_to_bankingAccountsFragment"
             app:destination="@id/bankingAccountsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/darkLightModeFragment"
+        android:name="com.example.testoo.UI.Parametres.DarkLightModeFragment"
+        android:label="fragment_dark_light_mode"
+        tools:layout="@layout/fragment_dark_light_mode" >
+        <action
+            android:id="@+id/action_darkLightModeFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
     </fragment>
 </navigation>
