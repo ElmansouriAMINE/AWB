@@ -49,8 +49,17 @@
     <style name="background_login">
         <item name="android:background">@drawable/signin_screen</item>
     </style>
+    <style name="logo_awb">
+        <item name="android:background">@drawable/attijariwafa</item>
+        <item name="android:layout_width">111dp</item>
+        <item name="android:layout_height">105dp</item>
+        <item name="android:layout_marginTop">56dp</item>
+    </style>
     <style name="background_finger_print">
         <item name="android:background">#ACFBF4</item>
+    </style>
+    <style name="logo_fingerPrint">
+        <item name="android:src">@drawable/fingerprint2</item>
     </style>
     <style name="background_cin_upload">
         <item name="android:background">@drawable/background</item>

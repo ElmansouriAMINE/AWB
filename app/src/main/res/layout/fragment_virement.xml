@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_background"
+    style="@style/background_screen"
     tools:context=".UI.VirementFragments.VirementFragment">
 
         <LinearLayout
@@ -74,7 +74,7 @@
             android:layout_marginTop="16dp"
             android:text="Emetteur et beneficiaire"
             android:fontFamily="@font/outfitextrabold"
-            android:textColor="@color/black"
+            style="@style/text_color"
             android:textSize="16dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/circularProgressBar"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Etape Suivante: Montant"
-            android:textColor="@color/black"
+            style="@style/text_color"
             android:fontFamily="@font/outfitsemibold"
             android:textSize="14dp"
             android:textStyle="bold"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:text="1/3"
             android:fontFamily="@font/outfitblack"
-            android:textColor="@color/black"
+            style="@style/text_color"
             android:textSize="22dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
@@ -150,7 +150,7 @@
                 android:layout_weight="1"
                 android:text="Compte"
                 android:fontFamily="@font/outfitextrabold"
-                android:textColor="@color/black"
+                style="@style/text_color"
                 android:textSize="20dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -198,7 +198,7 @@
                 android:layout_weight="1"
                 android:text="Bénéficiaire"
                 android:fontFamily="@font/outfitextrabold"
-                android:textColor="@color/black"
+                style="@style/text_color"
                 android:textSize="20dp"
                 android:textStyle="bold" />
         </LinearLayout>

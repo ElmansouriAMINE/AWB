@@ -23,14 +23,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="111dp"
-        android:layout_height="105dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/attijariwafa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.913"
-        app:layout_constraintStart_toStartOf="parent"
+        style="@style/logo_awb"
+        app:layout_constraintEnd_toEndOf="@+id/emailLayout"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -134,12 +128,12 @@
         android:id="@+id/fingerPrintIcon"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        style="@style/logo_fingerPrint"
         android:layout_marginTop="16dp"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/divider"
         app:layout_constraintStart_toStartOf="@+id/divider2"
         app:layout_constraintTop_toBottomOf="@+id/textView26"
-        app:srcCompat="@drawable/fingerprint2" />
+        />
 
     <TextView
         android:id="@+id/textView26"
@@ -157,14 +151,13 @@
         style="@style/text_color_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginBottom="32dp"
         android:fontFamily="@font/outfitextrabold"
         android:text="Welcome,"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/emailLayout"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView

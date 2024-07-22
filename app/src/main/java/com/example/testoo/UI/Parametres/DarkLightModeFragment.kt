@@ -33,10 +33,33 @@ class DarkLightModeFragment : Fragment() {
         binding.switchMode.isChecked = nightMode
         setNightMode(nightMode)
 
+//        binding.switchMode.setOnCheckedChangeListener { _, isChecked ->
+//            val editor = sharedPreferences.edit()
+//            editor.putBoolean("night", isChecked).apply()
+//            setNightMode(isChecked)
+//        }
+
+        if (nightMode) {
+            binding.radioDark.isChecked = true
+        } else {
+            binding.radioLight.isChecked = true
+        }
+
         binding.switchMode.setOnCheckedChangeListener { _, isChecked ->
             val editor = sharedPreferences.edit()
             editor.putBoolean("night", isChecked).apply()
             setNightMode(isChecked)
+            updateRadioButton(isChecked)
+        }
+
+        binding.radioLight.setOnClickListener {
+            binding.switchMode.isChecked = false
+            saveModePreference(false)
+        }
+
+        binding.radioDark.setOnClickListener {
+            binding.switchMode.isChecked = true
+            saveModePreference(true)
         }
     }
 
@@ -44,5 +67,18 @@ class DarkLightModeFragment : Fragment() {
         AppCompatDelegate.setDefaultNightMode(
             if (nightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         )
+    }
+    private fun updateRadioButton(nightMode: Boolean) {
+        if (nightMode) {
+            binding.radioDark.isChecked = true
+        } else {
+            binding.radioLight.isChecked = true
+        }
+    }
+
+    private fun saveModePreference(nightMode: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("night", nightMode).apply()
+        setNightMode(nightMode)
     }
 }

@@ -30,6 +30,12 @@
     <style name="background_login">
         <item name="android:background">@color/black</item>
     </style>
+    <style name="logo_awb">
+        <item name="android:background">@drawable/awbwhite</item>
+        <item name="android:layout_width">170dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">76dp</item>
+    </style>
     <style name="background_screen">
         <item name="android:background">@color/black</item>
     </style>
@@ -41,6 +47,9 @@
     </style>
     <style name="background_finger_print">
         <item name="android:background">@color/black</item>
+    </style>
+    <style name="logo_fingerPrint">
+        <item name="android:src">@drawable/fingerprintdark</item>
     </style>
     <style name="text_color">
         <item name="android:textColor">@color/white</item>
