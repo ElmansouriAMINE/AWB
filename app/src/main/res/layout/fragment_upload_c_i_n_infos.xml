@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    style="@style/background_cin_upload"
     tools:context=".UI.UploadCINInfosFragment">
 
 
@@ -38,7 +38,7 @@
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif-medium"
             android:text="UPLOAD YOUR"
-            android:textColor="@color/white"
+            style="@style/text_color"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/imageView16"
@@ -51,7 +51,7 @@
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif-medium"
             android:text="CIN INFOS"
-            android:textColor="@color/white"
+            style="@style/text_color"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/textView28"
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Welcome"
-                    android:textColor="@color/black"
+                    style="@style/text_color"
                     android:textSize="32sp"
                     android:textStyle="bold" />
 
@@ -186,6 +186,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:text="upload"
+        android:textColor="@color/white"
         app:cornerRadius="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scrollView3" />

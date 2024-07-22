@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_background"
+    style="@style/background_screen"
     tools:context=".UI.NewEntreeRelation.RenseigmentBankingCardsFragment">
 
     <TextView
@@ -15,7 +15,7 @@
         android:fontFamily="@font/outfitextrabold"
         android:gravity="center"
         android:text="which card(s) do you want?"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:textSize="26dp"
         app:layout_constraintEnd_toEndOf="@+id/viewPager2"
         app:layout_constraintStart_toStartOf="@+id/viewPager2"

@@ -45,6 +45,16 @@
     <style name="background_screen">
         <item name="android:background">@color/screen_background</item>
     </style>
+
+    <style name="background_login">
+        <item name="android:background">@drawable/signin_screen</item>
+    </style>
+    <style name="background_finger_print">
+        <item name="android:background">#ACFBF4</item>
+    </style>
+    <style name="background_cin_upload">
+        <item name="android:background">@drawable/background</item>
+    </style>
     <style name="text_color">
         <item name="android:textColor">@color/black</item>
     </style>
@@ -55,6 +65,11 @@
 
     <style name="bottom_sheet_bg">
         <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="text_color_login">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:visibility">gone</item>
     </style>
 
 

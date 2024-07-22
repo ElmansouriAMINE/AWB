@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="64dp"
-    android:background="@drawable/signin_screen"
+    style="@style/background_login"
     android:label="SignInFragment"
     tools:context=".UI.SignInFragment">
 
@@ -115,7 +115,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/outfitbold"
         android:text="Not Registered Yet , Sign Up !"
-        android:textColor="@color/black"
+        style="@style/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -135,6 +135,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="16dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/divider"
         app:layout_constraintStart_toStartOf="@+id/divider2"
         app:layout_constraintTop_toBottomOf="@+id/textView26"
@@ -150,6 +151,35 @@
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintStart_toEndOf="@+id/divider2"
         app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
+
+    <TextView
+        android:id="@+id/welcome"
+        style="@style/text_color_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/outfitextrabold"
+        android:text="Welcome,"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/signIn"
+        style="@style/text_color_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/outfitextrabold"
+        android:text="Sign In to continue"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/welcome"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <!--    <com.ismaeldivita.chipnavigation.ChipNavigationBar-->
     <!--        android:id="@+id/bottom_nav_bar"-->

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_background"
+    style="@style/background_screen"
     tools:context=".UI.NewEntreeRelation.RenseignementBancaireFragment2">
 
 <ImageView
@@ -24,7 +24,7 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/outfitextrabold"
         android:text="Renseignement bancaire"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/backArrow"
@@ -82,7 +82,7 @@
                 android:fontFamily="@font/outfitmedium"
                 android:gravity="center"
                 android:text="This information is requested as part of the FATCA obligations imposed on banks and financial institutions."
-                android:textColor="@color/black"
+                style="@style/text_color"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.518"
