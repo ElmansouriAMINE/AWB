@@ -409,7 +409,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="190dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginEnd="20dp"
@@ -422,22 +422,23 @@
 
                         <LinearLayout
                             android:id="@+id/linearLayout4"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="64dp"
+                            android:layout_marginStart="24dp"
                             android:layout_marginTop="4dp"
-                            android:layout_marginEnd="36dp"
+                            android:layout_marginBottom="4dp"
                             android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6">
+                            app:layout_constraintStart_toEndOf="@+id/textView6"
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <LinearLayout
                                 android:id="@+id/accountsManagements"
                                 android:layout_width="61dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="4dp"
-                                android:layout_marginRight="25dp"
+                                android:layout_marginRight="35dp"
                                 android:layout_weight="0.2"
 
                                 android:gravity="center"
@@ -465,7 +466,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:fontFamily="@font/outfitregular"
-                                    android:text="Invoice"
+                                    android:text="Accounts"
                                     android:textAlignment="center"
                                     android:textColor="@color/black"
                                     android:textStyle="bold" />
@@ -495,7 +496,7 @@
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/send" />
+                                        app:srcCompat="@drawable/phone" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <TextView
@@ -503,88 +504,88 @@
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:text="Pay bills"
                                     android:fontFamily="@font/outfitregular"
-                                    android:textStyle="bold"
+                                    android:text="Apparence"
                                     android:textAlignment="center"
-                                    android:textColor="@color/black" />
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="82dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginRight="25dp"
-                                android:layout_weight="0.2"
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="82dp"-->
+                            <!--                                android:layout_height="match_parent"-->
+                            <!--                                android:layout_marginTop="4dp"-->
+                            <!--                                android:layout_marginRight="25dp"-->
+                            <!--                                android:layout_weight="0.2"-->
 
-                                android:gravity="center"
-                                android:orientation="vertical">
+                            <!--                                android:gravity="center"-->
+                            <!--                                android:orientation="vertical">-->
 
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="55dp"
-                                    android:layout_height="45dp"
-                                    android:background="@drawable/rectangle_format">
+                            <!--                                <androidx.constraintlayout.widget.ConstraintLayout-->
+                            <!--                                    android:layout_width="55dp"-->
+                            <!--                                    android:layout_height="45dp"-->
+                            <!--                                    android:background="@drawable/rectangle_format">-->
 
-                                    <ImageView
-                                        android:id="@+id/imageTransfer2"
-                                        android:layout_width="28dp"
-                                        android:layout_height="28dp"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/request" />
-                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            <!--                                    <ImageView-->
+                            <!--                                        android:id="@+id/imageTransfer2"-->
+                            <!--                                        android:layout_width="28dp"-->
+                            <!--                                        android:layout_height="28dp"-->
+                            <!--                                        app:layout_constraintBottom_toBottomOf="parent"-->
+                            <!--                                        app:layout_constraintEnd_toEndOf="parent"-->
+                            <!--                                        app:layout_constraintStart_toStartOf="parent"-->
+                            <!--                                        app:layout_constraintTop_toTopOf="parent"-->
+                            <!--                                        app:srcCompat="@drawable/request" />-->
+                            <!--                                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                                <TextView
-                                    android:id="@+id/textTransfer2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:text="Transfer"
-                                    android:fontFamily="@font/outfitregular"
-                                    android:textStyle="bold"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/black" />
-                            </LinearLayout>
+                            <!--                                <TextView-->
+                            <!--                                    android:id="@+id/textTransfer2"-->
+                            <!--                                    android:layout_width="wrap_content"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginTop="4dp"-->
+                            <!--                                    android:text="Transfer"-->
+                            <!--                                    android:fontFamily="@font/outfitregular"-->
+                            <!--                                    android:textStyle="bold"-->
+                            <!--                                    android:textAlignment="center"-->
+                            <!--                                    android:textColor="@color/black" />-->
+                            <!--                            </LinearLayout>-->
 
-                            <LinearLayout
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginRight="25dp"
-                                android:layout_weight="0.2"
+                            <!--                            <LinearLayout-->
+                            <!--                                android:layout_width="70dp"-->
+                            <!--                                android:layout_height="match_parent"-->
+                            <!--                                android:layout_marginTop="4dp"-->
+                            <!--                                android:layout_marginRight="25dp"-->
+                            <!--                                android:layout_weight="0.2"-->
 
-                                android:gravity="center"
-                                android:orientation="vertical">
+                            <!--                                android:gravity="center"-->
+                            <!--                                android:orientation="vertical">-->
 
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="55dp"
-                                    android:layout_height="45dp"
-                                    android:background="@drawable/rectangle_format">
+                            <!--                                <androidx.constraintlayout.widget.ConstraintLayout-->
+                            <!--                                    android:layout_width="55dp"-->
+                            <!--                                    android:layout_height="45dp"-->
+                            <!--                                    android:background="@drawable/rectangle_format">-->
 
-                                    <ImageView
-                                        android:id="@+id/imageSavings"
-                                        android:layout_width="28dp"
-                                        android:layout_height="28dp"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/transfer" />
-                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            <!--                                    <ImageView-->
+                            <!--                                        android:id="@+id/imageSavings"-->
+                            <!--                                        android:layout_width="28dp"-->
+                            <!--                                        android:layout_height="28dp"-->
+                            <!--                                        app:layout_constraintBottom_toBottomOf="parent"-->
+                            <!--                                        app:layout_constraintEnd_toEndOf="parent"-->
+                            <!--                                        app:layout_constraintStart_toStartOf="parent"-->
+                            <!--                                        app:layout_constraintTop_toTopOf="parent"-->
+                            <!--                                        app:srcCompat="@drawable/transfer" />-->
+                            <!--                                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                                <TextView
-                                    android:id="@+id/textSavings"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:text="Savings"
-                                    android:fontFamily="@font/outfitregular"
-                                    android:textStyle="bold"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/black" />
-                            </LinearLayout>
+                            <!--                                <TextView-->
+                            <!--                                    android:id="@+id/textSavings"-->
+                            <!--                                    android:layout_width="wrap_content"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_marginTop="4dp"-->
+                            <!--                                    android:text="Savings"-->
+                            <!--                                    android:fontFamily="@font/outfitregular"-->
+                            <!--                                    android:textStyle="bold"-->
+                            <!--                                    android:textAlignment="center"-->
+                            <!--                                    android:textColor="@color/black" />-->
+                            <!--                            </LinearLayout>-->
 
                         </LinearLayout>
 
@@ -592,180 +593,181 @@
                             android:id="@+id/textView6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/outfitextrabold"
                             android:text="Other Services"
                             android:textColor="@color/black"
                             android:textSize="16dp"
                             android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="64dp"
-                            android:layout_marginEnd="36dp"
-                            android:layout_marginBottom="8dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="5dp"-->
+                        <!--                            android:layout_height="6dp"-->
+                        <!--                            android:layout_marginStart="64dp"-->
+                        <!--                            android:layout_marginEnd="36dp"-->
+                        <!--                            android:layout_marginBottom="8dp"-->
+                        <!--                            android:orientation="horizontal"-->
+                        <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                            app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                        <!--                            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">-->
 
-                            <LinearLayout
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginRight="25dp"
-                                android:layout_weight="0.2"
+                        <!--                            <LinearLayout-->
+                        <!--                                android:layout_width="70dp"-->
+                        <!--                                android:layout_height="match_parent"-->
+                        <!--                                android:layout_marginTop="4dp"-->
+                        <!--                                android:layout_marginRight="25dp"-->
+                        <!--                                android:layout_weight="0.2"-->
 
-                                android:gravity="center"
-                                android:orientation="vertical">
+                        <!--                                android:gravity="center"-->
+                        <!--                                android:orientation="vertical">-->
 
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="55dp"
-                                    android:layout_height="45dp"
-                                    android:background="@drawable/rectangle_format">
+                        <!--                                <androidx.constraintlayout.widget.ConstraintLayout-->
+                        <!--                                    android:layout_width="55dp"-->
+                        <!--                                    android:layout_height="45dp"-->
+                        <!--                                    android:background="@drawable/rectangle_format">-->
 
-                                    <ImageView
-                                        android:id="@+id/imageElectricity"
-                                        android:layout_width="28dp"
-                                        android:layout_height="28dp"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/dollar" />
-                                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <!--                                    <ImageView-->
+                        <!--                                        android:id="@+id/imageElectricity"-->
+                        <!--                                        android:layout_width="28dp"-->
+                        <!--                                        android:layout_height="28dp"-->
+                        <!--                                        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                                        app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                                        app:layout_constraintStart_toStartOf="parent"-->
+                        <!--                                        app:layout_constraintTop_toTopOf="parent"-->
+                        <!--                                        app:srcCompat="@drawable/dollar" />-->
+                        <!--                                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                                <TextView
-                                    android:id="@+id/textElectricity"
-                                    android:layout_width="120dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:text="Electricity"
-                                    android:fontFamily="@font/outfitregular"
-                                    android:textStyle="bold"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/black" />
-                            </LinearLayout>
+                        <!--                                <TextView-->
+                        <!--                                    android:id="@+id/textElectricity"-->
+                        <!--                                    android:layout_width="120dp"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:layout_marginTop="4dp"-->
+                        <!--                                    android:text="Electricity"-->
+                        <!--                                    android:fontFamily="@font/outfitregular"-->
+                        <!--                                    android:textStyle="bold"-->
+                        <!--                                    android:textAlignment="center"-->
+                        <!--                                    android:textColor="@color/black" />-->
+                        <!--                            </LinearLayout>-->
 
-                            <LinearLayout
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginRight="25dp"
-                                android:layout_weight="0.2"
+                        <!--                            <LinearLayout-->
+                        <!--                                android:layout_width="70dp"-->
+                        <!--                                android:layout_height="match_parent"-->
+                        <!--                                android:layout_marginTop="4dp"-->
+                        <!--                                android:layout_marginRight="25dp"-->
+                        <!--                                android:layout_weight="0.2"-->
 
-                                android:gravity="center"
-                                android:orientation="vertical">
+                        <!--                                android:gravity="center"-->
+                        <!--                                android:orientation="vertical">-->
 
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="55dp"
-                                    android:layout_height="45dp"
-                                    android:background="@drawable/rectangle_format">
+                        <!--                                <androidx.constraintlayout.widget.ConstraintLayout-->
+                        <!--                                    android:layout_width="55dp"-->
+                        <!--                                    android:layout_height="45dp"-->
+                        <!--                                    android:background="@drawable/rectangle_format">-->
 
-                                    <ImageView
-                                        android:id="@+id/imageMovie"
-                                        android:layout_width="28dp"
-                                        android:layout_height="28dp"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/send" />
-                                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <!--                                    <ImageView-->
+                        <!--                                        android:id="@+id/imageMovie"-->
+                        <!--                                        android:layout_width="28dp"-->
+                        <!--                                        android:layout_height="28dp"-->
+                        <!--                                        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                                        app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                                        app:layout_constraintStart_toStartOf="parent"-->
+                        <!--                                        app:layout_constraintTop_toTopOf="parent"-->
+                        <!--                                        app:srcCompat="@drawable/send" />-->
+                        <!--                                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                                <TextView
-                                    android:id="@+id/textMovie"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:text="Movie"
-                                    android:fontFamily="@font/outfitregular"
-                                    android:textStyle="bold"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/black" />
-                            </LinearLayout>
+                        <!--                                <TextView-->
+                        <!--                                    android:id="@+id/textMovie"-->
+                        <!--                                    android:layout_width="wrap_content"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:layout_marginTop="4dp"-->
+                        <!--                                    android:text="Movie"-->
+                        <!--                                    android:fontFamily="@font/outfitregular"-->
+                        <!--                                    android:textStyle="bold"-->
+                        <!--                                    android:textAlignment="center"-->
+                        <!--                                    android:textColor="@color/black" />-->
+                        <!--                            </LinearLayout>-->
 
-                            <LinearLayout
-                                android:layout_width="82dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginRight="25dp"
-                                android:layout_weight="0.2"
+                        <!--                            <LinearLayout-->
+                        <!--                                android:layout_width="82dp"-->
+                        <!--                                android:layout_height="match_parent"-->
+                        <!--                                android:layout_marginTop="4dp"-->
+                        <!--                                android:layout_marginRight="25dp"-->
+                        <!--                                android:layout_weight="0.2"-->
 
-                                android:gravity="center"
-                                android:orientation="vertical">
+                        <!--                                android:gravity="center"-->
+                        <!--                                android:orientation="vertical">-->
 
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="55dp"
-                                    android:layout_height="45dp"
-                                    android:background="@drawable/rectangle_format">
+                        <!--                                <androidx.constraintlayout.widget.ConstraintLayout-->
+                        <!--                                    android:layout_width="55dp"-->
+                        <!--                                    android:layout_height="45dp"-->
+                        <!--                                    android:background="@drawable/rectangle_format">-->
 
-                                    <ImageView
-                                        android:id="@+id/imageMoney"
-                                        android:layout_width="28dp"
-                                        android:layout_height="28dp"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/request" />
-                                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <!--                                    <ImageView-->
+                        <!--                                        android:id="@+id/imageMoney"-->
+                        <!--                                        android:layout_width="28dp"-->
+                        <!--                                        android:layout_height="28dp"-->
+                        <!--                                        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                                        app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                                        app:layout_constraintStart_toStartOf="parent"-->
+                        <!--                                        app:layout_constraintTop_toTopOf="parent"-->
+                        <!--                                        app:srcCompat="@drawable/request" />-->
+                        <!--                                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                                <TextView
-                                    android:id="@+id/textMoney"
-                                    android:layout_width="125dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:text="Add Money"
-                                    android:fontFamily="@font/outfitregular"
-                                    android:textStyle="bold"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/black" />
-                            </LinearLayout>
+                        <!--                                <TextView-->
+                        <!--                                    android:id="@+id/textMoney"-->
+                        <!--                                    android:layout_width="125dp"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:layout_marginTop="4dp"-->
+                        <!--                                    android:text="Add Money"-->
+                        <!--                                    android:fontFamily="@font/outfitregular"-->
+                        <!--                                    android:textStyle="bold"-->
+                        <!--                                    android:textAlignment="center"-->
+                        <!--                                    android:textColor="@color/black" />-->
+                        <!--                            </LinearLayout>-->
 
-                            <LinearLayout
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginRight="25dp"
-                                android:layout_weight="0.2"
+                        <!--                            <LinearLayout-->
+                        <!--                                android:layout_width="70dp"-->
+                        <!--                                android:layout_height="match_parent"-->
+                        <!--                                android:layout_marginTop="4dp"-->
+                        <!--                                android:layout_marginRight="25dp"-->
+                        <!--                                android:layout_weight="0.2"-->
 
-                                android:gravity="center"
-                                android:orientation="vertical">
+                        <!--                                android:gravity="center"-->
+                        <!--                                android:orientation="vertical">-->
 
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="55dp"
-                                    android:layout_height="45dp"
-                                    android:background="@drawable/rectangle_format">
+                        <!--                                <androidx.constraintlayout.widget.ConstraintLayout-->
+                        <!--                                    android:layout_width="55dp"-->
+                        <!--                                    android:layout_height="45dp"-->
+                        <!--                                    android:background="@drawable/rectangle_format">-->
 
-                                    <ImageView
-                                        android:id="@+id/imageShare"
-                                        android:layout_width="28dp"
-                                        android:layout_height="28dp"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/transfer" />
-                                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <!--                                    <ImageView-->
+                        <!--                                        android:id="@+id/imageShare"-->
+                        <!--                                        android:layout_width="28dp"-->
+                        <!--                                        android:layout_height="28dp"-->
+                        <!--                                        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                                        app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                                        app:layout_constraintStart_toStartOf="parent"-->
+                        <!--                                        app:layout_constraintTop_toTopOf="parent"-->
+                        <!--                                        app:srcCompat="@drawable/transfer" />-->
+                        <!--                                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                                <TextView
-                                    android:id="@+id/textShare"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:text="Share"
-                                    android:fontFamily="@font/outfitregular"
-                                    android:textStyle="bold"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/black" />
-                            </LinearLayout>
+                        <!--                                <TextView-->
+                        <!--                                    android:id="@+id/textShare"-->
+                        <!--                                    android:layout_width="wrap_content"-->
+                        <!--                                    android:layout_height="wrap_content"-->
+                        <!--                                    android:layout_marginTop="4dp"-->
+                        <!--                                    android:text="Share"-->
+                        <!--                                    android:fontFamily="@font/outfitregular"-->
+                        <!--                                    android:textStyle="bold"-->
+                        <!--                                    android:textAlignment="center"-->
+                        <!--                                    android:textColor="@color/black" />-->
+                        <!--                            </LinearLayout>-->
 
-                        </LinearLayout>
+                        <!--                        </LinearLayout>-->
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
