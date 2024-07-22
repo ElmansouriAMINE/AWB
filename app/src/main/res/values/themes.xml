@@ -55,6 +55,9 @@
     <style name="background_cin_upload">
         <item name="android:background">@drawable/background</item>
     </style>
+    <style name="background_cards">
+        <item name="android:background">#80FFFFFF</item>
+    </style>
     <style name="text_color">
         <item name="android:textColor">@color/black</item>
     </style>

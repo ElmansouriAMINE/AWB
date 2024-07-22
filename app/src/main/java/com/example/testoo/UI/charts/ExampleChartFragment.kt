@@ -1,5 +1,7 @@
 package com.example.testoo.UI.charts
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -218,6 +220,7 @@ class ExampleChartFragment : Fragment() {
     private lateinit var currentUser: User
     private val auth = FirebaseAuth.getInstance()
     private lateinit var backArrow : ImageView
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -240,6 +243,9 @@ class ExampleChartFragment : Fragment() {
         backArrow.setOnClickListener {
             Navigation.findNavController(view).navigateUp()
         }
+
+        sharedPreferences = requireActivity().getSharedPreferences("MODE", Context.MODE_PRIVATE)
+
 
         database = FirebaseDatabase.getInstance().reference.child("transactions")
 
@@ -310,6 +316,7 @@ class ExampleChartFragment : Fragment() {
 
         val expenseEntries = ArrayList<Entry>()
         val debitEntries = ArrayList<Entry>()
+        val nightMode = sharedPreferences.getBoolean("night", false)
 
         for (i in monthlyExpenses.indices) {
             expenseEntries.add(Entry(i.toFloat(), monthlyExpenses[i]))
@@ -318,7 +325,13 @@ class ExampleChartFragment : Fragment() {
 
         val expenseDataSet = LineDataSet(expenseEntries, "Monthly Expenses").apply {
             color = ContextCompat.getColor(requireContext(), R.color.red)
-            valueTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+            if(nightMode){
+                valueTextColor = ContextCompat.getColor(requireContext(), R.color.white)
+            }
+            else{
+                valueTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+            }
+
             valueTextSize = 14f
             lineWidth = 2f
             circleRadius = 4f
@@ -331,7 +344,13 @@ class ExampleChartFragment : Fragment() {
 
         val debitDataSet = LineDataSet(debitEntries, "Monthly Debits").apply {
             color = ContextCompat.getColor(requireContext(), R.color.green)
-            valueTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+            if(nightMode){
+                valueTextColor = ContextCompat.getColor(requireContext(), R.color.white)
+            }
+            else{
+                valueTextColor = ContextCompat.getColor(requireContext(), R.color.black)
+            }
+
             valueTextSize = 14f
             lineWidth = 2f
             circleRadius = 4f
@@ -358,14 +377,25 @@ class ExampleChartFragment : Fragment() {
             granularity = 1f
             valueFormatter = IndexAxisValueFormatter(arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
             textSize = 12f
-            textColor = ContextCompat.getColor(requireContext(), R.color.black)
+            if(nightMode){
+                textColor = ContextCompat.getColor(requireContext(), R.color.white)
+            }
+            else{
+                textColor = ContextCompat.getColor(requireContext(), R.color.black)
+            }
+
             setDrawGridLines(false)
         }
 
         // Customize Y-axis (left)
         lineChart.axisLeft.apply {
             textSize = 12f
-            textColor = ContextCompat.getColor(requireContext(), R.color.black)
+            if(nightMode){
+                textColor = ContextCompat.getColor(requireContext(), R.color.white)
+            }
+            else{
+                textColor = ContextCompat.getColor(requireContext(), R.color.black)
+            }
             setDrawGridLines(true)
             gridColor = ContextCompat.getColor(requireContext(), R.color.screen_background)
         }
@@ -376,7 +406,12 @@ class ExampleChartFragment : Fragment() {
         // Customize legend
         lineChart.legend.apply {
             textSize = 12f
-            textColor = ContextCompat.getColor(requireContext(), R.color.black)
+            if(nightMode){
+                textColor = ContextCompat.getColor(requireContext(), R.color.white)
+            }
+            else{
+                textColor = ContextCompat.getColor(requireContext(), R.color.black)
+            }
             form = Legend.LegendForm.LINE
             verticalAlignment = Legend.LegendVerticalAlignment.TOP
             horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER

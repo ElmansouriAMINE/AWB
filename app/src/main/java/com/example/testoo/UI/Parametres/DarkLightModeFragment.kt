@@ -15,6 +15,7 @@ class DarkLightModeFragment : Fragment() {
     private lateinit var binding: FragmentDarkLightModeBinding
     private lateinit var sharedPreferences: SharedPreferences
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_background"
+    style="@style/background_screen"
     tools:context=".UI.BankingAccountsManagement.BankingAccountsFragment">
 
 
@@ -25,7 +25,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/outfitextrabold"
         android:text="Add"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/addIcon"
@@ -39,7 +39,7 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/outfitextrabold"
         android:text="Welcome"
-        android:textColor="@color/black"
+        style="@style/text_color"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/addIcon"

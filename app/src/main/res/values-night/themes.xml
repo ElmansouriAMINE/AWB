@@ -36,6 +36,9 @@
     <style name="background_cin_upload">
         <item name="android:background">@color/black</item>
     </style>
+    <style name="background_cards">
+        <item name="android:background">#650B0A0A</item>
+    </style>
     <style name="background_finger_print">
         <item name="android:background">@color/black</item>
     </style>

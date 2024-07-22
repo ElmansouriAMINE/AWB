@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_background"
+    style="@style/background_screen"
     tools:context=".UI.CardsManagement.BankingCardsFragment">
 
 
@@ -35,8 +35,8 @@
         android:id="@+id/transparentBackground"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#80FFFFFF"
-        android:visibility="gone"
+        style="@style/background_cards"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
         app:layout_constraintEnd_toEndOf="@+id/viewPager2"
         app:layout_constraintStart_toStartOf="@+id/viewPager2"
